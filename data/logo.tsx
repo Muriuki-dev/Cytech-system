@@ -10,7 +10,7 @@ export const Logo: React.FC<HTMLChakraProps<'svg'>> = (props) => {
     <chakra.svg
       xmlns="http://www.w3.o/00/sg"
       viewBox="0 0 550 172"
-      width="300px"  // Increased size
+      width="10px"  // Increased size
       height="auto"  // Maintain aspect ratio
       ml="-10px"    // Move closer to left side
       {...props}
@@ -18,8 +18,8 @@ export const Logo: React.FC<HTMLChakraProps<'svg'>> = (props) => {
       {/* Image version that maintains exact dimensions */}
       <image 
         href={logoUrl} 
-        width="550" 
-        height="172"
+        width="750" 
+        height="500"
         preserveAspectRatio="xMidYMid meet"
       />
       
