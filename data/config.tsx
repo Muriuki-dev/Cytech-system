@@ -22,10 +22,7 @@ const siteConfig = {
         id: 'pricing',
         label: 'Pricing',
       },
-      {
-        id: 'contact'
-        label: 'contact us',
-      },
+      
       {
         id: 'faq',
         label: 'FAQ',
