@@ -216,10 +216,10 @@ development, and sharing valuable insights through our work and digital platform
 const ServicesSection = () => {
   return (
     <Features
-      <BackgroundGradient height="100%" zIndex="-1" />
       id="services"
       title={
         <Heading
+         
           lineHeight="short"
           fontSize={['2xl', null, '4xl']}
           textAlign="center"
