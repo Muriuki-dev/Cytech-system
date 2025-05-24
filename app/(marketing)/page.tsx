@@ -78,56 +78,69 @@ const HeroSection: React.FC = () => {
       <BackgroundGradient height="100%" zIndex="-1" />
       <Container maxW="container.xl" pt={{ base: 40, lg: 60 }} pb="40">
         <Stack direction={{ base: 'column', lg: 'row' }} alignItems="center">
- <Hero
-            id="home"
-            justifyContent="flex-start"
-            px="0"
-            title={
-              <FallInPlace>
-               STRATILE LTD – PROJECTING SUCCESS,  
-                <Br /> BUILDING COMMUNITIES
-              </FallInPlace>
-            }
-            description={
-              <FallInPlace delay={0.4} fontWeight="medium">
-              <Em> Established in 2024, Stratile Ltd is a dynamic and forward-thinking Project Management 
-Organization (PMO) dedicated to transforming visionary projects into thriving businesses and 
-impactful community development initiatives. We serve as a catalyst for progress, providing 
-expert guidance and comprehensive project management solutions that ensure successful 
-execution and sustainable outcomes</Em>
-               
-              </FallInPlace>
-            }
-          >
-            <FallInPlace delay={0.8}>
-             
-
-              <ButtonGroup spacing={4} alignItems="center">
-                <ButtonLink colorScheme="primary" size="lg" href="/signup">
-                  Explore our services 
-                </ButtonLink>
-                <ButtonLink
-                  size="lg"
-                  href="/"
-                  variant="outline"
-                  rightIcon={
-                    <Icon
-                      as={FiArrowRight}
-                      sx={{
-                        transitionProperty: 'common',
-                        transitionDuration: 'normal',
-                        '.chakra-button:hover &': {
-                          transform: 'translate(5px)',
-                        },
-                      }}
-                    />
-                  }
-                >
-                  Contact us
-                </ButtonLink>
-              </ButtonGroup>
-            </FallInPlace>
-          </Hero>
+<Hero
+  id="home"
+  justifyContent="flex-start"
+  px="0"
+  title={
+    <FallInPlace>
+      STRATILE LTD – PROJECTING SUCCESS,  
+      <Br display={{ base: "none", md: "block" }} /> 
+      <Box as="span" display={{ base: "block", md: "none" }}> </Box>
+      BUILDING COMMUNITIES
+    </FallInPlace>
+  }
+  description={
+    <FallInPlace delay={0.4} fontWeight="medium">
+      <Text as="span" fontSize={["sm", "md", "lg"]}>
+        <Em>Established in 2024, Stratile Ltd is a dynamic and forward-thinking Project Management 
+        Organization (PMO) dedicated to transforming visionary projects into thriving businesses and 
+        impactful community development initiatives. We serve as a catalyst for progress, providing 
+        expert guidance and comprehensive project management solutions that ensure successful 
+        execution and sustainable outcomes.</Em>
+      </Text>
+    </FallInPlace>
+  }
+>
+  <FallInPlace delay={0.8}>
+    <ButtonGroup 
+      spacing={4} 
+      alignItems="center" 
+      flexDirection={{ base: "column", md: "row" }}
+      w="full"
+    >
+      <ButtonLink 
+        colorScheme="primary" 
+        size={{ base: "md", md: "lg" }} 
+        href="/signup"
+        width={{ base: "full", md: "auto" }}
+        mb={{ base: 2, md: 0 }}
+      >
+        Explore our services 
+      </ButtonLink>
+      <ButtonLink
+        size={{ base: "md", md: "lg" }}
+        href="/"
+        variant="outline"
+        width={{ base: "full", md: "auto" }}
+        rightIcon={
+          <Icon
+            as={FiArrowRight}
+            sx={{
+              transitionProperty: 'common',
+              transitionDuration: 'normal',
+              '.chakra-button:hover &': {
+                transform: 'translate(5px)',
+              },
+            }}
+          />
+        }
+      >
+        Contact us
+      </ButtonLink>
+    </ButtonGroup>
+  </FallInPlace>
+</Hero>
           <Box
             height="600px"
             position="absolute"
