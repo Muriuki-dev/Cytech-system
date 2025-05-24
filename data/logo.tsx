@@ -19,7 +19,7 @@ export const Logo: React.FC<HTMLChakraProps<'svg'>> = (props) => {
         href={logoUrl} 
         width="800"  // Increased width (original was 550)
         height="auto" // Maintains aspect ratio
-        x="0"       // Ensures it starts from the left edge
+       
         preserveAspectRatio="xMinYMid meet" // Aligns left
       />
       
