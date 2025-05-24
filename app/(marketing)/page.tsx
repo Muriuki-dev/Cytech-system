@@ -84,15 +84,18 @@ const HeroSection: React.FC = () => {
             px="0"
             title={
               <FallInPlace>
-                Build beautiful
-                <Br /> software faster
+               STRATILE LTD – PROJECTING SUCCESS,  
+                <Br /> BUILDING COMMUNITIES
               </FallInPlace>
             }
             description={
               <FallInPlace delay={0.4} fontWeight="medium">
-                Saas UI is a <Em>React component library</Em>
-                <Br /> that doesn&apos;t get in your way and helps you <Br />{' '}
-                build intuitive SaaS products with speed.
+              <Em> Established in 2024, Stratile Ltd is a dynamic and forward-thinking Project Management 
+Organization (PMO) dedicated to transforming visionary projects into thriving businesses and 
+impactful community development initiatives. We serve as a catalyst for progress, providing 
+expert guidance and comprehensive project management solutions that ensure successful 
+execution and sustainable outcomes</Em>
+               
               </FallInPlace>
             }
           >
@@ -101,11 +104,11 @@ const HeroSection: React.FC = () => {
 
               <ButtonGroup spacing={4} alignItems="center">
                 <ButtonLink colorScheme="primary" size="lg" href="/signup">
-                  Sign Up
+                  Explore our services 
                 </ButtonLink>
                 <ButtonLink
                   size="lg"
-                  href="https://demo.saas-ui.dev"
+                  href="/"
                   variant="outline"
                   rightIcon={
                     <Icon
@@ -120,7 +123,7 @@ const HeroSection: React.FC = () => {
                     />
                   }
                 >
-                  View demo
+                  Contact us
                 </ButtonLink>
               </ButtonGroup>
             </FallInPlace>
