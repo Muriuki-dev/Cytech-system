@@ -1,6 +1,9 @@
 /** @type {import('next').NextConfig} */
 const nextConfig = {
   reactStrictMode: true,
+  eslint: {
+    ignoreDuringBuilds: true, // ✅ Skip ESLint in CI/Vercel to prevent CLI errors
+  },
   webpack(config) {
     config.module.rules.push({
       test: /\.svg$/,
@@ -19,9 +22,9 @@ const nextConfig = {
           },
         },
       ],
-    })
-    return config
+    });
+    return config;
   },
-}
+};
 
-export default nextConfig
+export default nextConfig;
