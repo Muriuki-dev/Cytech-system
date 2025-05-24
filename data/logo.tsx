@@ -6,31 +6,13 @@ export const Logo: React.FC<HTMLChakraProps<'svg'>> = (props) => {
   const logoUrl = useColorModeValue(lightModeLogo, darkModeLogo);
 
   return (
-    <chakra.svg
-      xmlns="http://www.w3.org/2000/svg"
-      viewBox="0 0 550 172"
-      width="300px"  // Makes the SVG container responsive
-      maxWidth="auto" // Limits max size (adjust as needed)
-      ml="-10px"   // Moves the logo closer to the left
+    <chakra.img
+      src={logoUrl}
+      alt="STRATILE Logo"
+      width="300px"
+      maxWidth="auto"
+      ml="-10px"
       {...props}
-    >
-      {/* Scaled-up image */}
-      <image 
-        href={logoUrl} 
-        width="800"  // Increased width (original was 550)
-        height="auto" // Maintains aspect ratio
-       
-        preserveAspectRatio="xMinYMid meet" // Aligns left
-      />
-      
-      {/* Fallback text (hidden but accessible) */}
-      <text 
-        x="-9999" 
-        y="-9999"
-        fill="transparent"
-      >
-        STRATILE Logo
-      </text>
-    </chakra.svg>
+    />
   )
 }
