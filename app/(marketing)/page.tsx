@@ -76,127 +76,108 @@ const HeroSection: React.FC = () => {
   return (
     <Box position="relative" overflow="hidden">
       <BackgroundGradient height="100%" zIndex="-1" />
-      <Container maxW="container.xl" pt={{ base: 40, lg: 60 }} pb="40">
-        <Stack direction={{ base: 'column', lg: 'row' }} alignItems="center">
-<Hero
-  id="home"
-  justifyContent="flex-start"
-  px="0"
-  title={
-    <FallInPlace>
-      STRATILE LTD – PROJECTING SUCCESS,  
-      <Br display={{ base: "none", md: "block" }} /> 
-      <Box as="span" display={{ base: "block", md: "none" }}> </Box>
-      BUILDING COMMUNITIES
-    </FallInPlace>
-  }
-  description={
-    <FallInPlace delay={0.4} fontWeight="medium">
-      <Text as="span" fontSize={["sm", "md", "lg"]}>
-        <Em>Established in 2024, Stratile Ltd is a dynamic and forward-thinking Project Management 
-        Organization (PMO) dedicated to transforming visionary projects into thriving businesses and 
-        impactful community development initiatives. We serve as a catalyst for progress, providing 
-        expert guidance and comprehensive project management solutions that ensure successful 
-        execution and sustainable outcomes.</Em>
-      </Text>
-    </FallInPlace>
-  }
->
-  <FallInPlace delay={0.8}>
-    <ButtonGroup 
-      spacing={4} 
-      alignItems="center" 
-      flexDirection={{ base: "column", md: "row" }}
-      w="full"
-    >
-      <ButtonLink 
-        colorScheme="primary" 
-        size={{ base: "md", md: "lg" }} 
-        href="/signup"
-        width={{ base: "full", md: "auto" }}
-        mb={{ base: 2, md: 0 }}
-      >
-        Explore our services 
-      </ButtonLink>
-      <ButtonLink
-        size={{ base: "md", md: "lg" }}
-        href="/"
-        variant="outline"
-        width={{ base: "full", md: "auto" }}
-        rightIcon={
-          <Icon
-            as={FiArrowRight}
-            sx={{
-              transitionProperty: 'common',
-              transitionDuration: 'normal',
-              '.chakra-button:hover &': {
-                transform: 'translate(5px)',
-              },
-            }}
-          />
-        }
-      >
-        Contact us
-      </ButtonLink>
-    </ButtonGroup>
-  </FallInPlace>
-</Hero>
-          <Box
-            height="600px"
-            position="absolute"
-            display={{ base: 'none', lg: 'block' }}
-            left={{ lg: '60%', xl: '55%' }}
-            width="80vw"
-            maxW="1100px"
-            margin="0 auto"
+      <Container maxW="container.xl" pt={{ base: 20, lg: 40 }} pb="20">
+        <Stack direction={{ base: 'column', lg: 'row' }} alignItems="center" spacing={8}>
+          <Hero
+            id="home"
+            justifyContent="flex-start"
+            px="0"
+            title={
+              <FallInPlace>
+                STRATILE LTD – PROJECTING SUCCESS,  
+                <Br display={{ base: "none", md: "block" }} /> 
+                <Box as="span" display={{ base: "block", md: "none" }}> </Box>
+                BUILDING COMMUNITIES
+              </FallInPlace>
+            }
+            description={
+              <FallInPlace delay={0.4} fontWeight="medium">
+                <Text as="span" fontSize={["sm", "md", "lg"]}>
+                  <Em>Established in 2024, Stratile Ltd is a dynamic and forward-thinking Project Management 
+                  Organization (PMO) dedicated to transforming visionary projects into thriving businesses and 
+                  impactful community development initiatives. We serve as a catalyst for progress, providing 
+                  expert guidance and comprehensive project management solutions that ensure successful 
+                  execution and sustainable outcomes.</Em>
+                </Text>
+              </FallInPlace>
+            }
           >
-            <FallInPlace delay={1}>
-              <Box overflow="hidden" height="100%">
-                <Image
-                  src="/static/images/stratile-team.jpg"
-                  width={1200}
-                  height={762}
-                  alt="Stratile team working together"
-                  quality="75"
-                  priority
-                />
-              </Box>
+            <FallInPlace delay={0.8}>
+              <ButtonGroup 
+                spacing={4} 
+                alignItems="center" 
+                flexDirection="row"
+                w="full"
+                maxW={{ base: "100%", md: "auto" }}
+              >
+                <ButtonLink 
+                  colorScheme="primary" 
+                  size={{ base: "md", md: "lg" }} 
+                  href="/signup"
+                  width={{ base: "full", md: "auto" }}
+                >
+                  Explore our services 
+                </ButtonLink>
+                <ButtonLink
+                  size={{ base: "md", md: "lg" }}
+                  href="/"
+                  variant="outline"
+                  width={{ base: "full", md: "auto" }}
+                  rightIcon={
+                    <Icon
+                      as={FiArrowRight}
+                      sx={{
+                        transitionProperty: 'common',
+                        transitionDuration: 'normal',
+                        '.chakra-button:hover &': {
+                          transform: 'translate(5px)',
+                        },
+                      }}
+                    />
+                  }
+                >
+                  Contact us
+                </ButtonLink>
+              </ButtonGroup>
             </FallInPlace>
-          </Box>
+          </Hero>
         </Stack>
       </Container>
 
-      <Features
-        id="benefits"
-        columns={[1, 2, 3]}
-        iconSize={4}
-        innerWidth="container.xl"
-        pt="20"
-        features={[
-          {
-            title: 'Project Management',
-            icon: FiLayers,
-            description: 'From conceptualization to execution, we guide your project to success.',
-            iconPosition: 'left',
-            delay: 0.6,
-          },
-          {
-            title: 'Community Development',
-            icon: FiUsers,
-            description: 'We organize impactful activities that foster social development.',
-            iconPosition: 'left',
-            delay: 0.8,
-          },
-          {
-            title: 'Strategic Partnerships',
-            icon: FiTool,
-            description: 'Building collaborative relationships for shared success.',
-            iconPosition: 'left',
-            delay: 1,
-          },
-        ]}
-        reveal={FallInPlace}
-      />
+      <Container maxW="container.xl" py={10} px={5} bg="whiteAlpha.100" borderRadius="xl" my={10}>
+        <Features
+          id="benefits"
+          columns={[1, 2, 3]}
+          iconSize={4}
+          innerWidth="100%"
+          pt="5"
+          pb="5"
+          features={[
+            {
+              title: 'Project Management',
+              icon: FiLayers,
+              description: 'From conceptualization to execution, we guide your project to success.',
+              iconPosition: 'left',
+              delay: 0.6,
+            },
+            {
+              title: 'Community Development',
+              icon: FiUsers,
+              description: 'We organize impactful activities that foster social development.',
+              iconPosition: 'left',
+              delay: 0.8,
+            },
+            {
+              title: 'Strategic Partnerships',
+              icon: FiTool,
+              description: 'Building collaborative relationships for shared success.',
+              iconPosition: 'left',
+              delay: 1,
+            },
+          ]}
+          reveal={FallInPlace}
+        />
+      </Container>
     </Box>
   )
 }
