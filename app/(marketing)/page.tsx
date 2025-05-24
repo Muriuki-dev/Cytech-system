@@ -78,81 +78,55 @@ const HeroSection: React.FC = () => {
       <BackgroundGradient height="100%" zIndex="-1" />
       <Container maxW="container.xl" pt={{ base: 40, lg: 60 }} pb="40">
         <Stack direction={{ base: 'column', lg: 'row' }} alignItems="center">
-         <Hero
-  id="home"
-  justifyContent="flex-start"
-  px={{ base: 4, md: 0 }}
-  title={
-    <FallInPlace>
-      Transforming Visions
-      <Br display={{ base: "none", md: "block" }} />
-      <Box display={{ base: "block", md: "none" }}> </Box>
-      Into Reality
-    </FallInPlace>
-  }
-  description={
-    <FallInPlace delay={0.4} fontWeight="medium">
-      Stratile Ltd is a <Em>Project Management Organization</Em>
-      <Br display={{ base: "none", md: "block" }} />
-      <Box as="span" display={{ base: "inline", md: "none" }}> </Box>
-      dedicated to building thriving businesses and
-      <Br display={{ base: "none", md: "block" }} />
-      impactful community development initiatives.
-    </FallInPlace>
-  }
->
-  <FallInPlace delay={0.8}>
-    <HStack 
-      pt="4" 
-      pb={{ base: 8, md: 12 }}
-      spacing={{ base: 4, md: 8 }}
-      flexWrap="wrap" 
-    >
-      <Text 
-        fontSize={{ base: "md", md: "lg" }}
-        fontWeight="medium"
-        textAlign={{ base: "center", md: "left" }}
-      >
-        Partnership | Coherent Relationships | Unity
-      </Text>
-    </HStack>
+ <Hero
+            id="home"
+            justifyContent="flex-start"
+            px="0"
+            title={
+              <FallInPlace>
+                Build beautiful
+                <Br /> software faster
+              </FallInPlace>
+            }
+            description={
+              <FallInPlace delay={0.4} fontWeight="medium">
+                Saas UI is a <Em>React component library</Em>
+                <Br /> that doesn&apos;t get in your way and helps you <Br />{' '}
+                build intuitive SaaS products with speed.
+              </FallInPlace>
+            }
+          >
+            <FallInPlace delay={0.8}>
+              <HStack pt="4" pb="12" spacing="8">
+                <NextjsLogo height="28px" /> <ChakraLogo height="20px" />
+              </HStack>
 
-    <ButtonGroup 
-      spacing={{ base: 2, md: 4 }}
-      alignItems="center"
-      flexDirection="row"
-    >
-      <ButtonLink 
-        colorScheme="primary" 
-        size={{ base: "md", md: "lg" }}
-        href="/services"
-        width={{ base: "auto", md: "auto" }}
-      >
-        Explore Services
-      </ButtonLink>
-      <ButtonLink
-        size={{ base: "md", md: "lg" }}
-        href="/contact"
-        variant="outline"
-        width={{ base: "auto", md: "auto" }}
-        rightIcon={
-          <Icon
-            as={FiArrowRight}
-            sx={{
-              transitionProperty: 'common',
-              transitionDuration: 'normal',
-              '.chakra-button:hover &': {
-                transform: 'translate(5px)',
-              },
-            }}
-          />
-        }
-      >
-        Contact Us
-      </ButtonLink>
-    </ButtonGroup>
-  </FallInPlace>
-</Hero>
+              <ButtonGroup spacing={4} alignItems="center">
+                <ButtonLink colorScheme="primary" size="lg" href="/signup">
+                  Sign Up
+                </ButtonLink>
+                <ButtonLink
+                  size="lg"
+                  href="https://demo.saas-ui.dev"
+                  variant="outline"
+                  rightIcon={
+                    <Icon
+                      as={FiArrowRight}
+                      sx={{
+                        transitionProperty: 'common',
+                        transitionDuration: 'normal',
+                        '.chakra-button:hover &': {
+                          transform: 'translate(5px)',
+                        },
+                      }}
+                    />
+                  }
+                >
+                  View demo
+                </ButtonLink>
+              </ButtonGroup>
+            </FallInPlace>
+          </Hero>
           <Box
             height="600px"
             position="absolute"
