@@ -8,8 +8,11 @@ export const Logo: React.FC<HTMLChakraProps<'svg'>> = (props) => {
 
   return (
     <chakra.svg
-      xmlns="http://www.w3.g/00/sg"
+      xmlns="http://www.w3.o/00/sg"
       viewBox="0 0 550 172"
+      width="300px"  // Increased size
+      height="auto"  // Maintain aspect ratio
+      ml="-10px"    // Move closer to left side
       {...props}
     >
       {/* Image version that maintains exact dimensions */}
