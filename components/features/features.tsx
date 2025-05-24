@@ -14,10 +14,10 @@ import {
   ThemingProps,
   SystemProps,
   useToken,
- 
+ keyframes,
   usePrefersReducedMotion,
 } from '@chakra-ui/react';
-import { keyframes } from '@chakra-ui/system';
+
 import { Section, SectionTitle, SectionTitleProps } from 'components/section';
 
 // ====================== ANIMATIONS ======================
