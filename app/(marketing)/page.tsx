@@ -144,40 +144,7 @@ const HeroSection: React.FC = () => {
         </Stack>
       </Container>
 
-      <Container maxW="container.xl" py={10} px={5} bg="whiteAlpha.100" borderRadius="xl" my={10}>
-        <Features
-          id="benefits"
-          columns={[1, 2, 3]}
-          iconSize={4}
-          innerWidth="100%"
-          pt="5"
-          pb="5"
-          features={[
-            {
-              title: 'Project Management',
-              icon: FiLayers,
-              description: 'From conceptualization to execution, we guide your project to success.',
-              iconPosition: 'left',
-              delay: 0.6,
-            },
-            {
-              title: 'Community Development',
-              icon: FiUsers,
-              description: 'We organize impactful activities that foster social development.',
-              iconPosition: 'left',
-              delay: 0.8,
-            },
-            {
-              title: 'Strategic Partnerships',
-              icon: FiTool,
-              description: 'Building collaborative relationships for shared success.',
-              iconPosition: 'left',
-              delay: 1,
-            },
-          ]}
-          reveal={FallInPlace}
-        />
-      </Container>
+      
     </Box>
   )
 }
@@ -194,7 +161,10 @@ const HighlightsSection = () => {
       </HighlightsItem>
       <HighlightsItem title="Our Mission">
         <Text color="muted" fontSize="lg">
-          To embody the values of partnership, coherent relationships, and unity in delivering exceptional project management services that foster functional businesses and drive meaningful social development.
+          To embody the values of partnership, coherent relationships, and unity in delivering exceptional 
+project management services that foster functional businesses and drive meaningful social 
+development. We are committed to organizing impactful community activities, establishing social 
+development, and sharing valuable insights through our work and digital platforms.
         </Text>
       </HighlightsItem>
       <HighlightsTestimonialItem
