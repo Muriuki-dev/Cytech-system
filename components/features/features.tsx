@@ -87,14 +87,14 @@ export const Features: React.FC<FeaturesProps> = (props) => {
     columns = [1, 2, 3],
     spacing = 8,
     align: alignProp = 'center',
-    iconSize = 13,
+    iconSize = 14,
     aside,
     reveal: Wrap = Revealer,
     ...rest
   } = props;
 
   const align = !!aside ? 'left' : alignProp;
-  const ip = align === 'left' ? 'center' : 'top';
+  const ip = align === 'left' ? 'left' : 'top';
 
   return (
     <Section {...rest}>
