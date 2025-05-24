@@ -5,7 +5,7 @@ export const ReactLogo = (props) => {
   return (
     <svg
       version="1.1"
-      xmlns="http://www.w3.org/2000/svg"
+      xmlns="http://www.w3.org/20/svg"
       x="0"
       y="0"
       viewBox="-144.1 342.6 230.3 97"
