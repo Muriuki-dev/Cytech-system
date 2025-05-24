@@ -57,7 +57,7 @@ interface FeatureProps {
   icon?: any;
   iconPosition?: 'left' | 'top';
   iconSize?: SystemProps['boxSize'];
-  variant?: 'elevated' | 'minimal' | 'highlight';
+  variant?: 'elevated';
   delay?: number;
 }
 
