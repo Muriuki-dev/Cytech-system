@@ -243,37 +243,37 @@ const ServicesSection = () => {
           title: 'Marketing Activations',
           icon: FiTrendingUp,
           description: 'Our trained sales force team delivers direct customer engagement and increased sales for your brand.',
-          variant: 'inline',
+          variant: 'elevated',
         },
         {
           title: 'Creative Solutions',
           icon: FiGrid,
           description: 'Graphic design services that enhance your brand messaging with visually compelling assets.',
-          variant: 'inline',
+          variant: 'elevated',
         },
         {
           title: 'Advertising Solutions',
           icon: FiShare2,
           description: 'Strategic campaigns across digital, print, and outdoor channels to maximize your reach.',
-          variant: 'inline',
+          variant: 'elevated',
         },
         {
           title: 'Social Media Marketing',
           icon: FiUsers,
           description: 'Comprehensive strategy development, content creation, and performance tracking.',
-          variant: 'inline',
+          variant: 'elevated',
         },
         {
           title: 'Merchandising Services',
           icon: FiShoppingBag,
           description: 'POS materials and display solutions that optimize product placement and brand visibility.',
-          variant: 'inline',
+          variant: 'elevated',
         },
         {
           title: 'Project Management',
           icon: FiLayers,
           description: 'End-to-end project support from conceptualization to execution and stakeholder management.',
-          variant: 'inline',
+          variant: 'elevated',
         },
       ]}
     />
