@@ -93,8 +93,8 @@ export const Features: React.FC<FeaturesProps> = (props) => {
     ...rest
   } = props;
 
-  const align = !!aside ? 'center' : alignProp;
-  const ip = align === 'center' ? 'center' : 'top';
+  const align = !!aside ? 'left' : alignProp;
+  const ip = align === 'left' ? 'center' : 'top';
 
   return (
     <Section {...rest}>
