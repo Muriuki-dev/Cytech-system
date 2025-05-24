@@ -58,10 +58,7 @@ import faq from '#data/faq'
 import pricing from '#data/pricing'
 import testimonials from '#data/testimonials'
 
-export const metadata = {
-  title: 'Saas UI Landingspage',
-  description: 'Free SaaS landingspage starter kit',
-}
+
 
 const Home = () => {
   return (
