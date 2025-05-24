@@ -9,9 +9,9 @@ export const Logo: React.FC<HTMLChakraProps<'img'>> = (props) => {
     <chakra.img
       src={logoUrl}
       alt="STRATILE Logo"
-      height="40px" // Set either height or width (not both) to maintain aspect ratio
+      height="100px" // Set either height or width (not both) to maintain aspect ratio
       width="auto" // Let it scale proportionally
-      maxWidth="200px" // Optional: prevent it from getting too large
+      maxWidth="500px" // Optional: prevent it from getting too large
       ml="-10px"
       {...props}
     />
