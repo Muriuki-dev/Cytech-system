@@ -17,7 +17,7 @@ export default {
     {
       name: 'Ruth Wambui',
       description: 'County Youth Program Coordinator, Kiambu',
-      avatar: '/static/images/avatar2.jpg',
+      avatar: '/static/images/avatarr.jpg',
       children: (
         <>
           “Working with Stratile was a game-changer for our youth initiative.
@@ -29,7 +29,7 @@ export default {
     {
       name: 'Brian Otieno',
       description: 'Brand Manager, Kisumu',
-      avatar: '/static/images/avatar3.jpg',
+      avatar: '/static/images/avatarr.jpg',
       children: (
         <>
           “We partnered with Stratile for creative and advertising solutions.
@@ -53,7 +53,7 @@ export default {
     {
       name: 'David Kimani',
       description: 'Community Development Officer, Nakuru',
-      avatar: '/static/images/avatar5.jpg',
+      avatar: '/static/images/avatarr.jpg',
       children: (
         <>
           “Stratile Ltd supported our NGO with stakeholder management and
