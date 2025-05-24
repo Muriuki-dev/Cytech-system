@@ -54,7 +54,7 @@ export const Feature: React.FC<FeatureProps> = (props) => {
     description,
     icon,
     iconPosition,
-    iconSize = 8,
+    iconSize = 13,
     ip,
     variant,
   } = props;
@@ -87,14 +87,14 @@ export const Features: React.FC<FeaturesProps> = (props) => {
     columns = [1, 2, 3],
     spacing = 8,
     align: alignProp = 'center',
-    iconSize = 8,
+    iconSize = 13,
     aside,
     reveal: Wrap = Revealer,
     ...rest
   } = props;
 
-  const align = !!aside ? 'left' : alignProp;
-  const ip = align === 'left' ? 'left' : 'top';
+  const align = !!aside ? 'center' : alignProp;
+  const ip = align === 'center' ? 'center' : 'top';
 
   return (
     <Section {...rest}>
