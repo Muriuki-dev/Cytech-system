@@ -1,0 +1,55 @@
+name: Next.js 14 CI
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+    branches: [main]
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+          cache: 'pnpm'
+
+      - name: Install pnpm
+        run: npm install -g pnpm@8
+
+      - name: Install dependencies
+        run: |
+          pnpm install
+          pnpm add next-seo @types/next-seo --save-dev
+          npx update-browserslist-db@latest
+
+      - name: Configure ESLint for Next.js 14
+        run: |
+          echo '{
+            "extends": "next/core-web-vitals",
+            "rules": {
+              "import/no-anonymous-default-export": "off",
+              "@next/next/no-img-element": "warn"
+            }
+          }' > .eslintrc.json
+
+      - name: Build with Next.js
+        run: |
+          pnpm run build
+
+      - name: Run type checking
+        if: always()
+        run: |
+          pnpm run type-check
+
+      - name: Upload build artifacts
+        if: success()
+        uses: actions/upload-artifact@v4
+        with:
+          name: nextjs-build
+          path: .next
