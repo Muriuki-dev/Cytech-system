@@ -65,7 +65,7 @@ const Login: NextPage = () => {
               maxW={{ base: '100%', xl: '80%' }}
               features={siteConfig.signup.features.map((feature) => ({
                 iconPosition: 'left',
-                variant: 'left-icon',
+                variant: 'elevated',
 
                 ...feature,
               }))}
