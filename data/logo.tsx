@@ -18,8 +18,8 @@ export const Logo: React.FC<HTMLChakraProps<'svg'>> = (props) => {
       {/* Image version that maintains exact dimensions */}
       <image 
         href={logoUrl} 
-        width="750" 
-        height="500"
+        width="50" 
+        height="50"
         preserveAspectRatio="xMidYMid meet"
       />
       
