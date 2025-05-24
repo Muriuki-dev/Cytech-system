@@ -223,7 +223,7 @@ const ServicesSection = ({ isMobile }) => {
           {[
             {
               title: 'Marketing Activations',
-              icon: <FaTrendingUp className="text-purple-600 text-xl" />,
+              icon: <FaChartLine className="text-purple-600 text-xl" />,
               description: 'Our trained sales force team delivers direct customer engagement and increased sales for your brand.'
             },
             {
