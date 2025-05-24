@@ -35,6 +35,12 @@ import {
   FiToggleLeft,
   FiTrendingUp,
   FiUserPlus,
+  FiCalendar,
+  FiLayers,
+  FiUsers,
+  FiTool,
+  FiShare2,
+  FiShoppingBag,
 } from 'react-icons/fi'
 
 import * as React from 'react'
@@ -49,25 +55,20 @@ import {
   HighlightsItem,
   HighlightsTestimonialItem,
 } from '#components/highlights'
-import { ChakraLogo, NextjsLogo } from '#components/logos'
-import { FallInPlace } from '#components/motion/fall-in-place'
-import { Pricing } from '#components/pricing/pricing'
 import { Testimonial, Testimonials } from '#components/testimonials'
 import { Em } from '#components/typography'
 import faq from '#data/faq'
 import pricing from '#data/pricing'
 import testimonials from '#data/testimonials'
 
-
-
 const Home = () => {
   return (
     <Box>
       <HeroSection />
       <HighlightsSection />
-      <FeaturesSection />
+      <ServicesSection />
+      <EventsSection />
       <TestimonialsSection />
-      <PricingSection />
       <FaqSection />
     </Box>
   )
@@ -85,30 +86,32 @@ const HeroSection: React.FC = () => {
             px="0"
             title={
               <FallInPlace>
-                Build beautiful
-                <Br /> software faster
+                Transforming Visions
+                <Br /> Into Reality
               </FallInPlace>
             }
             description={
               <FallInPlace delay={0.4} fontWeight="medium">
-                Saas UI is a <Em>React component library</Em>
-                <Br /> that doesn&apos;t get in your way and helps you <Br />{' '}
-                build intuitive SaaS products with speed.
+                Stratile Ltd is a <Em>Project Management Organization</Em>
+                <Br /> dedicated to building thriving businesses and
+                <Br /> impactful community development initiatives.
               </FallInPlace>
             }
           >
             <FallInPlace delay={0.8}>
               <HStack pt="4" pb="12" spacing="8">
-                <NextjsLogo height="28px" /> <ChakraLogo height="20px" />
+                <Text fontSize="lg" fontWeight="medium">
+                  Partnership | Coherent Relationships | Unity
+                </Text>
               </HStack>
 
               <ButtonGroup spacing={4} alignItems="center">
-                <ButtonLink colorScheme="primary" size="lg" href="/signup">
-                  Sign Up
+                <ButtonLink colorScheme="primary" size="lg" href="/services">
+                  Explore Services
                 </ButtonLink>
                 <ButtonLink
                   size="lg"
-                  href="https://demo.saas-ui.dev"
+                  href="/contact"
                   variant="outline"
                   rightIcon={
                     <Icon
@@ -123,7 +126,7 @@ const HeroSection: React.FC = () => {
                     />
                   }
                 >
-                  View demo
+                  Contact Us
                 </ButtonLink>
               </ButtonGroup>
             </FallInPlace>
@@ -140,10 +143,10 @@ const HeroSection: React.FC = () => {
             <FallInPlace delay={1}>
               <Box overflow="hidden" height="100%">
                 <Image
-                  src="/static/screenshots/list.png"
+                  src="/static/images/stratile-team.jpg"
                   width={1200}
                   height={762}
-                  alt="Screenshot of a ListPage in Saas UI Pro"
+                  alt="Stratile team working together"
                   quality="75"
                   priority
                 />
@@ -155,41 +158,31 @@ const HeroSection: React.FC = () => {
 
       <Features
         id="benefits"
-        columns={[1, 2, 4]}
+        columns={[1, 2, 3]}
         iconSize={4}
         innerWidth="container.xl"
         pt="20"
         features={[
           {
-            title: 'Accessible',
-            icon: FiSmile,
-            description: 'All components strictly follow WAI-ARIA standards.',
+            title: 'Project Management',
+            icon: FiLayers,
+            description: 'From conceptualization to execution, we guide your project to success.',
             iconPosition: 'left',
             delay: 0.6,
           },
           {
-            title: 'Themable',
-            icon: FiSliders,
-            description:
-              'Fully customize all components to your brand with theme support and style props.',
+            title: 'Community Development',
+            icon: FiUsers,
+            description: 'We organize impactful activities that foster social development.',
             iconPosition: 'left',
             delay: 0.8,
           },
           {
-            title: 'Composable',
-            icon: FiGrid,
-            description:
-              'Compose components to fit your needs and mix them together to create new ones.',
+            title: 'Strategic Partnerships',
+            icon: FiTool,
+            description: 'Building collaborative relationships for shared success.',
             iconPosition: 'left',
             delay: 1,
-          },
-          {
-            title: 'Productive',
-            icon: FiThumbsUp,
-            description:
-              'Designed to reduce boilerplate and fully typed, build your product at speed.',
-            iconPosition: 'left',
-            delay: 1.1,
           },
         ]}
         reveal={FallInPlace}
@@ -199,94 +192,50 @@ const HeroSection: React.FC = () => {
 }
 
 const HighlightsSection = () => {
-  const { value, onCopy, hasCopied } = useClipboard('yarn add @saas-ui/react')
-
   return (
     <Highlights>
-      <HighlightsItem colSpan={[1, null, 2]} title="Core components">
+      <HighlightsItem colSpan={[1, null, 2]} title="Our Vision">
         <VStack alignItems="flex-start" spacing="8">
           <Text color="muted" fontSize="xl">
-            Get started for free with <Em>30+ open source components</Em>.
-            Including authentication screens with Clerk, Supabase and Magic.
-            Fully functional forms with React Hook Form. Data tables with React
-            Table.
+            To be the leading project management organization that empowers individuals and communities to realize their full potential through strategically managed and successfully implemented projects.
           </Text>
-
-          <Flex
-            rounded="full"
-            borderWidth="1px"
-            flexDirection="row"
-            alignItems="center"
-            py="1"
-            ps="8"
-            pe="2"
-            bg="primary.900"
-            _dark={{ bg: 'gray.900' }}
-          >
-            <Box>
-              <Text color="yellow.400" display="inline">
-                yarn add
-              </Text>{' '}
-              <Text color="cyan.300" display="inline">
-                @saas-ui/react
-              </Text>
-            </Box>
-            <IconButton
-              icon={hasCopied ? <FiCheck /> : <FiCopy />}
-              aria-label="Copy install command"
-              onClick={onCopy}
-              variant="ghost"
-              ms="4"
-              isRound
-              color="white"
-            />
-          </Flex>
         </VStack>
       </HighlightsItem>
-      <HighlightsItem title="Solid foundations">
+      <HighlightsItem title="Our Mission">
         <Text color="muted" fontSize="lg">
-          We don&apos;t like to re-invent the wheel, neither should you. We
-          selected the most productive and established tools in the scene and
-          build Saas UI on top of it.
+          To embody the values of partnership, coherent relationships, and unity in delivering exceptional project management services that foster functional businesses and drive meaningful social development.
         </Text>
       </HighlightsItem>
       <HighlightsTestimonialItem
-        name="Renata Alink"
-        description="Founder"
+        name="Laban Mwangi"
+        description="Co-director"
         avatar="/static/images/avatar.jpg"
         gradient={['pink.200', 'purple.500']}
       >
-        “Saas UI helped us set up a beautiful modern UI in no time. It saved us
-        hundreds of hours in development time and allowed us to focus on
-        business logic for our specific use-case from the start.”
+        "Stratile serves as a catalyst for progress, providing expert guidance and comprehensive project management solutions that ensure successful execution and sustainable outcomes."
       </HighlightsTestimonialItem>
       <HighlightsItem
         colSpan={[1, null, 2]}
-        title="Start your next idea two steps ahead"
+        title="Our Commitment"
       >
         <Text color="muted" fontSize="lg">
-          We took care of all your basic frontend needs, so you can start
-          building functionality that makes your product unique.
+          We are committed to welcoming all who seek to engage and develop with us. We believe in the power of collaboration and are dedicated to building lasting partnerships.
         </Text>
         <Wrap mt="8">
           {[
-            'authentication',
-            'navigation',
-            'crud',
-            'settings',
-            'multi-tenancy',
-            'layouts',
-            'billing',
-            'a11y testing',
-            'server-side rendering',
-            'documentation',
-            'onboarding',
-            'storybooks',
-            'theming',
-            'upselling',
-            'unit testing',
-            'feature flags',
-            'responsiveness',
+            'Project Conceptualization',
+            'Implementation',
+            'Stakeholder Management',
+            'Community Engagement',
+            'Social Development',
+            'Consultation',
+            'Business Support',
+            'Marketing Activations',
+            'Creative Solutions',
+            'Advertising',
+            'Social Media',
+            'Merchandising',
+            'Events',
           ].map((value) => (
             <Tag
               key={value}
@@ -304,10 +253,10 @@ const HighlightsSection = () => {
   )
 }
 
-const FeaturesSection = () => {
+const ServicesSection = () => {
   return (
     <Features
-      id="features"
+      id="services"
       title={
         <Heading
           lineHeight="short"
@@ -315,16 +264,15 @@ const FeaturesSection = () => {
           textAlign="left"
           as="p"
         >
-          Not your standard
-          <Br /> dashboard template.
+          Our Comprehensive
+          <Br /> Service Offerings
         </Heading>
       }
       description={
         <>
-          Saas UI Pro includes everything you need to build modern frontends.
+          Stratile provides a wide range of services to meet your business and community development needs.
           <Br />
-          Use it as a template for your next product or foundation for your
-          design system.
+          Explore how we can help you achieve your goals.
         </>
       }
       align="left"
@@ -332,75 +280,102 @@ const FeaturesSection = () => {
       iconSize={4}
       features={[
         {
-          title: '#components.',
-          icon: FiBox,
-          description:
-            'All premium components are available on a private NPM registery, no more copy pasting and always up-to-date.',
-          variant: 'inline',
-        },
-        {
-          title: 'Starterkits.',
-          icon: FiLock,
-          description:
-            'Example apps in Next.JS, Electron. Including authentication, billing, example pages, everything you need to get started FAST.',
-          variant: 'inline',
-        },
-        {
-          title: 'Documentation.',
-          icon: FiSearch,
-          description:
-            'Extensively documented, including storybooks, best practices, use-cases and examples.',
-          variant: 'inline',
-        },
-        {
-          title: 'Onboarding.',
-          icon: FiUserPlus,
-          description:
-            'Add user onboarding flows, like tours, hints and inline documentation without breaking a sweat.',
-          variant: 'inline',
-        },
-        {
-          title: 'Feature flags.',
-          icon: FiFlag,
-          description:
-            "Implement feature toggles for your billing plans with easy to use hooks. Connect Flagsmith, or other remote config services once you're ready.",
-          variant: 'inline',
-        },
-        {
-          title: 'Upselling.',
+          title: 'Marketing Activations',
           icon: FiTrendingUp,
-          description:
-            '#components and hooks for upgrade flows designed to make upgrading inside your app frictionless.',
+          description: 'Our trained sales force team delivers direct customer engagement and increased sales for your brand.',
           variant: 'inline',
         },
         {
-          title: 'Themes.',
-          icon: FiToggleLeft,
-          description:
-            'Includes multiple themes with darkmode support, always have the perfect starting point for your next project.',
+          title: 'Creative Solutions',
+          icon: FiGrid,
+          description: 'Graphic design services that enhance your brand messaging with visually compelling assets.',
           variant: 'inline',
         },
         {
-          title: 'Generators.',
-          icon: FiTerminal,
-          description:
-            'Extend your design system while maintaininig code quality and consistency with built-in generators.',
+          title: 'Advertising Solutions',
+          icon: FiShare2,
+          description: 'Strategic campaigns across digital, print, and outdoor channels to maximize your reach.',
           variant: 'inline',
         },
         {
-          title: 'Monorepo.',
-          icon: FiCode,
-          description: (
-            <>
-              All code is available as packages in a high-performance{' '}
-              <Link href="https://turborepo.com">Turborepo</Link>, you have full
-              control to modify and adjust it to your workflow.
-            </>
-          ),
+          title: 'Social Media Marketing',
+          icon: FiUsers,
+          description: 'Comprehensive strategy development, content creation, and performance tracking.',
+          variant: 'inline',
+        },
+        {
+          title: 'Merchandising Services',
+          icon: FiShoppingBag,
+          description: 'POS materials and display solutions that optimize product placement and brand visibility.',
+          variant: 'inline',
+        },
+        {
+          title: 'Project Management',
+          icon: FiLayers,
+          description: 'End-to-end project support from conceptualization to execution and stakeholder management.',
           variant: 'inline',
         },
       ]}
     />
+  )
+}
+
+const EventsSection = () => {
+  return (
+    <Container maxW="container.xl" py="20">
+      <Stack spacing="12">
+        <Box textAlign="center">
+          <Heading
+            lineHeight="short"
+            fontSize={['2xl', null, '4xl']}
+            as="p"
+          >
+            Upcoming Events & Projects
+          </Heading>
+          <Text color="muted" fontSize="xl" mt="4">
+            Discover opportunities to enhance your brand recognition
+          </Text>
+        </Box>
+
+        <Stack direction={{ base: 'column', md: 'row' }} spacing="8">
+          <Box flex="1" p="6" borderWidth="1px" borderRadius="lg">
+            <Heading size="lg" mb="4">Trade Show 2025</Heading>
+            <Text color="muted" mb="2"><strong>Date:</strong> June 15-17, 2025</Text>
+            <Text color="muted" mb="2"><strong>Location:</strong> Nairobi Convention Center</Text>
+            <Text mb="4">Join us for the premier industry event showcasing innovative products and services.</Text>
+            <ButtonLink href="/events/trade-show-2025" rightIcon={<FiArrowRight />}>
+              Learn More
+            </ButtonLink>
+          </Box>
+
+          <Box flex="1" p="6" borderWidth="1px" borderRadius="lg">
+            <Heading size="lg" mb="4">Community Development Initiative</Heading>
+            <Text color="muted" mb="2"><strong>Launching:</strong> July 2025</Text>
+            <Text color="muted" mb="2"><strong>Location:</strong> Multiple Counties</Text>
+            <Text mb="4">Our new initiative to empower local communities through sustainable development projects.</Text>
+            <ButtonLink href="/projects/community-development" rightIcon={<FiArrowRight />}>
+              Explore Opportunities
+            </ButtonLink>
+          </Box>
+
+          <Box flex="1" p="6" borderWidth="1px" borderRadius="lg">
+            <Heading size="lg" mb="4">Brand Expo</Heading>
+            <Text color="muted" mb="2"><strong>Date:</strong> August 5-7, 2025</Text>
+            <Text color="muted" mb="2"><strong>Location:</strong> Sarit Center</Text>
+            <Text mb="4">Showcase your brand to thousands of potential customers at this annual exhibition.</Text>
+            <ButtonLink href="/events/brand-expo" rightIcon={<FiArrowRight />}>
+              Reserve Your Spot
+            </ButtonLink>
+          </Box>
+        </Stack>
+
+        <Box textAlign="center" pt="8">
+          <ButtonLink colorScheme="primary" size="lg" href="/events">
+            View All Events
+          </ButtonLink>
+        </Box>
+      </Stack>
+    </Container>
   )
 }
 
@@ -418,7 +393,7 @@ const TestimonialsSection = () => {
 
   return (
     <Testimonials
-      title={testimonials.title}
+      title="What Our Partners Say"
       columns={[1, 2, 3]}
       innerWidth="container.xl"
     >
@@ -432,16 +407,6 @@ const TestimonialsSection = () => {
         ))}
       </>
     </Testimonials>
-  )
-}
-
-const PricingSection = () => {
-  return (
-    <Pricing {...pricing}>
-      <Text p="8" textAlign="center" color="muted">
-        VAT may be applicable depending on your location.
-      </Text>
-    </Pricing>
   )
 }
 
