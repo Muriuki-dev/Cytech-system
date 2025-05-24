@@ -1,3 +1,4 @@
+// ====================== IMPORTS ======================
 import * as React from 'react';
 import {
   Box,
@@ -15,10 +16,12 @@ import {
 } from '@chakra-ui/react';
 import { Section, SectionTitle, SectionTitleProps } from 'components/section';
 
+// ====================== REVEALER COMPONENT ======================
 const Revealer = ({ children }: any) => {
   return children;
 };
 
+// ====================== INTERFACES ======================
 export interface FeaturesProps
   extends Omit<SectionTitleProps, 'title' | 'variant'>,
     ThemingProps<'Features'> {
@@ -44,6 +47,7 @@ export interface FeatureProps {
   delay?: number;
 }
 
+// ====================== FEATURE COMPONENT ======================
 export const Feature: React.FC<FeatureProps> = (props) => {
   const {
     title,
@@ -74,9 +78,10 @@ export const Feature: React.FC<FeatureProps> = (props) => {
   );
 };
 
+// ====================== SERVICES WE OFFER ======================
 export const Features: React.FC<FeaturesProps> = (props) => {
   const {
-    title,
+    title = "Services We Offer", // Default title added here
     description,
     features,
     columns = [1, 2, 3],
