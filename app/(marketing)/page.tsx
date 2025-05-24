@@ -169,8 +169,8 @@ development, and sharing valuable insights through our work and digital platform
       <HighlightsTestimonialItem
         name="Laban Mwangi"
         description="Co-director"
-        avatar="/static/images/avatar.jpg"
-        gradient={['pink.200', 'purple.500']}
+        avatar="/static/images/avatarr.jpg"
+        gradient={['green.200', 'green.500']}
       >
         "Stratile serves as a catalyst for progress, providing expert guidance and comprehensive project management solutions that ensure successful execution and sustainable outcomes."
       </HighlightsTestimonialItem>
@@ -243,7 +243,7 @@ const ServicesSection = () => {
           title: 'Marketing Activations',
           icon: FiTrendingUp,
           description: 'Our trained sales force team delivers direct customer engagement and increased sales for your brand.',
-          variant: 'elevated',
+          variant: 'center',
         },
         {
           title: 'Creative Solutions',
