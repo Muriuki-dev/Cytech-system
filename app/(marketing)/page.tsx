@@ -79,56 +79,81 @@ const HeroSection: React.FC = () => {
       <Container maxW="container.xl" pt={{ base: 40, lg: 60 }} pb="40">
         <Stack direction={{ base: 'column', lg: 'row' }} alignItems="center">
           <Hero
-            id="home"
-            justifyContent="flex-start"
-            px="0"
-            title={
-              <FallInPlace>
-                Transforming Visions
-                <Br /> Into Reality
-              </FallInPlace>
-            }
-            description={
-              <FallInPlace delay={0.4} fontWeight="medium">
-                Stratile Ltd is a <Em>Project Management Organization</Em>
-                <Br /> dedicated to building thriving businesses and
-                <Br /> impactful community development initiatives.
-              </FallInPlace>
-            }
-          >
-            <FallInPlace delay={0.8}>
-              <HStack pt="4" pb="12" spacing="8">
-                <Text fontSize="lg" fontWeight="medium">
-                  Partnership | Coherent Relationships | Unity
-                </Text>
-              </HStack>
+  id="home"
+  justifyContent="flex-start"
+  px={{ base: 4, md: 0 }}  // Add padding on mobile, none on desktop
+  title={
+    <FallInPlace>
+      Transforming Visions
+      <Br display={{ base: "none", md: "block" }} />  // Hide line break on mobile
+      <Box display={{ base: "block", md: "none" }}> </Box>  // Add space on mobile
+      Into Reality
+    </FallInPlace>
+  }
+  description={
+    <FallInPlace delay={0.4} fontWeight="medium">
+      Stratile Ltd is a <Em>Project Management Organization</Em>
+      <Br display={{ base: "none", md: "block" }} />  // Hide line breaks on mobile
+      <Box as="span" display={{ base: "inline", md: "none" }}> </Box>  // Add space on mobile
+      dedicated to building thriving businesses and
+      <Br display={{ base: "none", md: "block" }} />  // Hide line breaks on mobile
+      impactful community development initiatives.
+    </FallInPlace>
+  }
+>
+  <FallInPlace delay={0.8}>
+    <HStack 
+      pt="4" 
+      pb={{ base: 8, md: 12 }}  // Reduce padding bottom on mobile
+      spacing={{ base: 4, md: 8 }}  // Reduce spacing on mobile
+      flexWrap="wrap"  // Allow text to wrap on small screens
+    >
+      <Text 
+        fontSize={{ base: "md", md: "lg" }}  // Smaller font on mobile
+        fontWeight="medium"
+        textAlign={{ base: "center", md: "left" }}  // Center text on mobile
+      >
+        Partnership | Coherent Relationships | Unity
+      </Text>
+    </HStack>
 
-              <ButtonGroup spacing={4} alignItems="center">
-                <ButtonLink colorScheme="primary" size="lg" href="/services">
-                  Explore Services
-                </ButtonLink>
-                <ButtonLink
-                  size="lg"
-                  href="/contact"
-                  variant="outline"
-                  rightIcon={
-                    <Icon
-                      as={FiArrowRight}
-                      sx={{
-                        transitionProperty: 'common',
-                        transitionDuration: 'normal',
-                        '.chakra-button:hover &': {
-                          transform: 'translate(5px)',
-                        },
-                      }}
-                    />
-                  }
-                >
-                  Contact Us
-                </ButtonLink>
-              </ButtonGroup>
-            </FallInPlace>
-          </Hero>
+    <ButtonGroup 
+      spacing={{ base: 2, md: 4 }}  // Reduce spacing on mobile
+      alignItems="center"
+      flexDirection={{ base: "column", md: "row" }}  // Stack buttons vertically on mobile
+    >
+      <ButtonLink 
+        colorScheme="primary" 
+        size={{ base: "md", md: "lg" }}  // Smaller button on mobile
+        href="/services"
+        width={{ base: "full", md: "auto" }}  // Full width on mobile
+        mb={{ base: 2, md: 0 }}  // Add margin bottom when stacked
+      >
+        Explore Services
+      </ButtonLink>
+      <ButtonLink
+        size={{ base: "md", md: "lg" }}  // Smaller button on mobile
+        href="/contact"
+        variant="outline"
+        width={{ base: "full", md: "auto" }}  // Full width on mobile
+        rightIcon={
+          <Icon
+            as={FiArrowRight}
+            sx={{
+              transitionProperty: 'common',
+              transitionDuration: 'normal',
+              '.chakra-button:hover &': {
+                transform: 'translate(5px)',
+              },
+            }}
+          />
+        }
+      >
+        Contact Us
+      </ButtonLink>
+    </ButtonGroup>
+  </FallInPlace>
+</Hero>
           <Box
             height="600px"
             position="absolute"
