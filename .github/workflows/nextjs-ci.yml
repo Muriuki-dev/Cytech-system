@@ -19,8 +19,11 @@ jobs:
           node-version: '20'
           cache: 'pnpm'
 
-      - name: Install pnpm
-        run: npm install -g pnpm@8
+      - name: Install PNPM
+        run: |
+          corepack enable
+          corepack prepare pnpm@latest --activate
+          pnpm --version
 
       - name: Install dependencies
         run: |
@@ -43,7 +46,6 @@ jobs:
           pnpm run build
 
       - name: Run type checking
-        if: always()
         run: |
           pnpm run type-check
 
