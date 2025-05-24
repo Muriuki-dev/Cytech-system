@@ -16,7 +16,7 @@ const siteConfig = {
     links: [
       {
         id: 'features',
-        label: 'Features',
+        label: 'Our Services',
       },
       {
         id: 'pricing',
@@ -30,32 +30,25 @@ const siteConfig = {
         label: 'Login',
         href: '/login',
       },
-      {
-        label: 'Sign Up',
-        href: '/signup',
-        variant: 'primary',
-      },
+     
     ],
   },
   footer: {
     copyright: (
       <>
-        Built by <Link href="https://twitter.com/Pagebakers">Eelco Wiersma</Link>
+        Built by <Link href="/">Kelvin</Link>
       </>
     ),
     links: [
       {
-        href: 'mailto:hello@saas-ui.dev',
+        href: '/',
         label: 'Contact',
       },
       {
-        href: 'https://twitter.com/saas_js',
+        href: '/',
         label: <FaTwitter size="14" />,
       },
-      {
-        href: 'https://github.com/saas-js/saas-ui',
-        label: <FaGithub size="14" />,
-      },
+     
     ],
   },
   signup: {
