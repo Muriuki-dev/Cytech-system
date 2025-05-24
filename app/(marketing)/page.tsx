@@ -1,7 +1,29 @@
 'use client'
 
 import React, { useState, useEffect } from 'react'
-import { FaArrowRight, FaBox, FaCheck, FaCode, FaCopy, FaFlag, FaThumbsUp, FaSearch, FaSlidersH, FaSmile, FaTerminal, FaToggleLeft, FaChartLine, FaUserPlus, FaCalendar, FaLayerGroup, FaUsers, FaTools, FaShareAlt, FaShoppingBag } from 'react-icons/fa'
+import {
+  FaArrowRight,
+  FaBox,
+  FaCheck,
+  FaCode,
+  FaCopy,
+  FaFlag,
+  FaThumbsUp,
+  FaSearch,
+  FaSlidersH,
+  FaSmile,
+  FaTerminal,
+  FaToggleOn,         // ✅ Replaced FaToggleLeft
+  FaChartLine,
+  FaUserPlus,
+  FaCalendar,
+  FaLayerGroup,
+  FaUsers,
+  FaTools,
+  FaShareAlt,
+  FaShoppingBag,
+} from 'react-icons/fa'
+
 
 const Home = () => {
   const [isMobile, setIsMobile] = useState(false)
