@@ -13,17 +13,16 @@ jobs:
     steps:
       - uses: actions/checkout@v4
 
-      - name: Setup Node.js
+      - name: Setup Node.js and PNPM
         uses: actions/setup-node@v4
         with:
           node-version: '20'
           cache: 'pnpm'
-
-      - name: Install PNPM
+          
+      - name: Explicitly install PNPM
         run: |
-          corepack enable
-          corepack prepare pnpm@latest --activate
-          pnpm --version
+          npm install -g pnpm
+          echo "PNPM version: $(pnpm --version)"
 
       - name: Install dependencies
         run: |
@@ -33,21 +32,21 @@ jobs:
 
       - name: Configure ESLint for Next.js 14
         run: |
-          echo '{
+          cat <<EOF > .eslintrc.json
+          {
             "extends": "next/core-web-vitals",
             "rules": {
               "import/no-anonymous-default-export": "off",
               "@next/next/no-img-element": "warn"
             }
-          }' > .eslintrc.json
+          }
+          EOF
 
       - name: Build with Next.js
-        run: |
-          pnpm run build
+        run: pnpm run build
 
       - name: Run type checking
-        run: |
-          pnpm run type-check
+        run: pnpm run type-check
 
       - name: Upload build artifacts
         if: success()
