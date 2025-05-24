@@ -7,8 +7,8 @@ import { Logo } from './logo'
 const siteConfig = {
   logo: Logo,
   seo: {
-    title: 'Saas UI',
-    description: 'The React component library for startups',
+    title: 'Stratile',
+    description: 'Projecting success, building communities',
   },
   termsUrl: '#',
   privacyUrl: '#',
@@ -21,6 +21,10 @@ const siteConfig = {
       {
         id: 'pricing',
         label: 'Pricing',
+      },
+      {
+        id: 'contact'
+        label: 'contact us',
       },
       {
         id: 'faq',
