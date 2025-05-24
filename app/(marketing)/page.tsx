@@ -114,7 +114,7 @@ const HeroSection: React.FC = () => {
                 <ButtonLink 
                   colorScheme="primary" 
                   size={{ base: "md", md: "lg" }} 
-                  href="/signup"
+                  href="/"
                   width={{ base: "full", md: "auto" }}
                 >
                   Explore our services 
