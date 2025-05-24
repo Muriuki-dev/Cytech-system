@@ -85,10 +85,10 @@ const HeroSection: React.FC = () => {
             justifyContent="flex-start"
             px="0"
             title={
-              <FallInPlace>
+              
                 Transforming Visions
                 <Br /> Into Reality
-              </FallInPlace>
+             
             }
             description={
               <FallInPlace delay={0.4} fontWeight="medium">
