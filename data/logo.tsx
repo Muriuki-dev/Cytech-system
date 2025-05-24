@@ -9,8 +9,8 @@ export const Logo: React.FC<HTMLChakraProps<'svg'>> = (props) => {
     <chakra.svg
       xmlns="http://www.w3.org/2000/svg"
       viewBox="0 0 550 172"
-      width="100%"  // Makes the SVG container responsive
-      maxWidth="400px" // Limits max size (adjust as needed)
+      width="300px"  // Makes the SVG container responsive
+      maxWidth="auto" // Limits max size (adjust as needed)
       ml="-10px"   // Moves the logo closer to the left
       {...props}
     >
