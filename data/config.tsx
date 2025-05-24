@@ -1,14 +1,17 @@
 import { Button } from '@chakra-ui/react'
 import { Link } from '@saas-ui/react'
-
 import { FaGithub, FaTwitter } from 'react-icons/fa'
 import { FiCheck } from 'react-icons/fi'
 import { Logo } from './logo'
 
 const siteConfig = {
   logo: Logo,
-  
-  
+  seo: {
+    title: 'Saas UI',
+    description: 'The React component library for startups',
+  },
+  termsUrl: '#',
+  privacyUrl: '#',
   header: {
     links: [
       {
@@ -37,8 +40,7 @@ const siteConfig = {
   footer: {
     copyright: (
       <>
-        Built by{' '}
-        <Link href="https://twitter.com/Pagebakers">Eelco Wiersma</Link>
+        Built by <Link href="https://twitter.com/Pagebakers">Eelco Wiersma</Link>
       </>
     ),
     links: [
