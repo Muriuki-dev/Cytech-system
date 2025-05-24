@@ -221,7 +221,7 @@ const ServicesSection = () => {
         <Heading
           lineHeight="short"
           fontSize={['2xl', null, '4xl']}
-          textAlign="left"
+          textAlign="center"
           as="p"
         >
           Our Comprehensive
