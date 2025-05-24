@@ -42,9 +42,7 @@ import {
   FiShare2,
   FiShoppingBag,
 } from 'react-icons/fi'
-
 import * as React from 'react'
-
 import { ButtonLink } from '#components/button-link/button-link'
 import { Faq } from '#components/faq'
 import { Features } from '#components/features'
@@ -58,8 +56,8 @@ import {
 import { Testimonial, Testimonials } from '#components/testimonials'
 import { Em } from '#components/typography'
 import faq from '#data/faq'
-import pricing from '#data/pricing'
 import testimonials from '#data/testimonials'
+import { FallInPlace } from '#components/motion/fall-in-place'
 
 const Home = () => {
   return (
@@ -85,10 +83,10 @@ const HeroSection: React.FC = () => {
             justifyContent="flex-start"
             px="0"
             title={
-              
+              <FallInPlace>
                 Transforming Visions
                 <Br /> Into Reality
-             
+              </FallInPlace>
             }
             description={
               <FallInPlace delay={0.4} fontWeight="medium">
