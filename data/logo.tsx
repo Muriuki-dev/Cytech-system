@@ -26,7 +26,7 @@ export const Logo: React.FC<HTMLChakraProps<'svg'>> = (props) => {
         fill={textColor}
         font-family="Arial, sans-serif"
         font-weight="bold"
-        font-size="48px"
+        font-size="65px"
         text-anchor="middle"
       >
         STRATILE
