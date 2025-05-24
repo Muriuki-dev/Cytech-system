@@ -170,7 +170,7 @@ development, and sharing valuable insights through our work and digital platform
         name="Laban Mwangi"
         description="Co-director"
         avatar="/static/images/avatarr.jpg"
-        gradient={['green.200', 'green.500']}
+        gradient={['orange.200', 'red.500']}
       >
         "Stratile serves as a catalyst for progress, providing expert guidance and comprehensive project management solutions that ensure successful execution and sustainable outcomes."
       </HighlightsTestimonialItem>
@@ -216,6 +216,7 @@ development, and sharing valuable insights through our work and digital platform
 const ServicesSection = () => {
   return (
     <Features
+      <BackgroundGradient height="100%" zIndex="-1" />
       id="services"
       title={
         <Heading
@@ -249,31 +250,31 @@ const ServicesSection = () => {
           title: 'Creative Solutions',
           icon: FiGrid,
           description: 'Graphic design services that enhance your brand messaging with visually compelling assets.',
-          variant: 'elevated',
+          variant: 'center',
         },
         {
           title: 'Advertising Solutions',
           icon: FiShare2,
           description: 'Strategic campaigns across digital, print, and outdoor channels to maximize your reach.',
-          variant: 'elevated',
+          variant: 'center',
         },
         {
           title: 'Social Media Marketing',
           icon: FiUsers,
           description: 'Comprehensive strategy development, content creation, and performance tracking.',
-          variant: 'elevated',
+          variant: 'center',
         },
         {
           title: 'Merchandising Services',
           icon: FiShoppingBag,
           description: 'POS materials and display solutions that optimize product placement and brand visibility.',
-          variant: 'elevated',
+          variant: 'center',
         },
         {
           title: 'Project Management',
           icon: FiLayers,
           description: 'End-to-end project support from conceptualization to execution and stakeholder management.',
-          variant: 'elevated',
+          variant: 'center',
         },
       ]}
     />
