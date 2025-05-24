@@ -235,9 +235,9 @@ const ServicesSection = () => {
           Explore how we can help you achieve your goals.
         </>
       }
-      align="left"
+      align="center"
       columns={[1, 2, 3]}
-      iconSize={4}
+      iconSize={5}
       features={[
         {
           title: 'Marketing Activations',
