@@ -78,25 +78,25 @@ const HeroSection: React.FC = () => {
       <BackgroundGradient height="100%" zIndex="-1" />
       <Container maxW="container.xl" pt={{ base: 40, lg: 60 }} pb="40">
         <Stack direction={{ base: 'column', lg: 'row' }} alignItems="center">
-          <Hero
+         <Hero
   id="home"
   justifyContent="flex-start"
-  px={{ base: 4, md: 0 }}  // Add padding on mobile, none on desktop
+  px={{ base: 4, md: 0 }}
   title={
     <FallInPlace>
       Transforming Visions
-      <Br display={{ base: "none", md: "block" }} />  // Hide line break on mobile
-      <Box display={{ base: "block", md: "none" }}> </Box>  // Add space on mobile
+      <Br display={{ base: "none", md: "block" }} />
+      <Box display={{ base: "block", md: "none" }}> </Box>
       Into Reality
     </FallInPlace>
   }
   description={
     <FallInPlace delay={0.4} fontWeight="medium">
       Stratile Ltd is a <Em>Project Management Organization</Em>
-      <Br display={{ base: "none", md: "block" }} />  // Hide line breaks on mobile
-      <Box as="span" display={{ base: "inline", md: "none" }}> </Box>  // Add space on mobile
+      <Br display={{ base: "none", md: "block" }} />
+      <Box as="span" display={{ base: "inline", md: "none" }}> </Box>
       dedicated to building thriving businesses and
-      <Br display={{ base: "none", md: "block" }} />  // Hide line breaks on mobile
+      <Br display={{ base: "none", md: "block" }} />
       impactful community development initiatives.
     </FallInPlace>
   }
@@ -104,38 +104,37 @@ const HeroSection: React.FC = () => {
   <FallInPlace delay={0.8}>
     <HStack 
       pt="4" 
-      pb={{ base: 8, md: 12 }}  // Reduce padding bottom on mobile
-      spacing={{ base: 4, md: 8 }}  // Reduce spacing on mobile
-      flexWrap="wrap"  // Allow text to wrap on small screens
+      pb={{ base: 8, md: 12 }}
+      spacing={{ base: 4, md: 8 }}
+      flexWrap="wrap" 
     >
       <Text 
-        fontSize={{ base: "md", md: "lg" }}  // Smaller font on mobile
+        fontSize={{ base: "md", md: "lg" }}
         fontWeight="medium"
-        textAlign={{ base: "center", md: "left" }}  // Center text on mobile
+        textAlign={{ base: "center", md: "left" }}
       >
         Partnership | Coherent Relationships | Unity
       </Text>
     </HStack>
 
     <ButtonGroup 
-      spacing={{ base: 2, md: 4 }}  // Reduce spacing on mobile
+      spacing={{ base: 2, md: 4 }}
       alignItems="center"
-      flexDirection={{ base: "column", md: "row" }}  // Stack buttons vertically on mobile
+      flexDirection="row"
     >
       <ButtonLink 
         colorScheme="primary" 
-        size={{ base: "md", md: "lg" }}  // Smaller button on mobile
+        size={{ base: "md", md: "lg" }}
         href="/services"
-        width={{ base: "full", md: "auto" }}  // Full width on mobile
-        mb={{ base: 2, md: 0 }}  // Add margin bottom when stacked
+        width={{ base: "auto", md: "auto" }}
       >
         Explore Services
       </ButtonLink>
       <ButtonLink
-        size={{ base: "md", md: "lg" }}  // Smaller button on mobile
+        size={{ base: "md", md: "lg" }}
         href="/contact"
         variant="outline"
-        width={{ base: "full", md: "auto" }}  // Full width on mobile
+        width={{ base: "auto", md: "auto" }}
         rightIcon={
           <Icon
             as={FiArrowRight}
