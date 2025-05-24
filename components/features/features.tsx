@@ -14,7 +14,7 @@ import {
   ThemingProps,
   SystemProps,
 } from '@chakra-ui/react';
-import { BackgroundGradient } from '#components/gradients/background-gradient'
+import { BackgroundGradient } from '#components/gradients/background-gradient' 
 import { Section, SectionTitle, SectionTitleProps } from 'components/section';
 
 // ====================== REVEALER COMPONENT ======================
