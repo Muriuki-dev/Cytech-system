@@ -1,30 +1,25 @@
-import { Container, Flex, FlexProps, Text, VStack } from '@chakra-ui/react'
+import { Box, Heading, Text, Stack } from '@chakra-ui/react'
 
-interface HeroProps extends Omit<FlexProps, 'title'> {
+interface HeroProps {
   title: string | React.ReactNode
   description?: string | React.ReactNode
+  children?: React.ReactNode
 }
 
-export const Hero = ({ title, description, children, ...rest }: HeroProps) => {
+export const Hero = ({ title, description, children }: HeroProps) => {
   return (
-    <Flex py="20" alignItems="center" {...rest}>
-      <Container>
-        <VStack spacing={[4, null, 8]} alignItems="flex-start">
-          <Text as="h1" textStyle="h1" textAlign="left">
-            {title}
-          </Text>
-          <Text
-            as="div"
-            textStyle="subtitle"
-            align="left"
-            color="dark"
-            _dark={{ color: 'gray.400' }}
-          >
+    <Box as="section" py={{ base: 10, md: 20 }} px={{ base: 4, md: 8 }}>
+      <Stack spacing={6}>
+        <Heading as="h1" size="2xl">
+          {title}
+        </Heading>
+        {description && (
+          <Text fontSize={{ base: 'md', md: 'lg' }} color="gray.600">
             {description}
           </Text>
-        </VStack>
+        )}
         {children}
-      </Container>
-    </Flex>
+      </Stack>
+    </Box>
   )
 }
