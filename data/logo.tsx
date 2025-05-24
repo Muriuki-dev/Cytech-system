@@ -9,7 +9,7 @@ export const Logo: React.FC<HTMLChakraProps<'svg'>> = (props) => {
     <chakra.img
       src={logoUrl}
       alt="STRATILE Logo"
-      width="300px"
+      width="100px"
       maxWidth="auto"
       ml="-10px"
       {...props}
