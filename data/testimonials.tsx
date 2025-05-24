@@ -1,40 +1,77 @@
 export default {
-  title: 'Loved by tech people',
+  title: 'Trusted by Kenyan Businesses & Communities',
   items: [
     {
-      name: 'Eelco Wiersma',
-      description: 'Founder Saas UI',
-      avatar:
-        'https://pbs.twimg.com/profile_images/1470742164024008706/k-eXHtu0_normal.jpg',
+      name: 'James Kariuki',
+      description: 'SME Owner, Nairobi',
+      avatar: '/static/images/avatar1.jpg',
       children: (
         <>
-          “With SaaS UI I am able to produce high quality dashboard apps and
-          internal tools without a lot of design skills. The ROI really is
-          amazing.”
+          “Stratile Ltd helped us launch a marketing activation campaign that
+          doubled our customer reach in just two months. Their team is sharp,
+          professional, and results-driven. Highly recommended for any
+          entrepreneur.”
         </>
       ),
     },
     {
-      name: 'Caroline Yahaya',
-      description: 'Fullstack Developer',
+      name: 'Ruth Wambui',
+      description: 'County Youth Program Coordinator, Kiambu',
       avatar: '/static/images/avatar2.jpg',
       children: (
         <>
-          “Saas UI allows me to build beautiful and functional UI super fast.
-          The components are very well thought out and the Next.js starter kit
-          saved me at least 100 hours of work.”
+          “Working with Stratile was a game-changer for our youth initiative.
+          They provided end-to-end project management, engaged the community,
+          and delivered beyond expectations. They truly care about impact.”
         </>
       ),
     },
     {
-      name: 'Alberto Vazquez',
-      description: 'Frontend Engineer',
+      name: 'Brian Otieno',
+      description: 'Brand Manager, Kisumu',
       avatar: '/static/images/avatar3.jpg',
       children: (
         <>
-          “Saas UI gave us a perfect starting point for our project, having the
-          storybooks already set up with beautifully crafted components and
-          fully mocked pages was a treat.”
+          “We partnered with Stratile for creative and advertising solutions.
+          Their designs were clean, on-message, and performed well in our
+          outdoor and digital campaigns. They’re now our go-to agency.”
+        </>
+      ),
+    },
+    {
+      name: 'Grace Njeri',
+      description: 'Social Media Strategist, Mombasa',
+      avatar: '/static/images/avatar4.jpg',
+      children: (
+        <>
+          “The social media strategy Stratile crafted for us was both
+          insightful and effective. From content creation to performance
+          tracking, they helped us grow our following and customer engagement.”
+        </>
+      ),
+    },
+    {
+      name: 'David Kimani',
+      description: 'Community Development Officer, Nakuru',
+      avatar: '/static/images/avatar5.jpg',
+      children: (
+        <>
+          “Stratile Ltd supported our NGO with stakeholder management and
+          project execution. Their structure and communication made our work
+          smoother and more impactful. We’ve seen real change on the ground.”
+        </>
+      ),
+    },
+    {
+      name: 'Beatrice Achieng',
+      description: 'Event Coordinator, Kisii',
+      avatar: '/static/images/avatar6.jpg',
+      children: (
+        <>
+          “Thanks to Stratile’s merchandising and activation support, our
+          national campaign rollout was a success. Their team is reliable and
+          full of innovative ideas. We’re looking forward to the next
+          partnership.”
         </>
       ),
     },
