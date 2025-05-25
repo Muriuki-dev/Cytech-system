@@ -14,7 +14,7 @@ import {
   ThemingProps,
   SystemProps,
 } from '@chakra-ui/react';
-import { BackgroundGradient } from '#components/gradients/background-gradient'    
+    
 import { Section, SectionTitle, SectionTitleProps } from 'components/section';
 
 // ====================== REVEALER COMPONENT ======================
@@ -99,7 +99,7 @@ export const Features: React.FC<FeaturesProps> = (props) => {
   const ip = align === 'left' ? 'left' : 'top';
 
   return (
-    <BackgroundGradient height="100%" zIndex="-1" />
+   
     <Section {...rest}>
       <Stack direction="row" height="full" align="flex-start">
         <VStack flex="1" spacing={[4, null, 8]} alignItems="stretch">
