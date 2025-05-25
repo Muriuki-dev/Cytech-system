@@ -22,6 +22,7 @@ const Revealer = ({ children }: any) => {
   return children;
 };
 
+
 // ====================== INTERFACES ======================
 export interface FeaturesProps
   extends Omit<SectionTitleProps, 'title' | 'variant'>,
