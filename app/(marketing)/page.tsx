@@ -251,15 +251,71 @@ const ServicesSection = () => {
       <Features
         id="services"
         title={
-          <Heading
-            lineHeight="short"
-            fontSize={['2xl', null, '4xl']}
-            textAlign="center"
-            as="p"
-          >
-            Our Comprehensive
-            <Br /> Service Offerings
-          </Heading>
+         <Heading
+  as="h2"
+  fontSize={['3xl', '4xl', '5xl']}
+  fontWeight="medium"
+  textAlign="center"
+  lineHeight="1.2"
+  letterSpacing="tighter"
+  color={useColorModeValue('gray.800', 'gray.100')}
+  position="relative"
+  _before={{
+    content: '""',
+    position: 'absolute',
+    width: '50px',
+    height: '4px',
+    bottom: '-10px',
+    left: '50%',
+    transform: 'translateX(-50%)',
+    bg: useColorModeValue('green.500', 'green.400'),
+    borderRadius: 'full',
+  }}
+  sx={{
+    fontFeatureSettings: '"liga", "calt"',
+    fontVariationSettings: '"opsz" 32',
+  }}
+>
+  <Box 
+    as="span" 
+    display="block"
+    position="relative"
+    _after={{
+      content: '""',
+      position: 'absolute',
+      width: '100%',
+      height: '2px',
+      bottom: '-5px',
+      left: 0,
+      bg: useColorModeValue('green.100', 'green.900'),
+      opacity: 0.7,
+      transform: 'scaleX(0)',
+      transformOrigin: 'right',
+      transition: 'transform 0.6s cubic-bezier(0.86, 0, 0.07, 1)',
+    }}
+    _hover={{
+      _after: {
+        transform: 'scaleX(1)',
+        transformOrigin: 'left',
+      }
+    }}
+  >
+    Our Comprehensive
+  </Box>
+  <Box 
+    as="span" 
+    display="block"
+    fontWeight="semibold"
+    bgGradient={useColorModeValue(
+      'linear(to-r, green.500, teal.500)',
+      'linear(to-r, green.300, teal.300)'
+    )}
+    bgClip="text"
+    mt={2}
+  >
+    Service Offerings
+  </Box>
+</Heading>
         }
         description={
           <>
