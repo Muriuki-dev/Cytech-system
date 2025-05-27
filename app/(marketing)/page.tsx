@@ -90,6 +90,18 @@ const Home = () => {
 }
 
 const HeroSection: React.FC = () => {
+  const handleContactClick = () => {
+    // You can replace this with your actual contact form implementation
+    const name = prompt("Please enter your name:");
+    const email = prompt("Please enter your email:");
+    const message = prompt("Please enter your message:");
+    
+    if (name && email && message) {
+      alert(`Thank you, ${name}! We'll contact you soon at ${email}.`);
+      // Here you would typically send the data to your backend
+    }
+  };
+
   return (
     <Box position="relative" overflow="hidden">
       <BackgroundGradient height="100%" zIndex="-1" />
@@ -135,9 +147,9 @@ const HeroSection: React.FC = () => {
                 >
                   Explore our services 
                 </ButtonLink>
-                <ButtonLink
+                <Button
                   size={{ base: "md", md: "lg" }}
-                  href="/"
+                  onClick={handleContactClick}
                   variant="outline"
                   width={{ base: "full", md: "auto" }}
                   rightIcon={
@@ -152,9 +164,12 @@ const HeroSection: React.FC = () => {
                       }}
                     />
                   }
+                  // These styles will make it ignore dark/light mode
+                  _light={{ bg: "white", color: "black" }}
+                  _dark={{ bg: "white", color: "black" }}
                 >
                   Contact us
-                </ButtonLink>
+                </Button>
               </ButtonGroup>
             </FallInPlace>
           </Hero>
@@ -394,7 +409,7 @@ const ServicesSection = () => {
               <Input placeholder="Your name" />
             </FormControl>
             
-          <FormControl isRequired>
+          <FormControl mt={4}>
           <FormLabel>Business Name</FormLabel>
           <Input placeholder="Your company/organization name" />
           </FormControl>
@@ -404,7 +419,7 @@ const ServicesSection = () => {
               <Input type="email" placeholder="Your email" />
             </FormControl>
 
-            <FormControl isRequired>
+            <FormControl mt={4}>
           <FormLabel>Phone Number</FormLabel>
           <Input 
             type="tel" 
@@ -414,7 +429,7 @@ const ServicesSection = () => {
           />
         </FormControl>
 
-             <FormControl isRequired>
+             <FormControl mt={4}>
           <FormLabel>County</FormLabel>
           <Select placeholder="Select your county">
             <option>Nairobi</option>
@@ -428,7 +443,7 @@ const ServicesSection = () => {
           </Select>
         </FormControl>
 
-        <FormControl isRequired>
+        <FormControl mt={4}>
           <FormLabel>Specific Location</FormLabel>
           <Input placeholder="E.g. Westlands, Karen, Kilimani etc." />
         </FormControl>
