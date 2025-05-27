@@ -9,10 +9,9 @@ import {
   Text,
   usePrefersReducedMotion,
 } from "@chakra-ui/react";
-import { keyframes } from "@chakra-ui/theme-tools"; // Updated import
 import { Link } from "@saas-ui/react";
 import { FaTwitter } from "react-icons/fa";
-import { useEffect, useRef } from "react";
+import { useEffect, useRef, useState } from "react";
 
 export interface TestimonialProps extends CardProps {
   name: string;
@@ -21,11 +20,6 @@ export interface TestimonialProps extends CardProps {
   href?: string;
   children?: React.ReactNode;
 }
-
-const slideIn = keyframes`
-  from { transform: translateX(-100%); opacity: 0; }
-  to { transform: translateX(0); opacity: 1; }
-`;
 
 export const Testimonial = ({
   name,
@@ -37,17 +31,20 @@ export const Testimonial = ({
 }: TestimonialProps) => {
   const prefersReducedMotion = usePrefersReducedMotion();
   const cardRef = useRef<HTMLDivElement>(null);
-  
-  const animation = prefersReducedMotion ? undefined : `${slideIn} 0.5s ease-out forwards`;
+  const [isVisible, setIsVisible] = useState(false);
 
   useEffect(() => {
-    if (prefersReducedMotion || !cardRef.current) return;
+    if (prefersReducedMotion || !cardRef.current) {
+      setIsVisible(true);
+      return;
+    }
 
     const observer = new IntersectionObserver(
       (entries) => {
         entries.forEach((entry) => {
           if (entry.isIntersecting) {
-            entry.target.classList.add("animate-slide-in");
+            setIsVisible(true);
+            observer.unobserve(entry.target);
           }
         });
       },
@@ -72,12 +69,9 @@ export const Testimonial = ({
       border="2px solid"
       borderColor="orange.300"
       _dark={{ borderColor: "orange.500" }}
-      css={{
-        opacity: 0,
-        "&.animate-slide-in": {
-          animation: animation,
-        }
-      }}
+      transform={isVisible ? "translateX(0)" : "translateX(-100%)"}
+      opacity={isVisible ? 1 : 0}
+      transition="transform 0.5s ease-out, opacity 0.5s ease-out"
       {...rest}
     >
       <CardHeader display="flex" flexDirection="row" alignItems="center">
