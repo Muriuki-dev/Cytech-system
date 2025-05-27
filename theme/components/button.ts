@@ -7,17 +7,22 @@ export default {
     'nav-link': (props: Dict) => {
       const { isActive } = props
 
-      const hoverColor = mode('gray.900', 'white')(props)
+      const activeColor = 'green.500'
+      const hoverColor = mode('green.600', 'green.300')(props)
+
       return {
         outline: 'none',
         fontWeight: '500',
-        color: isActive
-          ? hoverColor
-          : mode('gray.700', 'whiteAlpha.700')(props),
-        transition: 'color .2s ease-in',
+        color: isActive ? activeColor : mode('gray.700', 'whiteAlpha.700')(props),
+        transition: 'all 0.3s ease-in-out',
+        transform: isActive ? 'scale(1.05)' : 'scale(1)',
         _hover: {
           textDecoration: 'none',
           color: hoverColor,
+          transform: 'scale(1.05)',
+        },
+        _active: {
+          transform: 'scale(0.95)',
         },
       }
     },
