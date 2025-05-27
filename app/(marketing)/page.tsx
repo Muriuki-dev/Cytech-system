@@ -282,18 +282,8 @@ development, and sharing valuable insights through our work and digital platform
   name="Laban Mwangi"
   description="Co-director"
   avatar="/static/images/avatarr.jpg"
-  gradient={['orange.200', 'red.500']}
-  // Add these props for light/dark mode adaptation:
-  _light={{
-    color: "gray.800",        // Dark text in light mode
-    bg: "white",              // White background
-    borderColor: "purple.100", // Subtle border
-  }}
-  _dark={{
-    color: "white",           // White text in dark mode
-    bg: "gray.800",           // Dark background
-    borderColor: "purple.800", // Darker border
-  }}
+  gradient={['orange.600', 'red.500']}
+ 
 >
         "Stratile serves as a catalyst for progress, providing expert guidance and comprehensive project management solutions that ensure successful execution and sustainable outcomes."
       </HighlightsTestimonialItem>
@@ -592,37 +582,72 @@ const EventsSection = () => {
         </Box>
 
         <Stack direction={{ base: 'column', md: 'row' }} spacing="8">
-          <Box flex="1" p="6" borderWidth="1px" borderRadius="lg">
-            <Heading size="lg" mb="4">Trade Show 2025</Heading>
-            <Text color="muted" mb="2"><strong>Date:</strong> June 15-17, 2025</Text>
-            <Text color="muted" mb="2"><strong>Location:</strong> Nairobi Convention Center</Text>
-            <Text mb="4">Join us for the premier industry event showcasing innovative products and services.</Text>
-            <ButtonLink href="/events/trade-show-2025" rightIcon={<FiArrowRight />}>
-              Learn More
-            </ButtonLink>
-          </Box>
+  <Box 
+    flex="1" 
+    p="6" 
+    borderWidth="1px" 
+    borderRadius="lg"
+    borderColor="blue.400" // Primary blue border
+    _hover={{
+      borderColor: 'blue.500', // Darker blue on hover
+      transform: 'translateY(-2px)',
+      boxShadow: 'lg'
+    }}
+    transition="all 0.2s"
+  >
+    <Heading size="lg" mb="4">Trade Show 2025</Heading>
+    <Text color="muted" mb="2"><strong>Date:</strong> June 15-17, 2025</Text>
+    <Text color="muted" mb="2"><strong>Location:</strong> Nairobi Convention Center</Text>
+    <Text mb="4">Join us for the premier industry event showcasing innovative products and services.</Text>
+    <ButtonLink href="/events/trade-show-2025" rightIcon={<FiArrowRight />}>
+      Learn More
+    </ButtonLink>
+  </Box>
 
-          <Box flex="1" p="6" borderWidth="1px" borderRadius="lg">
-            <Heading size="lg" mb="4">Community Development Initiative</Heading>
-            <Text color="muted" mb="2"><strong>Launching:</strong> July 2025</Text>
-            <Text color="muted" mb="2"><strong>Location:</strong> Multiple Counties</Text>
-            <Text mb="4">Our new initiative to empower local communities through sustainable development projects.</Text>
-            <ButtonLink href="/projects/community-development" rightIcon={<FiArrowRight />}>
-              Explore Opportunities
-            </ButtonLink>
-          </Box>
+  <Box 
+    flex="1" 
+    p="6" 
+    borderWidth="1px" 
+    borderRadius="lg"
+    borderColor="blue.400"
+    _hover={{
+      borderColor: 'blue.500',
+      transform: 'translateY(-2px)',
+      boxShadow: 'lg'
+    }}
+    transition="all 0.2s"
+  >
+    <Heading size="lg" mb="4">Community Development Initiative</Heading>
+    <Text color="muted" mb="2"><strong>Launching:</strong> July 2025</Text>
+    <Text color="muted" mb="2"><strong>Location:</strong> Multiple Counties</Text>
+    <Text mb="4">Our new initiative to empower local communities through sustainable development projects.</Text>
+    <ButtonLink href="/projects/community-development" rightIcon={<FiArrowRight />}>
+      Explore Opportunities
+    </ButtonLink>
+  </Box>
 
-          <Box flex="1" p="6" borderWidth="1px" borderRadius="lg">
-            <Heading size="lg" mb="4">Brand Expo</Heading>
-            <Text color="muted" mb="2"><strong>Date:</strong> August 5-7, 2025</Text>
-            <Text color="muted" mb="2"><strong>Location:</strong> Sarit Center</Text>
-            <Text mb="4">Showcase your brand to thousands of potential customers at this annual exhibition.</Text>
-            <ButtonLink href="/events/brand-expo" rightIcon={<FiArrowRight />}>
-              Reserve Your Spot
-            </ButtonLink>
-          </Box>
-        </Stack>
-
+  <Box 
+    flex="1" 
+    p="6" 
+    borderWidth="1px" 
+    borderRadius="lg"
+    borderColor="blue.400"
+    _hover={{
+      borderColor: 'blue.500',
+      transform: 'translateY(-2px)',
+      boxShadow: 'lg'
+    }}
+    transition="all 0.2s"
+  >
+    <Heading size="lg" mb="4">Brand Expo</Heading>
+    <Text color="muted" mb="2"><strong>Date:</strong> August 5-7, 2025</Text>
+    <Text color="muted" mb="2"><strong>Location:</strong> Sarit Center</Text>
+    <Text mb="4">Showcase your brand to thousands of potential customers at this annual exhibition.</Text>
+    <ButtonLink href="/events/brand-expo" rightIcon={<FiArrowRight />}>
+      Reserve Your Spot
+    </ButtonLink>
+  </Box>
+</Stack>
         <Box textAlign="center" pt="8">
           <ButtonLink colorScheme="primary" size="lg" href="/events">
             View All Events
