@@ -8,7 +8,20 @@ import {
   HStack,
   Heading,
   Icon,
+   Button,
   IconButton,
+   Modal,
+  ModalOverlay,
+  ModalContent,
+  ModalHeader,
+  ModalFooter,
+  ModalBody,
+  ModalCloseButton,
+  FormControl,
+  FormLabel,
+  Input,
+  Select,
+  Textarea,
   Stack,
   Tag,
   Text,
@@ -214,70 +227,138 @@ development, and sharing valuable insights through our work and digital platform
 }
 
 const ServicesSection = () => {
+  const [isBookingOpen, setIsBookingOpen] = useState(false);
+
+  const openBookingForm = () => {
+    setIsBookingOpen(true);
+  };
+
+  const closeBookingForm = () => {
+    setIsBookingOpen(false);
+  };
+
   return (
-    <Features
-      id="services"
-      title={
-        <Heading
-         
-          lineHeight="short"
-          fontSize={['2xl', null, '4xl']}
-          textAlign="center"
-          as="p"
+    <>
+      <Features
+        id="services"
+        title={
+          <Heading
+            lineHeight="short"
+            fontSize={['2xl', null, '4xl']}
+            textAlign="center"
+            as="p"
+          >
+            Our Comprehensive
+            <Br /> Service Offerings
+          </Heading>
+        }
+        description={
+          <>
+            Stratile provides a wide range of services to meet your business and community development needs.
+            <Br />
+            Explore how we can help you achieve your goals.
+          </>
+        }
+        align="center"
+        columns={[1, 2, 3]}
+        iconSize={5}
+        features={[
+          {
+            title: 'Marketing Activations',
+            icon: FiTrendingUp,
+            description: 'Our trained sales force team delivers direct customer engagement and increased sales for your brand.',
+            variant: 'center',
+          },
+          {
+            title: 'Creative Solutions',
+            icon: FiGrid,
+            description: 'Graphic design services that enhance your brand messaging with visually compelling assets.',
+            variant: 'center',
+          },
+          {
+            title: 'Advertising Solutions',
+            icon: FiShare2,
+            description: 'Strategic campaigns across digital, print, and outdoor channels to maximize your reach.',
+            variant: 'center',
+          },
+          {
+            title: 'Social Media Marketing',
+            icon: FiUsers,
+            description: 'Comprehensive strategy development, content creation, and performance tracking.',
+            variant: 'center',
+          },
+          {
+            title: 'Merchandising Services',
+            icon: FiShoppingBag,
+            description: 'POS materials and display solutions that optimize product placement and brand visibility.',
+            variant: 'center',
+          },
+          {
+            title: 'Project Management',
+            icon: FiLayers,
+            description: 'End-to-end project support from conceptualization to execution and stakeholder management.',
+            variant: 'center',
+          },
+        ]}
+      />
+      
+      <Box textAlign="center" mt={10}>
+        <Button 
+          onClick={openBookingForm}
+          colorScheme="green"
+          size="lg"
+          px={8}
+          _hover={{ bg: 'green.600' }}
+          _dark={{ bg: 'green.500', _hover: { bg: 'green.600' } }}
         >
-          Our Comprehensive
-          <Br /> Service Offerings
-        </Heading>
-      }
-      description={
-        <>
-          Stratile provides a wide range of services to meet your business and community development needs.
-          <Br />
-          Explore how we can help you achieve your goals.
-        </>
-      }
-      align="center"
-      columns={[1, 2, 3]}
-      iconSize={5}
-      features={[
-        {
-          title: 'Marketing Activations',
-          icon: FiTrendingUp,
-          description: 'Our trained sales force team delivers direct customer engagement and increased sales for your brand.',
-          variant: 'center',
-        },
-        {
-          title: 'Creative Solutions',
-          icon: FiGrid,
-          description: 'Graphic design services that enhance your brand messaging with visually compelling assets.',
-          variant: 'center',
-        },
-        {
-          title: 'Advertising Solutions',
-          icon: FiShare2,
-          description: 'Strategic campaigns across digital, print, and outdoor channels to maximize your reach.',
-          variant: 'center',
-        },
-        {
-          title: 'Social Media Marketing',
-          icon: FiUsers,
-          description: 'Comprehensive strategy development, content creation, and performance tracking.',
-          variant: 'center',
-        },
-        {
-          title: 'Merchandising Services',
-          icon: FiShoppingBag,
-          description: 'POS materials and display solutions that optimize product placement and brand visibility.',
-          variant: 'center',
-        },
-        {
-          title: 'Project Management',
-          icon: FiLayers,
-          description: 'End-to-end project support from conceptualization to execution and stakeholder management.',
-          variant: 'center',
-        },
-      ]}
-    />
+          Book Now
+        </Button>
+      </Box>
+
+      {/* Booking Form Modal */}
+      <Modal isOpen={isBookingOpen} onClose={closeBookingForm}>
+        <ModalOverlay />
+        <ModalContent>
+          <ModalHeader>Book Our Services</ModalHeader>
+          <ModalCloseButton />
+          <ModalBody pb={6}>
+            <FormControl>
+              <FormLabel>Name</FormLabel>
+              <Input placeholder="Your name" />
+            </FormControl>
+
+            <FormControl mt={4}>
+              <FormLabel>Email</FormLabel>
+              <Input type="email" placeholder="Your email" />
+            </FormControl>
+
+            <FormControl mt={4}>
+              <FormLabel>Service</FormLabel>
+              <Select placeholder="Select service">
+                <option>Marketing Activations</option>
+                <option>Creative Solutions</option>
+                <option>Advertising Solutions</option>
+                <option>Social Media Marketing</option>
+                <option>Merchandising Services</option>
+                <option>Project Management</option>
+              </Select>
+            </FormControl>
+
+            <FormControl mt={4}>
+              <FormLabel>Message</FormLabel>
+              <Textarea placeholder="Additional details about your request" />
+            </FormControl>
+          </ModalBody>
+
+          <ModalFooter>
+            <Button colorScheme="green" mr={3}>
+              Submit Booking
+            </Button>
+            <Button onClick={closeBookingForm}>Cancel</Button>
+          </ModalFooter>
+        </ModalContent>
+      </Modal>
+    </>
   )
 }
 
