@@ -240,7 +240,14 @@ const ServicesSection = () => {
   };
 
   return (
-    
+    <Box 
+      border="4px solid" 
+      borderColor="green.100"
+      borderRadius="lg"
+      p={[4, 6, 8]}
+      position="relative"
+      _dark={{ borderColor: 'green.100' }}
+    >
        <BackgroundGradient height="100%" zIndex="-1" />
       <Features
         id="services"
