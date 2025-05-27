@@ -4,6 +4,13 @@ import {
   Box,
   ButtonGroup,
   Container,
+  useDisclosure,
+  AlertDialog,
+  AlertDialogBody,
+  AlertDialogContent,
+  AlertDialogFooter,
+  AlertDialogHeader,
+  AlertDialogOverlay,
   Checkbox,
   Flex,
   HStack,
@@ -17,6 +24,7 @@ import {
   ModalContent,
   ModalHeader,
   ModalFooter,
+  useColorMode,
   ModalBody,
   ModalCloseButton,
   FormControl,
@@ -57,7 +65,7 @@ import {
   FiShare2,
   FiShoppingBag,
 } from 'react-icons/fi'
-import { useState } from 'react'
+import { useState, useRef } from 'react'
 import * as React from 'react'
 import { ButtonLink } from '#components/button-link/button-link'
 import { Faq } from '#components/faq'
@@ -90,15 +98,22 @@ const Home = () => {
 }
 
 const HeroSection: React.FC = () => {
-  const handleContactClick = () => {
-    // You can replace this with your actual contact form implementation
-    const name = prompt("Please enter your name:");
-    const email = prompt("Please enter your email:");
-    const message = prompt("Please enter your message:");
-    
+  const { isOpen, onOpen, onClose } = useDisclosure();
+  const cancelRef = useRef<HTMLButtonElement>(null);
+  const { colorMode } = useColorMode();
+  const [name, setName] = useState("");
+  const [email, setEmail] = useState("");
+  const [message, setMessage] = useState("");
+
+  const handleSubmit = () => {
     if (name && email && message) {
       alert(`Thank you, ${name}! We'll contact you soon at ${email}.`);
       // Here you would typically send the data to your backend
+      onClose();
+      // Reset form
+      setName("");
+      setEmail("");
+      setMessage("");
     }
   };
 
@@ -149,7 +164,7 @@ const HeroSection: React.FC = () => {
                 </ButtonLink>
                 <Button
                   size={{ base: "md", md: "lg" }}
-                  onClick={handleContactClick}
+                  onClick={onOpen}
                   variant="outline"
                   width={{ base: "full", md: "auto" }}
                   rightIcon={
@@ -164,7 +179,6 @@ const HeroSection: React.FC = () => {
                       }}
                     />
                   }
-                  // These styles will make it ignore dark/light mode
                   _light={{ bg: "white", color: "black" }}
                   _dark={{ bg: "white", color: "black" }}
                 >
@@ -175,6 +189,72 @@ const HeroSection: React.FC = () => {
           </Hero>
         </Stack>
       </Container>
+
+      {/* Contact Form Modal */}
+      <AlertDialog
+        isOpen={isOpen}
+        leastDestructiveRef={cancelRef}
+        onClose={onClose}
+        isCentered
+      >
+        <AlertDialogOverlay>
+          <AlertDialogContent
+            bg={colorMode === "dark" ? "gray.800" : "white"}
+            color={colorMode === "dark" ? "white" : "gray.800"}
+          >
+            <AlertDialogHeader fontSize="lg" fontWeight="bold">
+              Contact Us
+            </AlertDialogHeader>
+
+            <AlertDialogBody>
+              <VStack spacing={4}>
+                <FormControl isRequired>
+                  <FormLabel>Name</FormLabel>
+                  <Input
+                    value={name}
+                    onChange={(e) => setName(e.target.value)}
+                    placeholder="Your name"
+                  />
+                </FormControl>
+
+                <FormControl isRequired>
+                  <FormLabel>Email</FormLabel>
+                  <Input
+                    type="email"
+                    value={email}
+                    onChange={(e) => setEmail(e.target.value)}
+                    placeholder="Your email address"
+                  />
+                </FormControl>
+
+                <FormControl isRequired>
+                  <FormLabel>Message</FormLabel>
+                  <Textarea
+                    value={message}
+                    onChange={(e) => setMessage(e.target.value)}
+                    placeholder="Your message"
+                    rows={4}
+                  />
+                </FormControl>
+              </VStack>
+            </AlertDialogBody>
+
+            <AlertDialogFooter>
+              <Button ref={cancelRef} onClick={onClose}>
+                Cancel
+              </Button>
+              <Button
+                colorScheme="primary"
+                onClick={handleSubmit}
+                ml={3}
+                isDisabled={!name || !email || !message}
+              >
+                Submit
+              </Button>
+            </AlertDialogFooter>
+          </AlertDialogContent>
+        </AlertDialogOverlay>
+      </AlertDialog>
     </Box>
   )
 }
