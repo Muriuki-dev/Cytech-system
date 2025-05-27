@@ -48,7 +48,7 @@ const Login: NextPage = () => {
     } catch (err) {
       toast({
         title: 'Error',
-        description: 'An error occurred during login',
+        description: 'Your credintials does not match our records',
         status: 'error',
         duration: 5000,
         isClosable: true,
@@ -62,8 +62,7 @@ const Login: NextPage = () => {
 
   return (
     <Section height="calc(100vh - 200px)" innerWidth="container.sm">
-      <BackgroundGradient zIndex="-1" />
-
+      <BackgroundGradient height="100%" zIndex="-1" /> 
       <Center height="100%" pt="20">
         <PageTransition width="100%">
           <Box
