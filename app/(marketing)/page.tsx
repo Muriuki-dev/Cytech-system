@@ -339,7 +339,7 @@ const ServicesSection = () => {
 
   return (
    <Box 
-  border="4px solid" 
+  border="lg" 
   borderColor="blue.400"
   borderRadius="lg"
   p={[4, 6, 8]}
