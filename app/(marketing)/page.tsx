@@ -239,7 +239,14 @@ const ServicesSection = () => {
   };
 
   return (
-    <>
+    <Box 
+      border="4px solid" 
+      borderColor="green.500"
+      borderRadius="lg"
+      p={[4, 6, 8]}
+      position="relative"
+      _dark={{ borderColor: 'green.400' }}
+    >
       <Features
         id="services"
         title={
@@ -359,10 +366,9 @@ const ServicesSection = () => {
           </ModalFooter>
         </ModalContent>
       </Modal>
-    </>
+    </Box>
   )
 }
-
 const EventsSection = () => {
   return (
     <Container maxW="container.xl" py="20">
