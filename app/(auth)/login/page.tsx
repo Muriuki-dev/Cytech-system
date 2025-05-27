@@ -1,6 +1,6 @@
 'use client'
 
-import { Center } from '@chakra-ui/react'
+import { Center, useToast, useColorMode, Box, Heading, Input, Button, Link, Text } from '@chakra-ui/react'
 import { BackgroundGradient } from 'components/gradients/background-gradient'
 import { PageTransition } from 'components/motion/page-transition'
 import { Section } from 'components/section'
@@ -11,12 +11,14 @@ import { useRouter } from 'next/navigation'
 const Login: NextPage = () => {
   const [email, setEmail] = useState('')
   const [password, setPassword] = useState('')
-  const [error, setError] = useState('')
+  const [isLoading, setIsLoading] = useState(false)
   const router = useRouter()
+  const toast = useToast()
+  const { colorMode } = useColorMode()
 
   const handleLogin = async (e: React.FormEvent) => {
     e.preventDefault()
-    setError('')
+    setIsLoading(true)
 
     try {
       const response = await fetch('/api/login', {
@@ -30,14 +32,31 @@ const Login: NextPage = () => {
       const data = await response.json()
 
       if (response.ok) {
-        // Store token or session and redirect to dashboard
         localStorage.setItem('authToken', data.token)
         router.push('/dashboard')
       } else {
-        setError(data.message || 'Login failed')
+        toast({
+          title: 'Login Failed',
+          description: data.message || 'Invalid credentials',
+          status: 'error',
+          duration: 5000,
+          isClosable: true,
+          position: 'top',
+          variant: 'subtle',
+        })
       }
     } catch (err) {
-      setError('An error occurred during login')
+      toast({
+        title: 'Error',
+        description: 'An error occurred during login',
+        status: 'error',
+        duration: 5000,
+        isClosable: true,
+        position: 'top',
+        variant: 'subtle',
+      })
+    } finally {
+      setIsLoading(false)
     }
   }
 
@@ -47,50 +66,99 @@ const Login: NextPage = () => {
 
       <Center height="100%" pt="20">
         <PageTransition width="100%">
-          <form onSubmit={handleLogin} style={{ width: '100%', maxWidth: '400px' }}>
-            <div style={{ marginBottom: '1rem' }}>
-              <label htmlFor="email">Email</label>
-              <input
-                id="email"
-                type="email"
-                value={email}
-                onChange={(e) => setEmail(e.target.value)}
-                required
-                style={{ width: '100%', padding: '0.5rem', marginTop: '0.5rem' }}
-              />
-            </div>
-            <div style={{ marginBottom: '1rem' }}>
-              <label htmlFor="password">Password</label>
-              <input
-                id="password"
-                type="password"
-                value={password}
-                onChange={(e) => setPassword(e.target.value)}
-                required
-                style={{ width: '100%', padding: '0.5rem', marginTop: '0.5rem' }}
-              />
-            </div>
-            {error && <div style={{ color: 'red', marginBottom: '1rem' }}>{error}</div>}
-            <button
-              type="submit"
-              style={{
-                width: '100%',
-                padding: '0.75rem',
-                backgroundColor: '#3182ce',
-                color: 'white',
-                border: 'none',
-                borderRadius: '4px',
-                cursor: 'pointer',
-              }}
+          <Box
+            w="100%"
+            maxW="450px"
+            p={8}
+            borderRadius="xl"
+            boxShadow="xl"
+            bg={colorMode === 'light' ? 'white' : 'gray.800'}
+            borderWidth="1px"
+            borderColor={colorMode === 'light' ? 'gray.200' : 'gray.700'}
+          >
+            <Heading 
+              as="h1" 
+              size="xl" 
+              textAlign="center" 
+              mb={8}
+              color={colorMode === 'light' ? 'blue.600' : 'blue.400'}
             >
-              Login
-            </button>
-            <div style={{ marginTop: '1rem', textAlign: 'center' }}>
-              <a href="/contact-admin" style={{ color: '#3182ce' }}>
-                Contact Admin
-              </a>
-            </div>
-          </form>
+              Admin Login Only
+            </Heading>
+            
+            <form onSubmit={handleLogin}>
+              <Box mb={6}>
+                <Text 
+                  as="label" 
+                  htmlFor="email" 
+                  display="block" 
+                  mb={2}
+                  fontWeight="medium"
+                >
+                  Email
+                </Text>
+                <Input
+                  id="email"
+                  type="email"
+                  value={email}
+                  onChange={(e) => setEmail(e.target.value)}
+                  required
+                  size="lg"
+                  focusBorderColor="blue.500"
+                  bg={colorMode === 'light' ? 'white' : 'gray.700'}
+                />
+              </Box>
+
+              <Box mb={8}>
+                <Text 
+                  as="label" 
+                  htmlFor="password" 
+                  display="block" 
+                  mb={2}
+                  fontWeight="medium"
+                >
+                  Password
+                </Text>
+                <Input
+                  id="password"
+                  type="password"
+                  value={password}
+                  onChange={(e) => setPassword(e.target.value)}
+                  required
+                  size="lg"
+                  focusBorderColor="blue.500"
+                  bg={colorMode === 'light' ? 'white' : 'gray.700'}
+                />
+              </Box>
+
+              <Button
+                type="submit"
+                colorScheme="blue"
+                size="lg"
+                width="full"
+                isLoading={isLoading}
+                loadingText="Authenticating..."
+                mb={6}
+                _hover={{
+                  transform: 'translateY(-2px)',
+                  boxShadow: 'lg',
+                }}
+                transition="all 0.2s"
+              >
+                Login
+              </Button>
+
+              <Text textAlign="center">
+                <Link 
+                  href="/contact-admin" 
+                  color={colorMode === 'light' ? 'blue.500' : 'blue.400'}
+                  _hover={{ textDecoration: 'underline' }}
+                >
+                  Contact Admin
+                </Link>
+              </Text>
+            </form>
+          </Box>
         </PageTransition>
       </Center>
     </Section>
