@@ -1,6 +1,6 @@
 import { Button } from '@chakra-ui/react'
 import { Link } from '@saas-ui/react'
-import { FaGithub, FaTwitter } from 'react-icons/fa'
+import { FaTwitter, FaFacebook, FaWhatsapp, FaYoutube, FaInstagram } from 'react-icons/fa'
 import { FiCheck } from 'react-icons/fi'
 import { Logo } from './logo'
 
@@ -41,16 +41,31 @@ const siteConfig = {
       </>
     ),
     links: [
-      {
-        href: '/',
-        label: 'Contact',
-      },
-      {
-        href: '/',
-        label: <FaTwitter size="14" />,
-      },
-     
-    ],
+  {
+    href: '/',
+    label: 'Contact',
+  },
+  {
+    href: '/', // Replace with your Twitter URL
+    label: <FaTwitter size="14" />,
+  },
+  {
+    href: '/', // Replace with your Facebook URL
+    label: <FaFacebook size="14" />,
+  },
+  {
+    href: '/', // Replace with your WhatsApp number
+    label: <FaWhatsapp size="14" />,
+  },
+  {
+    href: '/', // Replace with your YouTube URL
+    label: <FaYoutube size="14" />,
+  },
+  {
+    href: '/', // Replace with your Instagram URL
+    label: <FaInstagram size="14" />,
+  }
+]
   },
   signup: {
     title: 'Start building with Saas UI',
