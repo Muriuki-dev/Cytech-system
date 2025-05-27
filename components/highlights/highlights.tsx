@@ -29,8 +29,19 @@ export const HighlightsItem: React.FC<HighlightBoxProps> = (props) => {
       spacing="8"
       overflow="hidden"
       position="relative"
+      borderWidth="1px"
+      borderColor="blue.400" // Added blue border
       bg="white"
-      _dark={{ bg: 'gray.800' }}
+      _dark={{ 
+        bg: 'gray.800',
+        borderColor: 'blue.300' // Lighter blue in dark mode
+      }}
+      _hover={{
+        borderColor: 'blue.500', // Darker blue on hover
+        transform: 'translateY(-2px)',
+        boxShadow: 'lg',
+      }}
+      transition="all 0.2s"
       {...rest}
     >
       {title && (
@@ -58,7 +69,18 @@ export const HighlightsTestimonialItem: React.FC<
   return (
     <HighlightsItem
       justifyContent="center"
-      _dark={{ borderColor: 'whiteAlpha.300' }}
+      borderColor="blue.400" // Added blue border
+      _dark={{ 
+        borderColor: 'blue.300', // Lighter blue in dark mode
+        _hover: {
+          borderColor: 'blue.400' // Slightly darker on hover in dark mode
+        }
+      }}
+      _hover={{
+        borderColor: 'blue.500',
+        transform: 'translateY(-2px)',
+        boxShadow: 'lg'
+      }}
       p="4"
       {...rest}
     >
