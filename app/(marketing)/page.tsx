@@ -55,6 +55,7 @@ import {
   FiShare2,
   FiShoppingBag,
 } from 'react-icons/fi'
+import { useState } from 'react'
 import * as React from 'react'
 import { ButtonLink } from '#components/button-link/button-link'
 import { Faq } from '#components/faq'
