@@ -277,12 +277,23 @@ development. We are committed to organizing impactful community activities, esta
 development, and sharing valuable insights through our work and digital platforms.
         </Text>
       </HighlightsItem>
-      <HighlightsTestimonialItem>
-        <TeamMember
-        name="Laban Mwangi"
-        description="Co-director"
-        avatar="/static/images/avatarr.jpg"
-        gradient={['orange.600', 'red.500']}
+      <HighlightsTestimonialItem
+       
+  name="Laban Mwangi"
+  description="Co-director"
+  avatar="/static/images/avatarr.jpg"
+  gradient={['orange.200', 'red.500']}
+  // Add these props for light/dark mode adaptation:
+  _light={{
+    color: "gray.800",        // Dark text in light mode
+    bg: "white",              // White background
+    borderColor: "purple.100", // Subtle border
+  }}
+  _dark={{
+    color: "white",           // White text in dark mode
+    bg: "gray.800",           // Dark background
+    borderColor: "purple.800", // Darker border
+  }}
 >
         "Stratile serves as a catalyst for progress, providing expert guidance and comprehensive project management solutions that ensure successful execution and sustainable outcomes."
       </HighlightsTestimonialItem>
