@@ -7,10 +7,8 @@ import {
   GridItemProps,
   Heading,
   useTheme,
-  usePrefersReducedMotion,
 } from '@chakra-ui/react'
 import { transparentize } from '@chakra-ui/theme-tools'
-import { useState, useEffect, useRef } from 'react'
 
 import { Section, SectionProps } from '#components/section'
 import { Testimonial, TestimonialProps } from '#components/testimonials'
@@ -21,37 +19,8 @@ export interface HighlightBoxProps
 
 export const HighlightsItem: React.FC<HighlightBoxProps> = (props) => {
   const { children, title, ...rest } = props
-  const prefersReducedMotion = usePrefersReducedMotion()
-  const [isVisible, setIsVisible] = useState(prefersReducedMotion)
-  const ref = useRef<HTMLDivElement>(null)
-
-  useEffect(() => {
-    if (prefersReducedMotion) return
-
-    const observer = new IntersectionObserver(
-      ([entry]) => {
-        if (entry.isIntersecting) {
-          setIsVisible(true)
-          observer.unobserve(entry.target)
-        }
-      },
-      { threshold: 0.1 }
-    )
-
-    if (ref.current) {
-      observer.observe(ref.current)
-    }
-
-    return () => {
-      if (ref.current) {
-        observer.unobserve(ref.current)
-      }
-    }
-  }, [prefersReducedMotion])
-
   return (
     <GridItem
-      ref={ref}
       as={Card}
       borderRadius="md"
       p="8"
@@ -61,20 +30,18 @@ export const HighlightsItem: React.FC<HighlightBoxProps> = (props) => {
       overflow="hidden"
       position="relative"
       borderWidth="1px"
-      borderColor="blue.400"
+      borderColor="blue.400" // Added blue border
       bg="white"
-      transform={isVisible ? 'none' : 'translateX(-50px)'}
-      opacity={isVisible ? 1 : 0}
-      transition="all 0.6s ease-out, transform 0.6s ease-out, opacity 0.6s ease-out"
       _dark={{ 
         bg: 'gray.800',
-        borderColor: 'blue.300'
+        borderColor: 'blue.300' // Lighter blue in dark mode
       }}
       _hover={{
-        borderColor: 'blue.500',
-        transform: isVisible ? 'translateY(-2px)' : 'translateX(-50px) translateY(-2px)',
+        borderColor: 'blue.500', // Darker blue on hover
+        transform: 'translateY(-2px)',
         boxShadow: 'lg',
       }}
+      transition="all 0.2s"
       {...rest}
     >
       {title && (
@@ -99,51 +66,19 @@ export const HighlightsTestimonialItem: React.FC<
     ...rest
   } = props
   const theme = useTheme()
-  const prefersReducedMotion = usePrefersReducedMotion()
-  const [isVisible, setIsVisible] = useState(prefersReducedMotion)
-  const ref = useRef<HTMLDivElement>(null)
-
-  useEffect(() => {
-    if (prefersReducedMotion) return
-
-    const observer = new IntersectionObserver(
-      ([entry]) => {
-        if (entry.isIntersecting) {
-          setIsVisible(true)
-          observer.unobserve(entry.target)
-        }
-      },
-      { threshold: 0.1 }
-    )
-
-    if (ref.current) {
-      observer.observe(ref.current)
-    }
-
-    return () => {
-      if (ref.current) {
-        observer.unobserve(ref.current)
-      }
-    }
-  }, [prefersReducedMotion])
-
   return (
     <HighlightsItem
-      ref={ref}
       justifyContent="center"
-      borderColor="blue.400"
-      transform={isVisible ? 'none' : 'translateX(-50px)'}
-      opacity={isVisible ? 1 : 0}
-      transition="all 0.6s ease-out, transform 0.6s ease-out, opacity 0.6s ease-out"
+      borderColor="blue.400" // Added blue border
       _dark={{ 
-        borderColor: 'blue.300',
+        borderColor: 'blue.300', // Lighter blue in dark mode
         _hover: {
-          borderColor: 'blue.400'
+          borderColor: 'blue.400' // Slightly darker on hover in dark mode
         }
       }}
       _hover={{
         borderColor: 'blue.500',
-        transform: isVisible ? 'translateY(-2px)' : 'translateX(-50px) translateY(-2px)',
+        transform: 'translateY(-2px)',
         boxShadow: 'lg'
       }}
       p="4"
