@@ -392,11 +392,45 @@ const ServicesSection = () => {
               <FormLabel>Name</FormLabel>
               <Input placeholder="Your name" />
             </FormControl>
-
+            
+          <FormControl isRequired>
+          <FormLabel>Business Name</FormLabel>
+          <Input placeholder="Your company/organization name" />
+          </FormControl>
+            
             <FormControl mt={4}>
               <FormLabel>Email</FormLabel>
               <Input type="email" placeholder="Your email" />
             </FormControl>
+
+            <FormControl isRequired>
+          <FormLabel>Phone Number</FormLabel>
+          <Input 
+            type="tel" 
+            placeholder="07XX XXX XXX" 
+            pattern="[0-9]{10}"
+            maxLength={10}
+          />
+        </FormControl>
+
+             <FormControl isRequired>
+          <FormLabel>County</FormLabel>
+          <Select placeholder="Select your county">
+            <option>Nairobi</option>
+            <option>Mombasa</option>
+            <option>Kisumu</option>
+            <option>Nakuru</option>
+            <option>Eldoret</option>
+            <option>Kiambu</option>
+            <option>Machakos</option>
+            <option>Other</option>
+          </Select>
+        </FormControl>
+
+        <FormControl isRequired>
+          <FormLabel>Specific Location</FormLabel>
+          <Input placeholder="E.g. Westlands, Karen, Kilimani etc." />
+        </FormControl>
 
             <FormControl mt={4}>
               <FormLabel>Service</FormLabel>
@@ -414,6 +448,11 @@ const ServicesSection = () => {
               <FormLabel>Message</FormLabel>
               <Textarea placeholder="Additional details about your request" />
             </FormControl>
+            
+            <Checkbox mt={4} defaultChecked>
+             I agree to receive communications via phone, email or SMS
+            </Checkbox>
+            
           </ModalBody>
 
           <ModalFooter>
