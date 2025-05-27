@@ -66,9 +66,6 @@ export const Testimonial = ({
     <Card 
       position="relative" 
       ref={cardRef}
-      border="2px solid"
-      borderColor="orange.300"
-      _dark={{ borderColor: "orange.500" }}
       transform={isVisible ? "translateX(0)" : "translateX(-100%)"}
       opacity={isVisible ? 1 : 0}
       transition="transform 0.5s ease-out, opacity 0.5s ease-out"
