@@ -338,14 +338,24 @@ const ServicesSection = () => {
   };
 
   return (
-    <Box 
-      border="4px solid" 
-      borderColor="green.100"
-      borderRadius="lg"
-      p={[4, 6, 8]}
-      position="relative"
-      _dark={{ borderColor: 'green.100' }}
-    >
+   <Box 
+  border="4px solid" 
+  borderColor="blue.400"
+  borderRadius="lg"
+  p={[4, 6, 8]}
+  position="relative"
+  _hover={{
+    borderColor: 'green.400', // Changes to green on hover
+    boxShadow: 'lg',
+  }}
+  transition="all 0.3s ease-in-out"
+  _dark={{
+    borderColor: 'blue.300',
+    _hover: {
+      borderColor: 'green.300'
+    }
+  }}
+>
        <BackgroundGradient height="100%" zIndex="-1" />
       <Features
         id="services"
