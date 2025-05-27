@@ -7,6 +7,7 @@ import {
   Flex,
   HStack,
   Heading,
+  useColorModeValue,
   Icon,
    Button,
   IconButton,
