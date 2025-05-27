@@ -7,9 +7,9 @@ import {
   Heading,
   Stack,
   Text,
-  keyframes,
   usePrefersReducedMotion,
 } from "@chakra-ui/react";
+import { keyframes } from "@chakra-ui/theme-tools"; // Updated import
 import { Link } from "@saas-ui/react";
 import { FaTwitter } from "react-icons/fa";
 import { useEffect, useRef } from "react";
