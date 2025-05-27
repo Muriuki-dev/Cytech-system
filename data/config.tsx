@@ -41,10 +41,7 @@ const siteConfig = {
       </>
     ),
     links: [
-  {
-    href: '/',
-    label: 'Contact',
-  },
+ 
   {
     href: '/', // Replace with your Twitter URL
     label: <FaTwitter size="14" />,
