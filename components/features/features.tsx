@@ -1,4 +1,3 @@
-          
 import * as React from 'react';
 import {
   Box,
@@ -13,15 +12,52 @@ import {
   useMultiStyleConfig,
   ThemingProps,
   SystemProps,
+  usePrefersReducedMotion,
 } from '@chakra-ui/react';
     
 import { Section, SectionTitle, SectionTitleProps } from 'components/section';
 
 // ====================== REVEALER COMPONENT ======================
-const Revealer = ({ children }: any) => {
-  return children;
-};
+const Revealer = ({ children, delay = 0 }: { children: React.ReactNode; delay?: number }) => {
+  const prefersReducedMotion = usePrefersReducedMotion();
+  const [isVisible, setIsVisible] = React.useState(prefersReducedMotion);
+  const ref = React.useRef<HTMLDivElement>(null);
 
+  React.useEffect(() => {
+    if (prefersReducedMotion) return;
+
+    const observer = new IntersectionObserver(
+      ([entry]) => {
+        if (entry.isIntersecting) {
+          setIsVisible(true);
+          observer.unobserve(entry.target);
+        }
+      },
+      { threshold: 0.1 }
+    );
+
+    if (ref.current) {
+      observer.observe(ref.current);
+    }
+
+    return () => {
+      if (ref.current) {
+        observer.unobserve(ref.current);
+      }
+    };
+  }, [prefersReducedMotion]);
+
+  return (
+    <Box
+      ref={ref}
+      transform={isVisible ? 'none' : 'translateX(-50px)'}
+      opacity={isVisible ? 1 : 0}
+      transition={`transform 0.6s ease-out ${delay}ms, opacity 0.6s ease-out ${delay}ms`}
+    >
+      {children}
+    </Box>
+  );
+};
 
 // ====================== INTERFACES ======================
 export interface FeaturesProps
@@ -99,7 +135,6 @@ export const Features: React.FC<FeaturesProps> = (props) => {
   const ip = align === 'left' ? 'left' : 'top';
 
   return (
-   
     <Section {...rest}>
       <Stack direction="row" height="full" align="flex-start">
         <VStack flex="1" spacing={[4, null, 8]} alignItems="stretch">
@@ -115,7 +150,7 @@ export const Features: React.FC<FeaturesProps> = (props) => {
           
           <SimpleGrid columns={columns} spacing={spacing}>
             {features.map((feature, i) => (
-              <Wrap key={i} delay={feature.delay}>
+              <Wrap key={i} delay={feature.delay || i * 100}>
                 <Feature iconSize={iconSize} {...feature} ip={ip} />
               </Wrap>
             ))}
