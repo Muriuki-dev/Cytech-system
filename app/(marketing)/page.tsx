@@ -65,7 +65,7 @@ import {
   FiShare2,
   FiShoppingBag,
 } from 'react-icons/fi'
-import { useState, useRef } from 'react'
+import { useState, useEffect, useRef } from 'react'
 import * as React from 'react'
 import { ButtonLink } from '#components/button-link/button-link'
 import { Faq } from '#components/faq'
@@ -104,13 +104,30 @@ const HeroSection: React.FC = () => {
   const [name, setName] = useState("");
   const [email, setEmail] = useState("");
   const [message, setMessage] = useState("");
+  const [currentImageIndex, setCurrentImageIndex] = useState(0);
+
+  const images = [
+    '/static/images/slide1.jpeg',
+    '/static/images/slide2.jpeg',
+    '/static/images/slide3.jpeg',
+    '/static/images/slide4.jpeg',
+    '/static/images/slide5.jpeg'
+  ];
+
+  useEffect(() => {
+    const interval = setInterval(() => {
+      setCurrentImageIndex((prevIndex) => 
+        prevIndex === images.length - 1 ? 0 : prevIndex + 1
+      );
+    }, 5000); // Change image every 5 seconds
+
+    return () => clearInterval(interval);
+  }, [images.length]);
 
   const handleSubmit = () => {
     if (name && email && message) {
       alert(`Thank you, ${name}! We'll contact you soon at ${email}.`);
-      // Here you would typically send the data to your backend
       onClose();
-      // Reset form
       setName("");
       setEmail("");
       setMessage("");
@@ -118,8 +135,36 @@ const HeroSection: React.FC = () => {
   };
 
   return (
-    <Box position="relative" overflow="hidden">
+    <Box position="relative" overflow="hidden" minH="100vh">
+      {/* Image Slideshow Background */}
+      <Box
+        position="absolute"
+        top={0}
+        left={0}
+        right={0}
+        bottom={0}
+        zIndex={-2}
+        backgroundImage={`url(${images[currentImageIndex]})`}
+        backgroundSize="cover"
+        backgroundPosition="center"
+        backgroundRepeat="no-repeat"
+        transition="background-image 1s ease-in-out"
+      />
+      
+      {/* Dark overlay for better text visibility */}
+      <Box
+        position="absolute"
+        top={0}
+        left={0}
+        right={0}
+        bottom={0}
+        bg="blackAlpha.600"
+        zIndex={-1}
+      />
+
+      {/* Gradient overlay (kept from your original) */}
       <BackgroundGradient height="100%" zIndex="-1" />
+
       <Container maxW="container.xl" pt={{ base: 20, lg: 40 }} pb="20">
         <Stack direction={{ base: 'column', lg: 'row' }} alignItems="center" spacing={8}>
           <Hero
@@ -256,7 +301,7 @@ const HeroSection: React.FC = () => {
         </AlertDialogOverlay>
       </AlertDialog>
     </Box>
-  )
+  );
 }
 
 const HighlightsSection = () => {
