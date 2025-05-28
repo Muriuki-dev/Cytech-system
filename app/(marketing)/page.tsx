@@ -79,7 +79,7 @@ import { Faq } from '#components/faq'
 import { Features } from '#components/features'
 import { BackgroundGradient } from '#components/gradients/background-gradient'
 import { Hero } from '#components/hero'
-import Link from 'next/link';
+import NextLink from 'next/link'
 
 import {
   Highlights,
