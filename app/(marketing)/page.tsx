@@ -85,7 +85,7 @@ import {
 } from '#components/highlights'
 import { Testimonial, Testimonials } from '#components/testimonials'
 import { Em } from '#components/typography'
-import { FiArrowRight, FiCheck } from 'react-icons/fi';
+
 import faq from '#data/faq'
 import testimonials from '#data/testimonials'
 import { FallInPlace } from '#components/motion/fall-in-place'
