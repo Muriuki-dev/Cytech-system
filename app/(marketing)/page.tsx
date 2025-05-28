@@ -79,6 +79,7 @@ import { Faq } from '#components/faq'
 import { Features } from '#components/features'
 import { BackgroundGradient } from '#components/gradients/background-gradient'
 import { Hero } from '#components/hero'
+import { Order } from '#components/order'
 import {
   Highlights,
   HighlightsItem,
@@ -662,7 +663,7 @@ const EventsSection = () => {
             <Text color="muted" mb="2"><strong>Date:</strong> May 30, 2025</Text>
             <Text color="muted" mb="2"><strong>Location:</strong> Naivasha Town, Dubai Plaza, Opposite Modern Market</Text>
             <Text mb="4">Join us for the premier industry event showcasing innovative products and services with special marketing packages available.</Text>
-            <ButtonLink href="#naivasha-marketing-package" rightIcon={<FiArrowRight />}>
+            <ButtonLink href="/naivasha/order" rightIcon={<FiArrowRight />}>
               Learn More
             </ButtonLink>
           </Box>
