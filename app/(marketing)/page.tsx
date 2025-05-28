@@ -664,7 +664,7 @@ const EventsSection = () => {
             <Text color="muted" mb="2"><strong>Date:</strong> May 30, 2025</Text>
             <Text color="muted" mb="2"><strong>Location:</strong> Naivasha Town, Dubai Plaza, Opposite Modern Market</Text>
             <Text mb="4">Join us for the premier industry event showcasing innovative products and services with special marketing packages available.</Text>
-            <ButtonLink href="/naivasha/order" rightIcon={<FiArrowRight />}>
+            <ButtonLink href="/order" rightIcon={<FiArrowRight />}>
               Learn More
             </ButtonLink>
           </Box>
