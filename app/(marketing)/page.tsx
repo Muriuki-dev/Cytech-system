@@ -630,6 +630,12 @@ const ServicesSection = () => {
   )
 }
 const EventsSection = () => {
+   const handleLearnMore = () => {
+    const element = document.getElementById('naivasha-marketing-package');
+    if (element) {
+      element.scrollIntoView({ behavior: 'smooth' });
+    }
+  };
   return (
     <Container maxW="container.xl" py="20">
       <Stack spacing="12">
@@ -664,9 +670,14 @@ const EventsSection = () => {
             <Text color="muted" mb="2"><strong>Date:</strong> May 30, 2025</Text>
             <Text color="muted" mb="2"><strong>Location:</strong> Naivasha Town, Dubai Plaza, Opposite Modern Market</Text>
             <Text mb="4">Join us for the premier industry event showcasing innovative products and services with special marketing packages available.</Text>
-            <Button as="a" href="#naivasha-marketing-package" colorScheme="blue" rightIcon={<FiArrowRight />}>
+            <Button 
+              onClick={handleLearnMore}
+              colorScheme="blue" 
+              rightIcon={<FiArrowRight />}
+            >
               Learn More
             </Button>
+             
           </Box>
         </Stack>
         
