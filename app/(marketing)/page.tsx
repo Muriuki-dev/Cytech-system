@@ -277,7 +277,7 @@ const HeroSection: React.FC = () => {
                   <Textarea
                     value={message}
                     onChange={(e) => setMessage(e.target.value)}
-                    placeholder="Your message"
+                    placeholder="Message us with your requirements, and we'll send you a custom quotation tailored to your needs"
                     rows={4}
                   />
                 </FormControl>
@@ -599,7 +599,7 @@ const ServicesSection = () => {
 
             <FormControl mt={4}>
               <FormLabel>Message</FormLabel>
-              <Textarea placeholder="Additional details about your request" />
+              <Textarea placeholder="Message us with your requirements, and we'll send you a custom quotation tailored to your needs" />
             </FormControl>
             
             <Checkbox mt={4} defaultChecked>
@@ -652,7 +652,7 @@ const EventsSection = () => {
   >
     <Heading size="lg" mb="4">Kanini Haraka Wholesalers and Distribution</Heading>
     <Text color="muted" mb="2"><strong>Date:</strong> May 30, 2025</Text>
-    <Text color="muted" mb="2"><strong>Location:</strong> Naivasha Town, Dubai Plaza</Text>
+    <Text color="muted" mb="2"><strong>Location:</strong> Naivasha Town, Dubai Plaza, Opposite Modern Market</Text>
     <Text mb="4">Join us for the premier industry event showcasing innovative products and services.</Text>
     <ButtonLink href="/events/trade-show-2025" rightIcon={<FiArrowRight />}>
       Learn More
