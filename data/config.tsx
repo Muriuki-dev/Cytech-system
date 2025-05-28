@@ -37,7 +37,7 @@ const siteConfig = {
   footer: {
     copyright: (
       <>
-        Built by <Link href="/">Kelvin</Link>
+       &copy; ACME 2022 
       </>
     ),
     links: [
