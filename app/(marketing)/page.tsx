@@ -517,11 +517,12 @@ const ServicesSection = () => {
             variant: 'center',
           },
           {
-            title: 'Merchandising Services',
-            icon: FiShoppingBag,
-            description: 'POS materials and display solutions that optimize product placement and brand visibility.',
-            variant: 'center',
-          },
+  title: 'Community & Sports Engagement Events',
+  icon: FiShoppingBag,
+  description: 'Interactive events designed to build strong community ties and boost brand presence through local sports, outreach programs, and public engagement.',
+  variant: 'center',
+},
+
           {
             title: 'Project Management',
             icon: FiLayers,
@@ -699,16 +700,16 @@ const EventsSection = () => {
             }}
             transition="all 0.2s"
           >
-            <Heading size="lg" mb="4">Kanini Haraka Wholesalers and Distribution</Heading>
+            <Heading size="lg" mb="4">Kanini Haraka Wholesalers and Distribution - (Marketing Package Promotion)</Heading>
             <Text color="muted" mb="2"><strong>Date:</strong> May 30, 2025</Text>
-            <Text color="muted" mb="2"><strong>Location:</strong> Naivasha Town, Dubai Plaza, Opposite Modern Market</Text>
+            <Text color="muted" mb="2"><strong>Location:</strong> Naivasha Town, Dubai Plaza, Opposite Modern Market, Next to Ketias Supermarket</Text>
             <Text mb="4">Join us for the premier industry event showcasing innovative products and services with special marketing packages available.</Text>
             <Button 
               onClick={onInfoOpen}
-              colorScheme="blue" 
+              colorScheme="green" 
               rightIcon={<FiArrowRight />}
             >
-              Learn More
+              Book Now
             </Button>
           </Box>
         </Stack>
@@ -809,7 +810,7 @@ const EventsSection = () => {
 
                 <Box textAlign="center" py="8">
                   <Button 
-                    colorScheme="blue" 
+                    colorScheme="green" 
                     size="lg" 
                     onClick={handleProceedToBook}
                     rightIcon={<FiArrowRight />}
