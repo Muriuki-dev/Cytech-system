@@ -650,9 +650,9 @@ const EventsSection = () => {
     }}
     transition="all 0.2s"
   >
-    <Heading size="lg" mb="4">Trade Show 2025</Heading>
-    <Text color="muted" mb="2"><strong>Date:</strong> June 15-17, 2025</Text>
-    <Text color="muted" mb="2"><strong>Location:</strong> Nairobi Convention Center</Text>
+    <Heading size="lg" mb="4">Kanini Haraka Wholesalers and Distribution</Heading>
+    <Text color="muted" mb="2"><strong>Date:</strong> May 30, 2025</Text>
+    <Text color="muted" mb="2"><strong>Location:</strong> Naivasha Town, Dubai Plaza</Text>
     <Text mb="4">Join us for the premier industry event showcasing innovative products and services.</Text>
     <ButtonLink href="/events/trade-show-2025" rightIcon={<FiArrowRight />}>
       Learn More
