@@ -37,13 +37,13 @@ export const Footer: React.FC<FooterProps> = (props) => {
                 <HStack>
                   <Icon as={FaPhone} color="muted" boxSize="4" />
                   <Text fontSize="sm" color="muted">
-                    070-000-000
+                    0741953190
                   </Text>
                 </HStack>
                 <HStack>
                   <Icon as={FaEnvelope} color="muted" boxSize="4" />
                   <Text fontSize="sm" color="muted">
-                    contact@stratile.com
+                    labanmwangi444@gmail.com
                   </Text>
                 </HStack>
               </Stack>
