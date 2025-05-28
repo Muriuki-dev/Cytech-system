@@ -115,7 +115,7 @@ const LiveSupportChat = () => {
   const [chatMessages, setChatMessages] = useState([
     { id: 1, sender: 'support', text: 'Hello! How can we help you today?', time: new Date() }
   ]);
-  const messagesEndRef = useRef(null);
+  const messagesEndRef = useRef<HTMLDivElement>(null); // Add proper type here
 
   const handleSendMessage = () => {
     if (message.trim()) {
@@ -137,7 +137,7 @@ const LiveSupportChat = () => {
     }
   };
 
-  const handleKeyPress = (e) => {
+  const handleKeyPress = (e: React.KeyboardEvent) => {
     if (e.key === 'Enter' && !e.shiftKey) {
       e.preventDefault();
       handleSendMessage();
