@@ -7,9 +7,10 @@ import {
   SimpleGrid,
   Stack,
   Text,
+  Icon,
 } from '@chakra-ui/react'
 import { Link, LinkProps } from '@saas-ui/react'
-
+import { FaPhone, FaEnvelope } from 'react-icons/fa' // Importing icons
 import siteConfig from '#data/config'
 
 export interface FooterProps extends BoxProps {
@@ -30,6 +31,21 @@ export const Footer: React.FC<FooterProps> = (props) => {
               <Text fontSize="md" color="muted">
                 {siteConfig.seo.description}
               </Text>
+              {/* Add contact information with icons */}
+              <Stack spacing="3" mt="2">
+                <HStack>
+                  <Icon as={FaPhone} color="muted" boxSize="4" />
+                  <Text fontSize="sm" color="muted">
+                    070-000-000
+                  </Text>
+                </HStack>
+                <HStack>
+                  <Icon as={FaEnvelope} color="muted" boxSize="4" />
+                  <Text fontSize="sm" color="muted">
+                    contact@stratile.com
+                  </Text>
+                </HStack>
+              </Stack>
             </Stack>
             <Copyright>{siteConfig.footer.copyright}</Copyright>
           </Stack>
