@@ -79,7 +79,8 @@ import { Faq } from '#components/faq'
 import { Features } from '#components/features'
 import { BackgroundGradient } from '#components/gradients/background-gradient'
 import { Hero } from '#components/hero'
-import { Order } from '#components/naivasha'
+import Link from 'next/link';
+
 import {
   Highlights,
   HighlightsItem,
