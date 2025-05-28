@@ -89,9 +89,9 @@ const Home = () => {
       <HeroSection />
        <ServicesSection />
       <HighlightsSection />
-     
-      <EventsSection />
       <TestimonialsSection />
+      <EventsSection />
+     
       <FaqSection />
     </Box>
   )
@@ -727,7 +727,7 @@ const TestimonialsSection = () => {
 
   return (
     <Testimonials
-      title="What Our Partners Say"
+      title="Active Projects"
       columns={[1, 2, 3]}
       innerWidth="container.xl"
     >
