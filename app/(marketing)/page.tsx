@@ -630,7 +630,18 @@ const ServicesSection = () => {
   )
 }
 const EventsSection = () => {
-  const { isOpen, onOpen, onClose } = useDisclosure();
+  const { 
+    isOpen: isInfoOpen, 
+    onOpen: onInfoOpen, 
+    onClose: onInfoClose 
+  } = useDisclosure();
+  
+  const { 
+    isOpen: isBookingOpen, 
+    onOpen: onBookingOpen, 
+    onClose: onBookingClose 
+  } = useDisclosure();
+
   const [formData, setFormData] = useState({
     name: '',
     company: '',
@@ -650,7 +661,12 @@ const EventsSection = () => {
     const message = `New Registration for Naivasha Event:\n\n*Name:* ${formData.name}\n*Company:* ${formData.company}\n*Email:* ${formData.email}\n*Phone:* ${formData.phone}\n*Message:* ${formData.message}`;
     const encodedMessage = encodeURIComponent(message);
     window.open(`https://wa.me/${whatsappNumber}?text=${encodedMessage}`, '_blank');
-    onClose();
+    onBookingClose();
+  };
+
+  const handleProceedToBook = () => {
+    onInfoClose();
+    onBookingOpen();
   };
 
   return (
@@ -688,7 +704,7 @@ const EventsSection = () => {
             <Text color="muted" mb="2"><strong>Location:</strong> Naivasha Town, Dubai Plaza, Opposite Modern Market</Text>
             <Text mb="4">Join us for the premier industry event showcasing innovative products and services with special marketing packages available.</Text>
             <Button 
-              onClick={onOpen}
+              onClick={onInfoOpen}
               colorScheme="blue" 
               rightIcon={<FiArrowRight />}
             >
@@ -704,8 +720,8 @@ const EventsSection = () => {
         </Box>
       </Stack>
 
-      {/* Marketing Package Modal */}
-      <Modal isOpen={isOpen} onClose={onClose} size="6xl">
+      {/* Information Modal */}
+      <Modal isOpen={isInfoOpen} onClose={onInfoClose} size="6xl">
         <ModalOverlay />
         <ModalContent>
           <ModalCloseButton />
@@ -756,28 +772,6 @@ const EventsSection = () => {
                   </Text>
                 </Box>
 
-                <Box textAlign="center" py="8" bg="gray.50" borderRadius="lg">
-                  <Heading size="lg" mb="6">Ready to Boost Your Brand?</Heading>
-                  <Button 
-                    colorScheme="blue" 
-                    size="lg" 
-                    onClick={() => {
-                      onClose();
-                      // Open registration form
-                      setTimeout(() => {
-                        document.getElementById('register-now-btn')?.click();
-                      }, 100);
-                    }}
-                    rightIcon={<FiArrowRight />}
-                    px="8"
-                    py="6"
-                    fontSize="xl"
-                  >
-                    Register Now
-                  </Button>
-                  <Text mt="4" color="muted">Limited packages available - Book by May 28th to secure your spot</Text>
-                </Box>
-
                 <Box>
                   <Heading size="lg" mb="4">Frequently Asked Questions</Heading>
                   <Accordion allowToggle>
@@ -812,15 +806,28 @@ const EventsSection = () => {
                     </AccordionItem>
                   </Accordion>
                 </Box>
+
+                <Box textAlign="center" py="8">
+                  <Button 
+                    colorScheme="blue" 
+                    size="lg" 
+                    onClick={handleProceedToBook}
+                    rightIcon={<FiArrowRight />}
+                    px="8"
+                    py="6"
+                    fontSize="xl"
+                  >
+                    Proceed to Book
+                  </Button>
+                </Box>
               </Stack>
             </Container>
           </ModalBody>
         </ModalContent>
       </Modal>
 
-      {/* Registration Modal (hidden trigger) */}
-      <Button id="register-now-btn" display="none" onClick={onOpen} />
-      <Modal isOpen={isOpen} onClose={onClose} size="lg">
+      {/* Booking Form Modal */}
+      <Modal isOpen={isBookingOpen} onClose={onBookingClose} size="lg">
         <ModalOverlay />
         <ModalContent>
           <ModalHeader>Register for Naivasha Event Package</ModalHeader>
@@ -883,7 +890,7 @@ const EventsSection = () => {
             </ModalBody>
 
             <ModalFooter>
-              <Button variant="ghost" mr={3} onClick={onClose}>
+              <Button variant="ghost" mr={3} onClick={onBookingClose}>
                 Cancel
               </Button>
               <Button 
