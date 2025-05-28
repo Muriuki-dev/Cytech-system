@@ -113,28 +113,107 @@ const LiveSupportChat = () => {
   const { isOpen, onOpen, onClose } = useDisclosure();
   const [message, setMessage] = useState('');
   const [chatMessages, setChatMessages] = useState([
-    { id: 1, sender: 'support', text: 'Hello! How can we help you today?', time: new Date() }
+    { id: 1, sender: 'support', text: 'Hello! Welcome to Stratile Ltd. How can we help you today?', time: new Date() }
   ]);
-  const messagesEndRef = useRef<HTMLDivElement>(null); // Add proper type here
+  const messagesEndRef = useRef<HTMLDivElement>(null);
+  const [awaitingHuman, setAwaitingHuman] = useState(false);
 
   const handleSendMessage = () => {
-    if (message.trim()) {
-      // Add user message
-      setChatMessages(prev => [
-        ...prev,
-        { id: Date.now(), sender: 'user', text: message, time: new Date() }
-      ]);
-      
-      // Simulate support reply after 1 second
-      setTimeout(() => {
-        setChatMessages(prev => [
-          ...prev,
-          { id: Date.now() + 1, sender: 'support', text: 'Thanks for your message! Our team will get back to you shortly.', time: new Date() }
-        ]);
-      }, 1000);
-      
-      setMessage('');
+    if (!message.trim()) return;
+
+    // Add user message
+    const userMessage = { id: Date.now(), sender: 'user', text: message, time: new Date() };
+    setChatMessages(prev => [...prev, userMessage]);
+    setMessage('');
+
+    // Process the message
+    setTimeout(() => {
+      const response = generateResponse(message);
+      setChatMessages(prev => [...prev, response]);
+    }, 1000);
+  };
+
+  const generateResponse = (userMessage: string): { id: number, sender: string, text: string, time: Date } => {
+    const lowerMessage = userMessage.toLowerCase();
+    
+    // Check if user wants human support
+    if (lowerMessage.includes('human') || lowerMessage.includes('agent') || lowerMessage.includes('representative')) {
+      setAwaitingHuman(true);
+      return {
+        id: Date.now(),
+        sender: 'support',
+        text: 'I\'ve requested a human support representative to join this chat. In the meantime, is there anything else I can help you with?',
+        time: new Date()
+      };
     }
+
+    // Check for greetings
+    if (lowerMessage.includes('hi') || lowerMessage.includes('hello') || lowerMessage.includes('hey')) {
+      return {
+        id: Date.now(),
+        sender: 'support',
+        text: 'Hello! Thank you for contacting Stratile Ltd. How can I assist you today?',
+        time: new Date()
+      };
+    }
+
+    // Check for services
+    if (lowerMessage.includes('service') || lowerMessage.includes('offer') || lowerMessage.includes('do you provide')) {
+      return {
+        id: Date.now(),
+        sender: 'support',
+        text: 'Stratile Ltd offers comprehensive services including:\n\n- Marketing Activations\n- Creative Solutions\n- Advertising Solutions\n- Social Media Marketing\n- Community & Sports Engagement Events\n- Project Management\n\nWhich service are you interested in?',
+        time: new Date()
+      };
+    }
+
+    // Check for vision/mission
+    if (lowerMessage.includes('vision') || lowerMessage.includes('mission') || lowerMessage.includes('purpose')) {
+      return {
+        id: Date.now(),
+        sender: 'support',
+        text: 'Our Vision: To be the leading project management organization that empowers individuals and communities.\n\nOur Mission: To deliver exceptional project management services that foster functional businesses and drive meaningful social development.',
+        time: new Date()
+      };
+    }
+
+    // Check for events
+    if (lowerMessage.includes('event') || lowerMessage.includes('upcoming') || lowerMessage.includes('kanini')) {
+      return {
+        id: Date.now(),
+        sender: 'support',
+        text: 'Our upcoming event: Kanini Haraka Wholesalers and Distribution Marketing Package Promotion on May 30, 2025 in Naivasha. Would you like more details or to book a package?',
+        time: new Date()
+      };
+    }
+
+    // Check for contact
+    if (lowerMessage.includes('contact') || lowerMessage.includes('reach') || lowerMessage.includes('phone')) {
+      return {
+        id: Date.now(),
+        sender: 'support',
+        text: 'You can reach us at:\n\nPhone: 0741953190\nEmail: labanmwangi444@gmail.com\n\nWould you like me to connect you with a human representative?',
+        time: new Date()
+      };
+    }
+
+    // Check for project management
+    if (lowerMessage.includes('project') || lowerMessage.includes('management') || lowerMessage.includes('pmo')) {
+      return {
+        id: Date.now(),
+        sender: 'support',
+        text: 'We provide end-to-end project management from conceptualization to execution. Our services include stakeholder management, community engagement, and ensuring sustainable outcomes. Would you like to discuss a specific project?',
+        time: new Date()
+      };
+    }
+
+    // Default response
+    return {
+      id: Date.now(),
+      sender: 'support',
+      text: 'Thank you for your message. I can help with information about our services, upcoming events, or connect you with human support if needed. Could you please specify your question?',
+      time: new Date()
+    };
   };
 
   const handleKeyPress = (e: React.KeyboardEvent) => {
@@ -145,19 +224,12 @@ const LiveSupportChat = () => {
   };
 
   useEffect(() => {
-    // Scroll to bottom when messages change
     messagesEndRef.current?.scrollIntoView({ behavior: 'smooth' });
   }, [chatMessages]);
 
   return (
     <>
-      {/* Floating Chat Button */}
-      <Box
-        position="fixed"
-        bottom="6"
-        right="6"
-        zIndex="999"
-      >
+      <Box position="fixed" bottom="6" right="6" zIndex="999">
         {!isOpen ? (
           <IconButton
             aria-label="Open live chat"
@@ -178,7 +250,6 @@ const LiveSupportChat = () => {
             display="flex"
             flexDirection="column"
           >
-            {/* Chat Header */}
             <Box
               bg="green.500"
               color="white"
@@ -188,18 +259,22 @@ const LiveSupportChat = () => {
               justifyContent="space-between"
               alignItems="center"
             >
-              <Text fontWeight="bold">Live Support</Text>
+              <Text fontWeight="bold">
+                {awaitingHuman ? 'Connecting to support...' : 'Stratile Support'}
+              </Text>
               <IconButton
                 aria-label="Close chat"
                 icon={<Icon as={FiX} />}
-                onClick={onClose}
+                onClick={() => {
+                  onClose();
+                  setAwaitingHuman(false);
+                }}
                 variant="ghost"
                 color="white"
                 size="sm"
               />
             </Box>
 
-            {/* Chat Messages */}
             <Box
               flex="1"
               p={4}
@@ -220,6 +295,7 @@ const LiveSupportChat = () => {
                     py={2}
                     rounded="lg"
                     boxShadow="sm"
+                    whiteSpace="pre-line"
                   >
                     <Text>{msg.text}</Text>
                     <Text
@@ -236,7 +312,6 @@ const LiveSupportChat = () => {
               <div ref={messagesEndRef} />
             </Box>
 
-            {/* Message Input */}
             <Box p={3} borderTopWidth="1px">
               <HStack>
                 <Textarea
@@ -255,6 +330,11 @@ const LiveSupportChat = () => {
                   Send
                 </Button>
               </HStack>
+              {!awaitingHuman && (
+                <Text mt={2} fontSize="sm" textAlign="center" color="gray.500">
+                  Type "human" to connect with a support representative
+                </Text>
+              )}
             </Box>
           </Box>
         )}
