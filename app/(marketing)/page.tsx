@@ -71,6 +71,8 @@ import {
   FiTool,
   FiShare2,
   FiShoppingBag,
+  FiMessageSquare,
+  FiX,
 } from 'react-icons/fi'
 import { useState, useEffect, useRef } from 'react'
 import * as React from 'react'
@@ -97,13 +99,167 @@ const Home = () => {
   return (
     <Box>
       <HeroSection />
-       <ServicesSection />
+      <ServicesSection />
       <HighlightsSection />
       <TestimonialsSection />
       <EventsSection />
-     
       <FaqSection />
+      <LiveSupportChat />
     </Box>
+  )
+}
+
+const LiveSupportChat = () => {
+  const { isOpen, onOpen, onClose } = useDisclosure();
+  const [message, setMessage] = useState('');
+  const [chatMessages, setChatMessages] = useState([
+    { id: 1, sender: 'support', text: 'Hello! How can we help you today?', time: new Date() }
+  ]);
+  const messagesEndRef = useRef(null);
+
+  const handleSendMessage = () => {
+    if (message.trim()) {
+      // Add user message
+      setChatMessages(prev => [
+        ...prev,
+        { id: Date.now(), sender: 'user', text: message, time: new Date() }
+      ]);
+      
+      // Simulate support reply after 1 second
+      setTimeout(() => {
+        setChatMessages(prev => [
+          ...prev,
+          { id: Date.now() + 1, sender: 'support', text: 'Thanks for your message! Our team will get back to you shortly.', time: new Date() }
+        ]);
+      }, 1000);
+      
+      setMessage('');
+    }
+  };
+
+  const handleKeyPress = (e) => {
+    if (e.key === 'Enter' && !e.shiftKey) {
+      e.preventDefault();
+      handleSendMessage();
+    }
+  };
+
+  useEffect(() => {
+    // Scroll to bottom when messages change
+    messagesEndRef.current?.scrollIntoView({ behavior: 'smooth' });
+  }, [chatMessages]);
+
+  return (
+    <>
+      {/* Floating Chat Button */}
+      <Box
+        position="fixed"
+        bottom="6"
+        right="6"
+        zIndex="999"
+      >
+        {!isOpen ? (
+          <IconButton
+            aria-label="Open live chat"
+            icon={<Icon as={FiMessageSquare} />}
+            onClick={onOpen}
+            colorScheme="green"
+            size="lg"
+            isRound
+            boxShadow="lg"
+          />
+        ) : (
+          <Box
+            bg={useColorModeValue('white', 'gray.800')}
+            rounded="lg"
+            boxShadow="xl"
+            width={{ base: '90vw', md: '400px' }}
+            maxH="70vh"
+            display="flex"
+            flexDirection="column"
+          >
+            {/* Chat Header */}
+            <Box
+              bg="green.500"
+              color="white"
+              p={3}
+              borderTopRadius="lg"
+              display="flex"
+              justifyContent="space-between"
+              alignItems="center"
+            >
+              <Text fontWeight="bold">Live Support</Text>
+              <IconButton
+                aria-label="Close chat"
+                icon={<Icon as={FiX} />}
+                onClick={onClose}
+                variant="ghost"
+                color="white"
+                size="sm"
+              />
+            </Box>
+
+            {/* Chat Messages */}
+            <Box
+              flex="1"
+              p={4}
+              overflowY="auto"
+              bg={useColorModeValue('gray.50', 'gray.700')}
+            >
+              {chatMessages.map((msg) => (
+                <Box
+                  key={msg.id}
+                  mb={4}
+                  alignSelf={msg.sender === 'user' ? 'flex-end' : 'flex-start'}
+                  maxW="80%"
+                >
+                  <Box
+                    bg={msg.sender === 'user' ? 'green.500' : useColorModeValue('white', 'gray.600')}
+                    color={msg.sender === 'user' ? 'white' : useColorModeValue('gray.800', 'white')}
+                    px={4}
+                    py={2}
+                    rounded="lg"
+                    boxShadow="sm"
+                  >
+                    <Text>{msg.text}</Text>
+                    <Text
+                      fontSize="xs"
+                      color={msg.sender === 'user' ? 'green.100' : useColorModeValue('gray.500', 'gray.300')}
+                      textAlign="right"
+                      mt={1}
+                    >
+                      {msg.time.toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' })}
+                    </Text>
+                  </Box>
+                </Box>
+              ))}
+              <div ref={messagesEndRef} />
+            </Box>
+
+            {/* Message Input */}
+            <Box p={3} borderTopWidth="1px">
+              <HStack>
+                <Textarea
+                  value={message}
+                  onChange={(e) => setMessage(e.target.value)}
+                  placeholder="Type your message..."
+                  onKeyPress={handleKeyPress}
+                  resize="none"
+                  rows={1}
+                />
+                <Button
+                  colorScheme="green"
+                  onClick={handleSendMessage}
+                  isDisabled={!message.trim()}
+                >
+                  Send
+                </Button>
+              </HStack>
+            </Box>
+          </Box>
+        )}
+      </Box>
+    </>
   )
 }
 
