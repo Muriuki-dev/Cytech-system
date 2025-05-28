@@ -662,7 +662,7 @@ const EventsSection = () => {
             <Text color="muted" mb="2"><strong>Date:</strong> May 30, 2025</Text>
             <Text color="muted" mb="2"><strong>Location:</strong> Naivasha Town, Dubai Plaza, Opposite Modern Market</Text>
             <Text mb="4">Join us for the premier industry event showcasing innovative products and services with special marketing packages available.</Text>
-            <ButtonLink href="/events/naivasha-marketing-package" rightIcon={<FiArrowRight />}>
+            <ButtonLink href="#naivasha-marketing-package" rightIcon={<FiArrowRight />}>
               Learn More
             </ButtonLink>
           </Box>
@@ -695,7 +695,7 @@ const NaivashaMarketingPackage = () => {
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    const whatsappNumber = '254768258491'; // Replace with your WhatsApp number (with country code, no + or 0)
+    const whatsappNumber = '254741953190'; // Replace with your WhatsApp number (with country code, no + or 0)
     const message = `New Registration for Naivasha Event:\n\n*Name:* ${formData.name}\n*Company:* ${formData.company}\n*Email:* ${formData.email}\n*Phone:* ${formData.phone}\n*Message:* ${formData.message}`;
     const encodedMessage = encodeURIComponent(message);
     window.open(`https://wa.me/${whatsappNumber}?text=${encodedMessage}`, '_blank');
@@ -703,7 +703,7 @@ const NaivashaMarketingPackage = () => {
   };
 
   return (
-    <Container maxW="container.lg" py="20">
+    <Container id="naivasha-marketing-package" maxW="container.lg" py="20">
       <Stack spacing="8">
         <Box>
           <Heading size="2xl" mb="4">Marketing Package Promotion</Heading>
