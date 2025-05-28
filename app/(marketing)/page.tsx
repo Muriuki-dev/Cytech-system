@@ -1131,7 +1131,7 @@ const EventsSection = () => {
                 Cancel
               </Button>
               <Button 
-                colorScheme="blue" 
+                colorScheme="green" 
                 type="submit"
                 rightIcon={<FiCheck />}
               >
