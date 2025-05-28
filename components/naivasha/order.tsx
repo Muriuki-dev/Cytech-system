@@ -1,3 +1,13 @@
+import { useState } from 'react';
+import {
+  Container, Stack, Box, Heading, Text, UnorderedList, ListItem,
+  Accordion, AccordionItem, AccordionButton, AccordionPanel, AccordionIcon,
+  FormControl, FormLabel, Input, Textarea, Modal, ModalOverlay,
+  ModalContent, ModalHeader, ModalFooter, ModalBody, ModalCloseButton,
+  useDisclosure, Button
+} from '@chakra-ui/react';
+import { FiArrowRight, FiCheck } from 'react-icons/fi';
+
 const NaivashaMarketingPackage = () => {
   const { isOpen, onOpen, onClose } = useDisclosure();
   const [formData, setFormData] = useState({
