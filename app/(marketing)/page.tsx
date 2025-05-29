@@ -1031,6 +1031,7 @@ const EventsSection = () => {
     company: '',
     email: '',
     phone: '',
+    package: 'premium', // default to premium
     message: 'I want to register for the Naivasha Event Marketing Package'
   });
 
@@ -1042,13 +1043,17 @@ const EventsSection = () => {
   const handleSubmit = (e) => {
     e.preventDefault();
     const whatsappNumber = '254741953190';
-    const message = `New Registration for Naivasha Event:\n\n*Name:* ${formData.name}\n*Company:* ${formData.company}\n*Email:* ${formData.email}\n*Phone:* ${formData.phone}\n*Message:* ${formData.message}`;
+    const packageDetails = formData.package === 'premium' 
+      ? 'Premium Package (Ksh 45,000)' 
+      : 'Basic Package (Ksh 20,000)';
+    const message = `New Registration for Naivasha Event:\n\n*Name:* ${formData.name}\n*Company:* ${formData.company}\n*Email:* ${formData.email}\n*Phone:* ${formData.phone}\n*Package:* ${packageDetails}\n*Message:* ${formData.message}`;
     const encodedMessage = encodeURIComponent(message);
     window.open(`https://wa.me/${whatsappNumber}?text=${encodedMessage}`, '_blank');
     onBookingClose();
   };
 
-  const handleProceedToBook = () => {
+  const handleProceedToBook = (packageType) => {
+    setFormData(prev => ({ ...prev, package: packageType }));
     onInfoClose();
     onBookingOpen();
   };
@@ -1119,31 +1124,61 @@ If you want custom data report on your brand review (how customers felt about yo
                   <Text fontSize="xl" color="blue.500" fontWeight="bold">Naivasha Event – Friday 30th May 2025</Text>
                 </Box>
 
-                <Box bg="blue.50" p="6" borderRadius="lg" borderLeft="4px" borderColor="blue.500">
-                  <Heading size="lg" mb="4" color="blue.700">Package Highlights</Heading>
-                  <Text fontSize="xl" fontWeight="bold" mb="2">Price: Ksh 45,000</Text>
-                  
-                  <UnorderedList spacing="3" fontSize="lg">
-                    <ListItem>
-                      <strong>250+ expected client engagements</strong> - Get direct access to a large audience of potential customers
-                    </ListItem>
-                    <ListItem>
-                      <strong>VR Gaming Activation</strong> - Attract more visitors to your booth with immersive virtual reality experiences
-                    </ListItem>
-                    <ListItem>
-                      <strong>Dedicated Merchandising Table</strong> - Showcase your products prominently with a prime location
-                    </ListItem>
-                    <ListItem>
-                      <strong>Brand Visibility</strong> - Your logo featured in all event marketing materials
-                    </ListItem>
-                    <ListItem>
-                      <strong>Social Media Coverage</strong> - Inclusion in our event social media promotions
-                    </ListItem>
-                    <ListItem>
-                      <strong>Lead Generation</strong> - We'll help collect and provide you with attendee contact information
-                    </ListItem>
-                  </UnorderedList>
-                </Box>
+                <SimpleGrid columns={{ base: 1, md: 2 }} spacing="6">
+                  {/* Premium Package */}
+                  <Box bg="blue.50" p="6" borderRadius="lg" borderLeft="4px" borderColor="blue.500">
+                    <Heading size="lg" mb="4" color="blue.700">Premium Package</Heading>
+                    <Text fontSize="xl" fontWeight="bold" mb="2">Price: Ksh 45,000</Text>
+                    
+                    <UnorderedList spacing="3" fontSize="lg">
+                      <ListItem>
+                        <strong>250+ expected client engagements</strong> - Get direct access to a large audience
+                      </ListItem>
+                      <ListItem>
+                        <strong>VR Gaming Activation</strong> - Attract more visitors with VR experiences
+                      </ListItem>
+                      <ListItem>
+                        <strong>Dedicated Merchandising Table</strong> - Prime location for your products
+                      </ListItem>
+                      <ListItem>
+                        <strong>Brand Visibility</strong> - Logo in all event marketing materials
+                      </ListItem>
+                      <ListItem>
+                        <strong>Social Media Coverage</strong> - Included in our promotions
+                      </ListItem>
+                      <ListItem>
+                        <strong>Lead Generation</strong> - Attendee contact information provided
+                      </ListItem>
+                    </UnorderedList>
+                  </Box>
+
+                  {/* Basic Package */}
+                  <Box bg="gray.50" p="6" borderRadius="lg" borderLeft="4px" borderColor="gray.400">
+                    <Heading size="lg" mb="4" color="gray.700">Basic Package</Heading>
+                    <Text fontSize="xl" fontWeight="bold" mb="2">Price: Ksh 20,000</Text>
+                    
+                    <UnorderedList spacing="3" fontSize="lg">
+                      <ListItem>
+                        <strong>100 expected client engagements</strong> - Smaller audience access
+                      </ListItem>
+                      <ListItem>
+                        <strong>Shared Merchandising Space</strong> - Display area with other brands
+                      </ListItem>
+                      <ListItem>
+                        <strong>Basic Brand Visibility</strong> - Logo on select marketing materials
+                      </ListItem>
+                      <ListItem>
+                        <strong>Limited Social Media Mention</strong> - Secondary inclusion
+                      </ListItem>
+                      <ListItem>
+                        <strong>Self-Managed Lead Collection</strong> - Bring your own collection system
+                      </ListItem>
+                      <ListItem>
+                        <strong>No VR Activation</strong> - Standard booth setup only
+                      </ListItem>
+                    </UnorderedList>
+                  </Box>
+                </SimpleGrid>
 
                 <Box>
                   <Heading size="lg" mb="4">Why This Event?</Heading>
@@ -1153,8 +1188,8 @@ If you want custom data report on your brand review (how customers felt about yo
                     in a high-energy environment.
                   </Text>
                   <Text mb="4">
-                    Our marketing package is designed to maximize your brand's exposure and help you make valuable business connections. 
-                    The VR Gaming activation alone has been shown to increase booth traffic by up to 300% at similar events.
+                    Our marketing packages are designed to fit different budgets while maximizing your brand's exposure. 
+                    The Premium package with VR Gaming activation increases booth traffic by up to 300% at similar events.
                   </Text>
                 </Box>
 
@@ -1165,14 +1200,15 @@ If you want custom data report on your brand review (how customers felt about yo
                       <h2>
                         <AccordionButton>
                           <Box as="span" flex='1' textAlign='left'>
-                            What's included in the VR Gaming Activation?
+                            What's the difference between the packages?
                           </Box>
                           <AccordionIcon />
                         </AccordionButton>
                       </h2>
                       <AccordionPanel pb={4}>
-                        Our VR setup includes 2 VR stations with popular immersive games, branded with your company logo. 
-                        We handle all setup, operation, and takedown. Attendees will associate the fun experience with your brand.
+                        The Premium package offers more visibility, exclusive benefits like VR activation, 
+                        dedicated space, and full lead generation services. The Basic package provides 
+                        essential exposure at a lower cost with shared space and self-managed lead collection.
                       </AccordionPanel>
                     </AccordionItem>
 
@@ -1180,32 +1216,47 @@ If you want custom data report on your brand review (how customers felt about yo
                       <h2>
                         <AccordionButton>
                           <Box as="span" flex='1' textAlign='left'>
-                            Can we customize the merchandising table?
+                            Can we upgrade from Basic to Premium later?
                           </Box>
                           <AccordionIcon />
                         </AccordionButton>
                       </h2>
                       <AccordionPanel pb={4}>
-                        Yes! The 6ft table is yours to decorate as you wish. We recommend bringing banners, product samples, 
-                        and promotional materials. Setup time begins at 8 AM on event day.
+                        Yes, upgrades are possible based on availability. However, early booking guarantees 
+                        better placement and inclusion in all marketing materials.
                       </AccordionPanel>
                     </AccordionItem>
                   </Accordion>
                 </Box>
 
-                <Box textAlign="center" py="8">
-                  <Button 
-                    colorScheme="green" 
-                    size="lg" 
-                    onClick={handleProceedToBook}
-                    rightIcon={<FiArrowRight />}
-                    px="8"
-                    py="6"
-                    fontSize="xl"
-                  >
-                    Proceed to Book
-                  </Button>
-                </Box>
+                <SimpleGrid columns={{ base: 1, md: 2 }} spacing="6" textAlign="center" py="4">
+                  <Box>
+                    <Button 
+                      colorScheme="green" 
+                      size="lg" 
+                      onClick={() => handleProceedToBook('premium')}
+                      rightIcon={<FiArrowRight />}
+                      px="8"
+                      py="6"
+                      fontSize="xl"
+                    >
+                      Book Premium (45K)
+                    </Button>
+                  </Box>
+                  <Box>
+                    <Button 
+                      colorScheme="blue" 
+                      size="lg" 
+                      onClick={() => handleProceedToBook('basic')}
+                      rightIcon={<FiArrowRight />}
+                      px="8"
+                      py="6"
+                      fontSize="xl"
+                    >
+                      Book Basic (20K)
+                    </Button>
+                  </Box>
+                </SimpleGrid>
               </Stack>
             </Container>
           </ModalBody>
@@ -1261,6 +1312,18 @@ If you want custom data report on your brand review (how customers felt about yo
                     onChange={handleChange}
                     placeholder="Your WhatsApp number"
                   />
+                </FormControl>
+
+                <FormControl isRequired>
+                  <FormLabel>Package Selection</FormLabel>
+                  <Select 
+                    name="package"
+                    value={formData.package}
+                    onChange={handleChange}
+                  >
+                    <option value="premium">Premium Package (Ksh 45,000)</option>
+                    <option value="basic">Basic Package (Ksh 20,000)</option>
+                  </Select>
                 </FormControl>
 
                 <FormControl>
