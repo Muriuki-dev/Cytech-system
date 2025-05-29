@@ -90,15 +90,7 @@ export const HighlightsTestimonialItem: React.FC<
         _dark={{ opacity: 0.5, filter: 'blur(50px)' }}
       />
       {name && description  ? (
-        <Testimonial
-          name={name}
-          description={
-            <Box as="span" color="whiteAlpha.700">
-              {description}
-            </Box>
-          }
-         
-        >
+        <Testimonial >
           {children}
         </Testimonial>
       ) : (
