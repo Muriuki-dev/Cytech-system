@@ -25,6 +25,7 @@ import {
   HStack,
   Icon,
   IconButton,
+  Center,
   Input,
   Modal,
   ModalOverlay,
