@@ -53,6 +53,9 @@ export const Footer: React.FC<FooterProps> = (props) => {
       bg={bgColor}
       borderTopWidth="1px"
       borderTopColor={borderColor}
+      position="relative"
+      bottom="0"
+      width="100%"
       {...rest}
     >
       <Container maxW="container.2xl" px={{ base: 4, md: 8 }} py={12}>
@@ -165,7 +168,7 @@ export const Footer: React.FC<FooterProps> = (props) => {
                 Subscribe to our newsletter for the latest updates.
               </Text>
               <Box as="form" w="full">
-                <Flex>
+                <Flex direction={{ base: 'column', sm: 'row' }} gap={2}>
                   <Box
                     as="input"
                     type="email"
@@ -185,7 +188,6 @@ export const Footer: React.FC<FooterProps> = (props) => {
                   <Box
                     as="button"
                     type="submit"
-                    ml={2}
                     px={4}
                     py={2}
                     bg={themeColors.purple}
