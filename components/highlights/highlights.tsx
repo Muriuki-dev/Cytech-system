@@ -70,18 +70,10 @@ export const HighlightsTestimonialItem: React.FC<
   return (
     <HighlightsItem
       justifyContent="center"
-      borderColor="blue.400"
-      _dark={{
-        borderColor: 'blue.300',
-        _hover: {
-          borderColor: 'blue.400',
-        },
-      }}
-      _hover={{
-        borderColor: 'blue.500',
-        transform: 'translateY(-2px)',
-        boxShadow: 'lg',
-      }}
+      border="none"
+      borderRadius="none"
+      _dark={{ border: 'none' }}
+      _hover={{ transform: 'translateY(-2px)' }}
       p="4"
       {...rest}
     >
@@ -120,6 +112,7 @@ export const HighlightsTestimonialItem: React.FC<
     </HighlightsItem>
   )
 }
+
 
 
 export const Highlights: React.FC<SectionProps> = (props) => {
