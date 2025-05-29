@@ -707,201 +707,225 @@ const ServicesSection = () => {
   };
 
   return (
-   <Box 
-  border="lg" 
-  borderColor="blue.400"
-  borderRadius="lg"
-  p={[4, 6, 8]}
-  position="relative"
-  _hover={{
-    borderColor: 'green.400', // Changes to green on hover
-    boxShadow: 'lg',
-  }}
-  transition="all 0.3s ease-in-out"
-  _dark={{
-    borderColor: 'blue.300',
-    _hover: {
-      borderColor: 'green.300'
-    }
-  }}
->
-       <BackgroundGradient height="100%" zIndex="-1" />
-      <Features
-        id="services"
-        title={
-         <Heading
-  as="h2"
-  fontSize={['3xl', '4xl', '5xl']}
-  fontWeight="medium"
-  textAlign="center"
-  lineHeight="1.2"
-  letterSpacing="tighter"
-  color={useColorModeValue('gray.800', 'gray.100')}
-  position="relative"
-  _before={{
-    content: '""',
-    position: 'absolute',
-    width: '50px',
-    height: '4px',
-    bottom: '-10px',
-    left: '50%',
-    transform: 'translateX(-50%)',
-    bg: useColorModeValue('green.500', 'green.400'),
-    borderRadius: 'full',
-  }}
-  sx={{
-    fontFeatureSettings: '"liga", "calt"',
-    fontVariationSettings: '"opsz" 32',
-  }}
->
-  <Box 
-    as="span" 
-    display="block"
-    position="relative"
-    _after={{
-      content: '""',
-      position: 'absolute',
-      width: '100%',
-      height: '2px',
-      bottom: '-5px',
-      left: 0,
-      bg: useColorModeValue('green.100', 'green.900'),
-      opacity: 0.7,
-      transform: 'scaleX(0)',
-      transformOrigin: 'right',
-      transition: 'transform 0.6s cubic-bezier(0.86, 0, 0.07, 1)',
-    }}
-    _hover={{
-      _after: {
-        transform: 'scaleX(1)',
-        transformOrigin: 'left',
-      }
-    }}
-  >
-    Our Comprehensive
-  </Box>
-  <Box 
-    as="span" 
-    display="block"
-    fontWeight="semibold"
-    bgGradient={useColorModeValue(
-      'linear(to-r, green.500, teal.500)',
-      'linear(to-r, green.300, teal.300)'
-    )}
-    bgClip="text"
-    mt={2}
-  >
-    Service Offerings
-  </Box>
-</Heading>
-        }
-        description={
-          <>
-            Stratile Ltd offers a comprehensive suite of project management services tailored to meet the
-unique needs of our clients and the communities we support.
-            <Br />
-            Explore how we can help you achieve your goals:
-          </>
-        }
-        align="center"
-        columns={[1, 2, 3]}
-        iconSize={5}
-        features={[
-         
-  {
-    title: 'Marketing Activations',
-    icon: FiTrendingUp,
-    description: 'Our trained sales force team delivers direct customer engagement and increased sales for your brand.',
-    variant: 'center',
-  },
-  {
-    title: 'Creative Solutions',
-    icon: FiGrid,
-    description: 'Graphic design services that enhance your brand messaging with visually compelling assets.',
-    variant: 'center',
-  },
-  {
-    title: 'Advertising Solutions',
-    icon: FiShare2,
-    description: 'Strategic campaigns across digital, print, and outdoor channels to maximize your reach.',
-    variant: 'center',
-  },
-  {
-    title: 'Social Media Marketing',
-    icon: FiUsers,
-    description: 'Comprehensive strategy development, content creation, and performance tracking.',
-    variant: 'center',
-  },
-  {
-    title: 'Community & Sports Engagement Events',
-    icon: FiShoppingBag,
-    description: 'Interactive events designed to build strong community ties and boost brand presence through local sports, outreach programs, and public engagement.',
-    variant: 'center',
-  },
-  {
-    title: 'Project Conceptualization & Planning',
-    icon: FiLayers,
-    description: 'We work closely with stakeholders to define project objectives, scope, and deliverables while developing robust, actionable plans that ensure project success.',
-    variant: 'center',
-  },
-  {
-    title: 'Project Implementation & Execution',
-    icon: FiCheckCircle,
-    description: 'Our experienced project managers provide hands-on leadership to ensure effective resource allocation, risk management, and adherence to timelines and budgets.',
-    variant: 'center',
-  },
-  {
-    title: 'Stakeholder Management',
-    icon: FiUsers,
-    description: 'We maintain consistent and clear communication among all stakeholders, fostering collaboration and addressing concerns proactively throughout the project lifecycle.',
-    variant: 'center',
-  },
-  {
-    title: 'Community Engagement & Mobilization',
-    icon: FiHeart,
-    description: 'We actively organize and support community participation in development projects, ensuring inclusivity, empowerment, and ownership from local populations.',
-    variant: 'center',
-  },
-  {
-    title: 'Social Development Initiatives',
-    icon: FiGlobe,
-    description: 'We are committed to promoting positive social change through sustainable development and community empowerment programs tailored to local needs.',
-    variant: 'center',
-  },
-  {
-    title: 'Independent Consultation',
-    icon: FiUserCheck,
-    description: 'Our directors offer strategic guidance and independent consultation across multiple domains, bringing versatile, expert insights into every project.',
-    variant: 'center',
-  },
-  {
-    title: 'Social Media Engagement & Insight Sharing',
-    icon: FiShare2,
-    description: 'We leverage social media to share project insights, promote initiatives, and engage communities, enhancing transparency and broadening impact.',
-    variant: 'center',
-  },
-  {
-    title: 'Business Development Support',
-    icon: FiTrendingUp,
-    description: 'We assist in transforming successful projects into sustainable businesses by offering guidance on operations, strategy, and long-term growth planning.',
-    variant: 'center',
-  }
-]}
+    <Box 
+      as="section"
+      maxW="8xl"
+      mx="auto"
+      px={[4, 6, 8, 10]}
+      py={[12, 16, 20]}
+      position="relative"
+      overflow="hidden"
+    >
+      {/* Decorative elements */}
+      <Box
+        position="absolute"
+        top="-100px"
+        right="-100px"
+        w="400px"
+        h="400px"
+        bgGradient="radial(green.400, transparent 70%)"
+        opacity={0.1}
+        borderRadius="full"
+        zIndex="-1"
+      />
+      <Box
+        position="absolute"
+        bottom="-150px"
+        left="-150px"
+        w="500px"
+        h="500px"
+        bgGradient="radial(blue.400, transparent 70%)"
+        opacity={0.1}
+        borderRadius="full"
+        zIndex="-1"
       />
       
-      <Box textAlign="center" mt={10}>
+      {/* Header Section */}
+      <Box 
+        textAlign="center" 
+        mb={[10, 12, 16]}
+        maxW="4xl"
+        mx="auto"
+      >
+        <Text
+          fontSize={['sm', 'md']}
+          fontWeight="semibold"
+          color={useColorModeValue('green.500', 'green.400')}
+          letterSpacing="wide"
+          textTransform="uppercase"
+          mb={3}
+        >
+          Our Services
+        </Text>
+        
+        <Heading
+          as="h2"
+          fontSize={['3xl', '4xl', '5xl', '6xl']}
+          fontWeight="bold"
+          lineHeight="1.1"
+          letterSpacing="tight"
+          mb={6}
+          position="relative"
+          _after={{
+            content: '""',
+            position: 'absolute',
+            width: ['60px', '80px'],
+            height: '4px',
+            bottom: '-12px',
+            left: '50%',
+            transform: 'translateX(-50%)',
+            bg: useColorModeValue('green.500', 'green.400'),
+            borderRadius: 'full',
+          }}
+        >
+          <Box 
+            as="span" 
+            display="block"
+            bgGradient={useColorModeValue(
+              'linear(to-r, gray.800, gray.700)',
+              'linear(to-r, gray.100, gray.200)'
+            )}
+            bgClip="text"
+          >
+            Comprehensive Solutions
+          </Box>
+          <Box 
+            as="span" 
+            display="block"
+            bgGradient={useColorModeValue(
+              'linear(to-r, green.500, teal.500)',
+              'linear(to-r, green.300, teal.300)'
+            )}
+            bgClip="text"
+          >
+            Tailored for Your Success
+          </Box>
+        </Heading>
+        
+        <Text
+          fontSize={['lg', 'xl']}
+          color={useColorModeValue('gray.600', 'gray.300')}
+          maxW="2xl"
+          mx="auto"
+          lineHeight="1.6"
+        >
+          Stratile Ltd offers a comprehensive suite of project management services designed to meet the unique needs of our clients and the communities we support.
+        </Text>
+      </Box>
+      
+      {/* Features Section */}
+      <SimpleGrid
+        columns={[1, 2, 3]}
+        spacing={[8, 10, 12]}
+        mb={[12, 16, 20]}
+      >
+        {[
+          {
+            title: 'Marketing Activations',
+            icon: FiTrendingUp,
+            description: 'Our trained sales force team delivers direct customer engagement and increased sales for your brand.',
+          },
+          {
+            title: 'Creative Solutions',
+            icon: FiGrid,
+            description: 'Graphic design services that enhance your brand messaging with visually compelling assets.',
+          },
+          {
+            title: 'Advertising Solutions',
+            icon: FiShare2,
+            description: 'Strategic campaigns across digital, print, and outdoor channels to maximize your reach.',
+          },
+          {
+            title: 'Social Media Marketing',
+            icon: FiUsers,
+            description: 'Comprehensive strategy development, content creation, and performance tracking.',
+          },
+          {
+            title: 'Community & Sports Engagement',
+            icon: FiShoppingBag,
+            description: 'Interactive events designed to build strong community ties and boost brand presence.',
+          },
+          {
+            title: 'Project Conceptualization',
+            icon: FiLayers,
+            description: 'We work closely with stakeholders to define project objectives, scope, and deliverables.',
+          },
+        ].map((feature, index) => (
+          <Box
+            key={index}
+            bg={useColorModeValue('white', 'gray.800')}
+            p={[6, 8]}
+            borderRadius="xl"
+            boxShadow={useColorModeValue('0 4px 24px rgba(0, 0, 0, 0.08)', '0 4px 24px rgba(0, 0, 0, 0.2)')}
+            border="1px solid"
+            borderColor={useColorModeValue('gray.100', 'gray.700')}
+            transition="all 0.3s ease"
+            _hover={{
+              transform: 'translateY(-5px)',
+              boxShadow: useColorModeValue('0 8px 32px rgba(0, 0, 0, 0.12)', '0 8px 32px rgba(0, 0, 0, 0.3)'),
+              borderColor: useColorModeValue('green.300', 'green.400'),
+            }}
+            textAlign="center"
+          >
+            <Center
+              w="16"
+              h="16"
+              mx="auto"
+              mb={6}
+              bg={useColorModeValue('green.50', 'green.900')}
+              color={useColorModeValue('green.500', 'green.300')}
+              borderRadius="xl"
+            >
+              <Icon as={feature.icon} boxSize={6} />
+            </Center>
+            <Heading
+              as="h3"
+              fontSize={['xl', '2xl']}
+              fontWeight="semibold"
+              mb={4}
+              color={useColorModeValue('gray.800', 'white')}
+            >
+              {feature.title}
+            </Heading>
+            <Text
+              fontSize={['md', 'lg']}
+              color={useColorModeValue('gray.600', 'gray.300')}
+              lineHeight="1.6"
+            >
+              {feature.description}
+            </Text>
+          </Box>
+        ))}
+      </SimpleGrid>
+      
+      {/* CTA Section */}
+      <Box textAlign="center">
         <Button 
           onClick={openBookingForm}
           colorScheme="green"
           size="lg"
-          px={8}
-          _hover={{ bg: 'green.600' }}
-          _dark={{ bg: 'green.500', _hover: { bg: 'green.600' } }}
+          px={10}
+          py={7}
+          fontSize="lg"
+          fontWeight="semibold"
+          borderRadius="xl"
+          boxShadow="0 4px 16px rgba(72, 187, 120, 0.3)"
+          _hover={{
+            transform: 'translateY(-2px)',
+            boxShadow: '0 6px 20px rgba(72, 187, 120, 0.4)',
+          }}
+          transition="all 0.3s ease"
         >
-          Book Now
+          Book Our Services
         </Button>
+        <Text
+          mt={4}
+          color={useColorModeValue('gray.500', 'gray.400')}
+          fontSize="sm"
+        >
+          Get a custom quote tailored to your specific needs
+        </Text>
       </Box>
-
       {/* Booking Form Modal */}
       <Modal isOpen={isBookingOpen} onClose={closeBookingForm}>
         <ModalOverlay />
