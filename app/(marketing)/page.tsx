@@ -237,15 +237,15 @@ const LiveSupportChat = () => {
     <>
       <Box position="fixed" bottom="6" right="6" zIndex="999">
         {!isOpen ? (
-          <IconButton
-            aria-label="Open live chat"
-            icon={<Icon as={FiMessageSquare} />}
-            onClick={onOpen}
-            colorScheme="green"
-            size="lg"
-            isRound
-            boxShadow="lg"
-          />
+         <IconButton
+  aria-label="Open live chat"
+  icon={<Image src="/static/images/support.png" alt="Support" boxSize="24px" />}
+  onClick={onOpen}
+  colorScheme="green"
+  size="lg"
+  isRound
+  boxShadow="lg"
+/>
         ) : (
           <Box
             bg={useColorModeValue('white', 'gray.800')}
@@ -908,7 +908,7 @@ const ServicesSection = () => {
       <Box textAlign="center">
         <Button 
           onClick={openBookingForm}
-          colorScheme="Purple"
+          colorScheme="green"
           size="lg"
           px={10}
           py={7}
