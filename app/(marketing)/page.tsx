@@ -709,6 +709,7 @@ const ServicesSection = () => {
   };
 
   return (
+     <BackgroundGradient height="100%" zIndex="-1" />
     <Box 
       as="section"
       maxW="8xl"
@@ -757,7 +758,7 @@ const ServicesSection = () => {
           textTransform="uppercase"
           mb={3}
         >
-          Our Services
+          Stratile Services
         </Text>
         
         <Heading
