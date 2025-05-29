@@ -81,7 +81,7 @@ export const Footer: React.FC<FooterProps> = (props) => {
                 <HStack>
                   <Icon as={FaMapMarkerAlt} color={themeColors.purple} boxSize="4" />
                   <Text fontSize="sm" color="muted">
-                    123 Business Ave, City, Country
+                    Nairobi, Kenya
                   </Text>
                 </HStack>
                 <HStack>
@@ -113,20 +113,18 @@ export const Footer: React.FC<FooterProps> = (props) => {
                 Quick Links
               </Text>
               <VStack align="flex-start" spacing={3}>
-                <FooterLink href="/about" color="muted" _hover={{ color: hoverColor }}>
+                <FooterLink href="/" color="muted" _hover={{ color: hoverColor }}>
                   About Us
                 </FooterLink>
-                <FooterLink href="/services" color="muted" _hover={{ color: hoverColor }}>
+                <FooterLink href="/" color="muted" _hover={{ color: hoverColor }}>
                   Services
                 </FooterLink>
-                <FooterLink href="/portfolio" color="muted" _hover={{ color: hoverColor }}>
-                  Portfolio
-                </FooterLink>
-                <FooterLink href="/blog" color="muted" _hover={{ color: hoverColor }}>
-                  Blog
+               
+                <FooterLink href="/" color="muted" _hover={{ color: hoverColor }}>
+                   Stratile Blog
                 </FooterLink>
                 <FooterLink href="/contact" color="muted" _hover={{ color: hoverColor }}>
-                  Contact
+                  Contact Us
                 </FooterLink>
               </VStack>
             </VStack>
@@ -139,20 +137,23 @@ export const Footer: React.FC<FooterProps> = (props) => {
                 Services
               </Text>
               <VStack align="flex-start" spacing={3}>
-                <FooterLink href="/services/web-development" color="muted" _hover={{ color: hoverColor }}>
-                  Web Development
+                <FooterLink href="/" color="muted" _hover={{ color: hoverColor }}>
+                  Marketing Activations
                 </FooterLink>
-                <FooterLink href="/services/mobile-apps" color="muted" _hover={{ color: hoverColor }}>
-                  Mobile Apps
+                <FooterLink href="/" color="muted" _hover={{ color: hoverColor }}>
+                 Creative Solutions
                 </FooterLink>
-                <FooterLink href="/services/ui-ux" color="muted" _hover={{ color: hoverColor }}>
-                  UI/UX Design
+                <FooterLink href="/" color="muted" _hover={{ color: hoverColor }}>
+                  Advertising Solutions
                 </FooterLink>
-                <FooterLink href="/services/digital-marketing" color="muted" _hover={{ color: hoverColor }}>
-                  Digital Marketing
+                <FooterLink href="/" color="muted" _hover={{ color: hoverColor }}>
+                 Social Media Marketing
                 </FooterLink>
-                <FooterLink href="/services/seo" color="muted" _hover={{ color: hoverColor }}>
-                  SEO Services
+                <FooterLink href="/" color="muted" _hover={{ color: hoverColor }}>
+                  Community & Sports Engagement
+                </FooterLink>
+                <FooterLink href="/" color="muted" _hover={{ color: hoverColor }}>
+                  Project Conceptualization
                 </FooterLink>
               </VStack>
             </VStack>
@@ -162,7 +163,7 @@ export const Footer: React.FC<FooterProps> = (props) => {
           <GridItem>
             <VStack align="flex-start" spacing={4}>
               <Text fontWeight="bold" fontSize="lg" color={headingColor}>
-                Newsletter
+                Stratile Newsletter
               </Text>
               <Text fontSize="sm" color="muted">
                 Subscribe to our newsletter for the latest updates.
@@ -209,19 +210,19 @@ export const Footer: React.FC<FooterProps> = (props) => {
                   Follow Us
                 </Text>
                 <HStack spacing={4}>
-                  <FooterLink href="https://facebook.com" isExternal>
+                  <FooterLink href="/" isExternal>
                     <Icon as={FaFacebook} boxSize="5" color="muted" _hover={{ color: '#3b5998' }} />
                   </FooterLink>
-                  <FooterLink href="https://twitter.com" isExternal>
+                  <FooterLink href="/" isExternal>
                     <Icon as={FaTwitter} boxSize="5" color="muted" _hover={{ color: '#1DA1F2' }} />
                   </FooterLink>
-                  <FooterLink href="https://linkedin.com" isExternal>
+                  <FooterLink href="/" isExternal>
                     <Icon as={FaLinkedin} boxSize="5" color="muted" _hover={{ color: '#0077B5' }} />
                   </FooterLink>
-                  <FooterLink href="https://instagram.com" isExternal>
+                  <FooterLink href="/" isExternal>
                     <Icon as={FaInstagram} boxSize="5" color="muted" _hover={{ color: '#E1306C' }} />
                   </FooterLink>
-                  <FooterLink href="https://youtube.com" isExternal>
+                  <FooterLink href="/" isExternal>
                     <Icon as={FaYoutube} boxSize="5" color="muted" _hover={{ color: '#FF0000' }} />
                   </FooterLink>
                 </HStack>
