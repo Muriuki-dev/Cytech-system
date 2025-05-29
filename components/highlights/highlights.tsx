@@ -89,7 +89,7 @@ export const HighlightsTestimonialItem: React.FC<
         zIndex="0"
         _dark={{ opacity: 0.5, filter: 'blur(50px)' }}
       />
-      {name && description && avatar ? (
+      {name && description  ? (
         <Testimonial
           name={name}
           description={
