@@ -617,36 +617,36 @@ const HighlightsSection = () => {
       </HighlightsItem>
 
     
-      <HighlightsItem colSpan={[1, null, 2]} title="">
-        <Box 
-          position="relative" 
-          overflow="hidden"
-          height="400px"
-          width="full" // This replaces "100%"
-          borderRadius="xl"
-        >
-          {images.map((image, index) => (
-            <Box
-              key={index}
-              position="absolute"
-              top="0"
-              left="0"
-              width="full" // Chakra's way to say 100% width
-              height="full" // Chakra's way to say 100% height
-              opacity={index === currentIndex ? 1 : 0}
-              transition="opacity 1s ease-in-out"
-            >
-              <Image
-                src={image}
-                alt={`Slide ${index + 1}`}
-                width="full" // Use Chakra's width="full" instead of "100%"
-                height="full" // Use Chakra's height="full" instead of "100%"
-                objectFit="cover"
-              />
-            </Box>
-          ))}
-        </Box>
-      </HighlightsItem>
+     <HighlightsItem colSpan={[1, null, 2]} title="">
+  <Box
+    position="relative"
+    overflow="hidden"
+    height="400px"
+    width="full"
+    borderRadius="xl"
+  >
+    {images.map((image, index) => (
+      <Box
+        key={index}
+        position="absolute"
+        top="0"
+        left="0"
+        width="full"
+        height="full"
+        opacity={index === currentIndex ? 1 : 0}
+        transition="opacity 1s ease-in-out"
+      >
+        <Image
+          src={image}
+          alt={`Slide ${index + 1}`}
+          fill
+          style={{ objectFit: 'cover', borderRadius: 'inherit' }}
+        />
+      </Box>
+    ))}
+  </Box>
+</HighlightsItem>
+
 
       <HighlightsItem
         colSpan={[1, null, 2]}
