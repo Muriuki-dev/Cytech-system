@@ -60,7 +60,7 @@ export const HighlightsTestimonialItem: React.FC<
   const {
     name,
     description,
-    avatar,
+  
     children,
     gradient = ['primary.500', 'secondary.500'],
     ...rest
@@ -97,12 +97,7 @@ export const HighlightsTestimonialItem: React.FC<
               {description}
             </Box>
           }
-          avatar={avatar}
-          border="0"
-          bg="transparent"
-          boxShadow="none"
-          color="white"
-          position="relative"
+         
         >
           {children}
         </Testimonial>
