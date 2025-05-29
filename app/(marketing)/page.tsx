@@ -623,7 +623,7 @@ const HighlightsSection = () => {
   overflow="hidden"
   height="400px"          // Set height explicitly
   width="100%"            // Ensure full width
-  borderRadius="xl"
+  
 >
   {images.map((image, index) => (
     <Box
