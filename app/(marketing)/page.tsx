@@ -793,53 +793,96 @@ const ServicesSection = () => {
         }
         description={
           <>
-            Stratile provides a wide range of services to meet your business and community development needs.
+            Stratile Ltd offers a comprehensive suite of project management services tailored to meet the
+unique needs of our clients and the communities we support.
             <Br />
-            Explore how we can help you achieve your goals.
+            Explore how we can help you achieve your goals:
           </>
         }
         align="center"
         columns={[1, 2, 3]}
         iconSize={5}
         features={[
-          {
-            title: 'Marketing Activations',
-            icon: FiTrendingUp,
-            description: 'Our trained sales force team delivers direct customer engagement and increased sales for your brand.',
-            variant: 'center',
-          },
-          {
-            title: 'Creative Solutions',
-            icon: FiGrid,
-            description: 'Graphic design services that enhance your brand messaging with visually compelling assets.',
-            variant: 'center',
-          },
-          {
-            title: 'Advertising Solutions',
-            icon: FiShare2,
-            description: 'Strategic campaigns across digital, print, and outdoor channels to maximize your reach.',
-            variant: 'center',
-          },
-          {
-            title: 'Social Media Marketing',
-            icon: FiUsers,
-            description: 'Comprehensive strategy development, content creation, and performance tracking.',
-            variant: 'center',
-          },
-          {
-  title: 'Community & Sports Engagement Events',
-  icon: FiShoppingBag,
-  description: 'Interactive events designed to build strong community ties and boost brand presence through local sports, outreach programs, and public engagement.',
-  variant: 'center',
-},
-
-          {
-            title: 'Project Management',
-            icon: FiLayers,
-            description: 'End-to-end project support from conceptualization to execution and stakeholder management.',
-            variant: 'center',
-          },
-        ]}
+         [
+  {
+    title: 'Marketing Activations',
+    icon: FiTrendingUp,
+    description: 'Our trained sales force team delivers direct customer engagement and increased sales for your brand.',
+    variant: 'center',
+  },
+  {
+    title: 'Creative Solutions',
+    icon: FiGrid,
+    description: 'Graphic design services that enhance your brand messaging with visually compelling assets.',
+    variant: 'center',
+  },
+  {
+    title: 'Advertising Solutions',
+    icon: FiShare2,
+    description: 'Strategic campaigns across digital, print, and outdoor channels to maximize your reach.',
+    variant: 'center',
+  },
+  {
+    title: 'Social Media Marketing',
+    icon: FiUsers,
+    description: 'Comprehensive strategy development, content creation, and performance tracking.',
+    variant: 'center',
+  },
+  {
+    title: 'Community & Sports Engagement Events',
+    icon: FiShoppingBag,
+    description: 'Interactive events designed to build strong community ties and boost brand presence through local sports, outreach programs, and public engagement.',
+    variant: 'center',
+  },
+  {
+    title: 'Project Conceptualization & Planning',
+    icon: FiLayers,
+    description: 'We work closely with stakeholders to define project objectives, scope, and deliverables while developing robust, actionable plans that ensure project success.',
+    variant: 'center',
+  },
+  {
+    title: 'Project Implementation & Execution',
+    icon: FiCheckCircle,
+    description: 'Our experienced project managers provide hands-on leadership to ensure effective resource allocation, risk management, and adherence to timelines and budgets.',
+    variant: 'center',
+  },
+  {
+    title: 'Stakeholder Management',
+    icon: FiUsers,
+    description: 'We maintain consistent and clear communication among all stakeholders, fostering collaboration and addressing concerns proactively throughout the project lifecycle.',
+    variant: 'center',
+  },
+  {
+    title: 'Community Engagement & Mobilization',
+    icon: FiHeart,
+    description: 'We actively organize and support community participation in development projects, ensuring inclusivity, empowerment, and ownership from local populations.',
+    variant: 'center',
+  },
+  {
+    title: 'Social Development Initiatives',
+    icon: FiGlobe,
+    description: 'We are committed to promoting positive social change through sustainable development and community empowerment programs tailored to local needs.',
+    variant: 'center',
+  },
+  {
+    title: 'Independent Consultation',
+    icon: FiUserCheck,
+    description: 'Our directors offer strategic guidance and independent consultation across multiple domains, bringing versatile, expert insights into every project.',
+    variant: 'center',
+  },
+  {
+    title: 'Social Media Engagement & Insight Sharing',
+    icon: FiShare2,
+    description: 'We leverage social media to share project insights, promote initiatives, and engage communities, enhancing transparency and broadening impact.',
+    variant: 'center',
+  },
+  {
+    title: 'Business Development Support',
+    icon: FiTrendingUp,
+    description: 'We assist in transforming successful projects into sustainable businesses by offering guidance on operations, strategy, and long-term growth planning.',
+    variant: 'center',
+  }
+]}
       />
       
       <Box textAlign="center" mt={10}>
@@ -1010,10 +1053,12 @@ const EventsSection = () => {
             }}
             transition="all 0.2s"
           >
-            <Heading size="lg" mb="4">Kanini Haraka Wholesalers and Distribution - (Marketing Package Promotion)</Heading>
+            <Heading size="lg" mb="4">Kanini Opening Activations</Heading>
             <Text color="muted" mb="2"><strong>Date:</strong> May 30, 2025</Text>
             <Text color="muted" mb="2"><strong>Location:</strong> Naivasha Town, Dubai Plaza, Opposite Modern Market, Next to Ketias Supermarket</Text>
-            <Text mb="4">Join us for the premier industry event showcasing innovative products and services with special marketing packages available.</Text>
+            <Text mb="4">Join us as we bring the energy to the new Kanini opening,
+We will offer VR gaming to help engage consumers
+If you want custom data report on your brand review (how customers felt about your product ).</Text>
             <Button 
               onClick={onInfoOpen}
               colorScheme="green" 
