@@ -60,6 +60,7 @@ import {
   FiSearch,
   FiHeart,
   FiCheckCircle,
+  FiUserCheck,
   FiGlobe,
   FiSliders,
   FiSmile,
