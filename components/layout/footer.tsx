@@ -202,26 +202,8 @@ export const Footer: React.FC<FooterProps> = (props) => {
                 </Flex>
               </Box>
               
-             {/* Social Media Links - Now rendered from siteConfig */}
-              {siteConfig.footer?.socialLinks && (
-                <VStack align="flex-start" spacing={3} mt={4}>
-                  <Text fontWeight="medium" fontSize="sm" color={headingColor}>
-                    Follow Us
-                  </Text>
-                  <HStack spacing={4}>
-                    {siteConfig.footer.socialLinks.map(({ href, type, color }) => (
-                      <FooterLink key={href} href={href} isExternal>
-                        <Icon 
-                          as={socialIcons[type as keyof typeof socialIcons]} 
-                          boxSize="5" 
-                          color="muted" 
-                          _hover={{ color: color || hoverColor }} 
-                        />
-                      </FooterLink>
-                    ))}
-                  </HStack>
-                </VStack>
-              )}
+             
+             
             </VStack>
           </GridItem>
         </Grid>
@@ -255,21 +237,6 @@ export interface CopyrightProps {
   children: React.ReactNode
 }
 
-export const Copyright: React.FC<CopyrightProps> = ({
-  title,
-  children,
-}: CopyrightProps) => {
-  let content
-  if (title && !children) {
-    content = `&copy; ${new Date().getFullYear()} - ${title}`
-  }
-  return (
-    <Text color="muted" fontSize="sm">
-      {content || children}
-    </Text>
-  )
-}
-
 export const FooterLink: React.FC<LinkProps> = (props) => {
   const { children, ...rest } = props
   return (
@@ -285,3 +252,19 @@ export const FooterLink: React.FC<LinkProps> = (props) => {
     </Link>
   )
 }
+
+export const Copyright: React.FC<CopyrightProps> = ({
+  title,
+  children,
+}: CopyrightProps) => {
+  let content
+  if (title && !children) {
+    content = `&copy; ${new Date().getFullYear()} - ${title}`
+  }
+  return (
+    <Text color="muted" fontSize="sm">
+      {content || children}
+    </Text>
+  )
+}
+
