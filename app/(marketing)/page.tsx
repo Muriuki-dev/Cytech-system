@@ -6,6 +6,7 @@ import {
   AlertDialogContent,
   AlertDialogFooter,
   SimpleGrid,
+  Image,
   AlertDialogHeader,
   AlertDialogOverlay,
   Accordion,
