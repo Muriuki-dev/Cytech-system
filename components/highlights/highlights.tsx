@@ -55,7 +55,7 @@ export const HighlightsItem: React.FC<HighlightBoxProps> = (props) => {
 }
 
 export const HighlightsTestimonialItem: React.FC<
-  HighlightBoxProps & TestimonialProps & { gradient: [string, string] }
+  HighlightBoxProps & Partial<TestimonialProps> & { gradient?: [string, string] }
 > = (props) => {
   const {
     name,
@@ -66,20 +66,21 @@ export const HighlightsTestimonialItem: React.FC<
     ...rest
   } = props
   const theme = useTheme()
+
   return (
     <HighlightsItem
       justifyContent="center"
-      borderColor="blue.400" // Added blue border
-      _dark={{ 
-        borderColor: 'blue.300', // Lighter blue in dark mode
+      borderColor="blue.400"
+      _dark={{
+        borderColor: 'blue.300',
         _hover: {
-          borderColor: 'blue.400' // Slightly darker on hover in dark mode
-        }
+          borderColor: 'blue.400',
+        },
       }}
       _hover={{
         borderColor: 'blue.500',
         transform: 'translateY(-2px)',
-        boxShadow: 'lg'
+        boxShadow: 'lg',
       }}
       p="4"
       {...rest}
@@ -96,25 +97,30 @@ export const HighlightsTestimonialItem: React.FC<
         zIndex="0"
         _dark={{ opacity: 0.5, filter: 'blur(50px)' }}
       />
-      <Testimonial
-        name={name}
-        description={
-          <Box as="span" color="whiteAlpha.700">
-            {description}
-          </Box>
-        }
-        avatar={avatar}
-        border="0"
-        bg="transparent"
-        boxShadow="none"
-        color="white"
-        position="relative"
-      >
-        {children}
-      </Testimonial>
+      {name && description && avatar ? (
+        <Testimonial
+          name={name}
+          description={
+            <Box as="span" color="whiteAlpha.700">
+              {description}
+            </Box>
+          }
+          avatar={avatar}
+          border="0"
+          bg="transparent"
+          boxShadow="none"
+          color="white"
+          position="relative"
+        >
+          {children}
+        </Testimonial>
+      ) : (
+        children
+      )}
     </HighlightsItem>
   )
 }
+
 
 export const Highlights: React.FC<SectionProps> = (props) => {
   const { children, ...rest } = props
