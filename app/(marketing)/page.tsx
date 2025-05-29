@@ -616,11 +616,13 @@ const HighlightsSection = () => {
         </VStack>
       </HighlightsItem>
 
-     <HighlightsItem colSpan={[1, null, 2]} title="">
+    
+      <HighlightsItem colSpan={[1, null, 2]} title="">
         <Box 
           position="relative" 
           overflow="hidden"
           height="400px"
+          width="full" // This replaces "100%"
           borderRadius="xl"
         >
           {images.map((image, index) => (
@@ -629,16 +631,16 @@ const HighlightsSection = () => {
               position="absolute"
               top="0"
               left="0"
-              width="100%"
-              height="100%"
+              width="full" // Chakra's way to say 100% width
+              height="full" // Chakra's way to say 100% height
               opacity={index === currentIndex ? 1 : 0}
               transition="opacity 1s ease-in-out"
             >
               <Image
                 src={image}
                 alt={`Slide ${index + 1}`}
-                width="100%"
-                height="100%"
+                width="full" // Use Chakra's width="full" instead of "100%"
+                height="full" // Use Chakra's height="full" instead of "100%"
                 objectFit="cover"
               />
             </Box>
