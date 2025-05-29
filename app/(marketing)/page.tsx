@@ -86,7 +86,7 @@ import { Hero } from '#components/hero'
 import {
   Highlights,
   HighlightsItem,
-  HighlightsTestimonialItem,
+ 
 } from '#components/highlights'
 import { Testimonial, Testimonials } from '#components/testimonials'
 import { Em } from '#components/typography'
@@ -551,6 +551,25 @@ const HeroSection: React.FC = () => {
 }
 
 const HighlightsSection = () => {
+  const images = [
+    "/static/images/inner1.jpg",
+    "/static/images/inner2.jpg",
+    "/static/images/inner3.jpg",
+    "/static/images/inner4.jpg",
+    "/static/images/inner5.jpg",
+    "/static/images/inner6.jpg"
+  ];
+  
+  const [currentIndex, setCurrentIndex] = useState(0);
+
+  useEffect(() => {
+    const interval = setInterval(() => {
+      setCurrentIndex((prevIndex) => (prevIndex + 1) % images.length);
+    }, 3000); // Change slide every 3 seconds
+
+    return () => clearInterval(interval);
+  }, [images.length]);
+
   return (
     <Highlights>
       <HighlightsItem colSpan={[1, null, 2]} title="Our Vision">
@@ -563,21 +582,70 @@ const HighlightsSection = () => {
       <HighlightsItem title="Our Mission">
         <Text color="muted" fontSize="lg">
           To embody the values of partnership, coherent relationships, and unity in delivering exceptional 
-project management services that foster functional businesses and drive meaningful social 
-development. We are committed to organizing impactful community activities, establishing social 
-development, and sharing valuable insights through our work and digital platforms.
+          project management services that foster functional businesses and drive meaningful social 
+          development. We are committed to organizing impactful community activities, establishing social 
+          development, and sharing valuable insights through our work and digital platforms.
         </Text>
       </HighlightsItem>
-      <HighlightsTestimonialItem
-       
-  name="Laban Mwangi"
-  description="Co-director"
-  avatar="/static/images/avatarr.jpg"
-  gradient={['orange.600', 'red.500']}
- 
->
-        "Stratile serves as a catalyst for progress, providing expert guidance and comprehensive project management solutions that ensure successful execution and sustainable outcomes."
-      </HighlightsTestimonialItem>
+
+      {/* Our Values Section */}
+      <HighlightsItem title="Our Values">
+        <VStack alignItems="flex-start" spacing="4">
+          <Box>
+            <Text fontWeight="bold" fontSize="lg">● Partnership:</Text>
+            <Text color="muted" fontSize="md" pl="4">
+              We believe in fostering strong, collaborative relationships with our clients,
+              stakeholders, and the communities we serve. Working together is key to achieving shared
+              success.
+            </Text>
+          </Box>
+          <Box>
+            <Text fontWeight="bold" fontSize="lg">● Coherent Relationships:</Text>
+            <Text color="muted" fontSize="md" pl="4">
+              We prioritize clear communication, mutual respect, and
+              transparent engagement to build trust and ensure seamless project execution.
+            </Text>
+          </Box>
+          <Box>
+            <Text fontWeight="bold" fontSize="lg">● Unity:</Text>
+            <Text color="muted" fontSize="md" pl="4">
+              We champion a unified approach, bringing together diverse talents and
+              perspectives to achieve common goals and create a stronger collective impact.
+            </Text>
+          </Box>
+        </VStack>
+      </HighlightsItem>
+
+      {/* Image Slider */}
+      <Box 
+        colSpan={[1, null, 2]} 
+        position="relative" 
+        overflow="hidden"
+        height="400px"
+        borderRadius="xl"
+      >
+        {images.map((image, index) => (
+          <Box
+            key={index}
+            position="absolute"
+            top="0"
+            left="0"
+            width="100%"
+            height="100%"
+            opacity={index === currentIndex ? 1 : 0}
+            transition="opacity 1s ease-in-out"
+          >
+            <Image
+              src={image}
+              alt={`Slide ${index + 1}`}
+              width="100%"
+              height="100%"
+              objectFit="cover"
+            />
+          </Box>
+        ))}
+      </Box>
+
       <HighlightsItem
         colSpan={[1, null, 2]}
         title="Our Commitment"
