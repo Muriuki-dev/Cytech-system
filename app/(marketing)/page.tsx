@@ -239,7 +239,11 @@ const LiveSupportChat = () => {
         {!isOpen ? (
          <IconButton
   aria-label="Open live chat"
-  icon={<Image src="/static/images/support.png" alt="Support" boxSize="24px" />}
+  icon={
+    <Box boxSize="24px">
+      <Image src="/static/images/support.png" alt="Support" width="100%" height="100%" />
+    </Box>
+  }
   onClick={onOpen}
   colorScheme="green"
   size="lg"
