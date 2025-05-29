@@ -623,39 +623,41 @@ const HighlightsSection = () => {
       </HighlightsItem>
 
     
-     <HighlightsTestimonialItem colSpan={[1, null, 2]} title="">
+   <HighlightsTestimonialItem colSpan={[1, null, 2]} title="">
   <Box
-  position="relative"     // REQUIRED for next/image fill
-  overflow="hidden"
-  height="400px"          // Set height explicitly
-  width="100%"            // Ensure full width
-  
->
-  {images.map((image, index) => (
-    <Box
-      key={index}
-      position="absolute"
-      top="0"
-      left="0"
-      width="100%"
-      height="100%"
-      opacity={index === currentIndex ? 1 : 0}
-      transition="opacity 1s ease-in-out"
-    >
-      <Image
-        src={image}
-        alt={`Slide ${index + 1}`}
-        fill
-        style={{
-          objectFit: 'cover',    // Fill the container proportionally
-          objectPosition: 'center',
-        }}
-      />
-    </Box>
-  ))}
-</Box>
+    position="relative"
+    overflow="hidden"
+    height="400px"       // Set explicit height
+    width="100%"         // Ensure full width
+    border="none"        // ✅ Remove any default border if applied
+    p="0"                // ✅ Remove any default padding
+    m="0"                // ✅ Remove any default margin
+  >
+    {images.map((image, index) => (
+      <Box
+        key={index}
+        position="absolute"
+        top="0"
+        left="0"
+        width="100%"
+        height="100%"
+        opacity={index === currentIndex ? 1 : 0}
+        transition="opacity 1s ease-in-out"
+      >
+        <Image
+          src={image}
+          alt={`Slide ${index + 1}`}
+          fill
+          style={{
+            objectFit: 'cover',     // ✅ Image fills container proportionally
+            objectPosition: 'center',
+          }}
+        />
+      </Box>
+    ))}
+  </Box>
+</HighlightsTestimonialItem>
 
- </HighlightsTestimonialItem>
 
 
       <HighlightsItem
