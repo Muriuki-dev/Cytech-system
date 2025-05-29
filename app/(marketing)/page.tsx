@@ -560,12 +560,12 @@ const HighlightsSection = () => {
     "/static/images/inner6.jpg"
   ];
   
-  const [currentIndex, setCurrentIndex] = useState(0);
+ const [currentIndex, setCurrentIndex] = useState(0);
 
   useEffect(() => {
     const interval = setInterval(() => {
       setCurrentIndex((prevIndex) => (prevIndex + 1) % images.length);
-    }, 3000); // Change slide every 3 seconds
+    }, 3000);
 
     return () => clearInterval(interval);
   }, [images.length]);
@@ -616,35 +616,35 @@ const HighlightsSection = () => {
         </VStack>
       </HighlightsItem>
 
-      {/* Image Slider */}
-      <Box 
-        colSpan={[1, null, 2]} 
-        position="relative" 
-        overflow="hidden"
-        height="400px"
-        borderRadius="xl"
-      >
-        {images.map((image, index) => (
-          <Box
-            key={index}
-            position="absolute"
-            top="0"
-            left="0"
-            width="100%"
-            height="100%"
-            opacity={index === currentIndex ? 1 : 0}
-            transition="opacity 1s ease-in-out"
-          >
-            <Image
-              src={image}
-              alt={`Slide ${index + 1}`}
+     <HighlightsItem colSpan={[1, null, 2]} title="">
+        <Box 
+          position="relative" 
+          overflow="hidden"
+          height="400px"
+          borderRadius="xl"
+        >
+          {images.map((image, index) => (
+            <Box
+              key={index}
+              position="absolute"
+              top="0"
+              left="0"
               width="100%"
               height="100%"
-              objectFit="cover"
-            />
-          </Box>
-        ))}
-      </Box>
+              opacity={index === currentIndex ? 1 : 0}
+              transition="opacity 1s ease-in-out"
+            >
+              <Image
+                src={image}
+                alt={`Slide ${index + 1}`}
+                width="100%"
+                height="100%"
+                objectFit="cover"
+              />
+            </Box>
+          ))}
+        </Box>
+      </HighlightsItem>
 
       <HighlightsItem
         colSpan={[1, null, 2]}
