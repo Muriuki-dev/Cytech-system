@@ -803,7 +803,7 @@ unique needs of our clients and the communities we support.
         columns={[1, 2, 3]}
         iconSize={5}
         features={[
-         [
+         
   {
     title: 'Marketing Activations',
     icon: FiTrendingUp,
