@@ -709,7 +709,7 @@ const ServicesSection = () => {
   };
 
   return (
-     <BackgroundGradient height="100%" zIndex="-1" />
+     
     <Box 
       as="section"
       maxW="8xl"
@@ -718,6 +718,7 @@ const ServicesSection = () => {
       py={[12, 16, 20]}
       position="relative"
       overflow="hidden"
+      BackgroundGradient height="100%" zIndex="-1" 
     >
       {/* Decorative elements */}
       <Box
