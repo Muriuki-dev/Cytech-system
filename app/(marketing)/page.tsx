@@ -718,7 +718,7 @@ const ServicesSection = () => {
       py={[12, 16, 20]}
       position="relative"
       overflow="hidden"
-      BackgroundGradient height="100%" zIndex="-1" 
+      
     >
       {/* Decorative elements */}
       <Box
@@ -906,7 +906,7 @@ const ServicesSection = () => {
       <Box textAlign="center">
         <Button 
           onClick={openBookingForm}
-          colorScheme="green"
+          colorScheme="Purple"
           size="lg"
           px={10}
           py={7}
