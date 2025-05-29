@@ -17,6 +17,8 @@ import {
   ModalHeader,
   ModalCloseButton,
   ModalBody,
+  Button,
+  useBreakpointValue,
 } from "@chakra-ui/react";
 import { useEffect, useRef, useState } from "react";
 
@@ -38,6 +40,9 @@ export const Testimonial = ({
   const prefersReducedMotion = usePrefersReducedMotion();
   const cardRef = useRef<HTMLDivElement>(null);
   const [isVisible, setIsVisible] = useState(false);
+
+  const buttonSize = useBreakpointValue({ base: "sm", md: "md" });
+  const cardPadding = useBreakpointValue({ base: 4, md: 6 });
 
   useEffect(() => {
     if (prefersReducedMotion || !cardRef.current) {
@@ -80,13 +85,14 @@ export const Testimonial = ({
         borderRadius="lg"
         boxShadow="md"
         bg="white"
+        p={cardPadding}
         _hover={{
           boxShadow: "xl",
           transform: "translateY(-5px)"
         }}
         {...rest}
       >
-        <CardHeader pb="0">
+        <CardHeader pb="0" px="0">
           <Stack spacing="1">
             <Heading size="md" color="blue.600">{name}</Heading>
             <Text color="gray.600" fontWeight="semibold">
@@ -94,26 +100,36 @@ export const Testimonial = ({
             </Text>
           </Stack>
         </CardHeader>
-        <CardBody pt="4">
-          <Box fontSize="sm" color="gray.700">
+        <CardBody pt="4" px="0" pb="0">
+          <Box fontSize="sm" color="gray.700" mb={details ? 10 : 0}>
             {typeof children === 'string' ? (
               <Text>{children}</Text>
             ) : children}
           </Box>
 
           {details && (
-            <Box
-              as="button"
+            <Button
               onClick={onOpen}
-              position="absolute" 
-              top="4" 
-              right="4"
-              color="blue.500"
-              fontWeight="medium"
-              _hover={{ textDecoration: 'underline' }}
+              position="absolute"
+              bottom="4"
+              left="0"
+              right="0"
+              mx="auto"
+              width="calc(100% - 32px)"
+              size={buttonSize}
+              colorScheme="blue"
+              variant="outline"
+              borderRadius="md"
+              _hover={{
+                bg: "blue.50",
+                transform: "translateY(-2px)"
+              }}
+              _active={{
+                bg: "blue.100"
+              }}
             >
-              Learn more →
-            </Box>
+              Learn more
+            </Button>
           )}
         </CardBody>
       </Card>
