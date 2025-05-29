@@ -244,8 +244,7 @@ const LiveSupportChat = () => {
       <Image 
         src="/static/images/support.png" 
         alt="Support" 
-        w="full"  // equivalent to 100% width
-        h="full"  // equivalent to 100% height
+       
         fit="contain"  // ensures image fits properly
       />
     </Box>
