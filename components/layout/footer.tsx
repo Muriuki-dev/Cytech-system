@@ -3,14 +3,28 @@ import {
   BoxProps,
   Container,
   Flex,
+  Grid,
+  GridItem,
   HStack,
+  Icon,
   SimpleGrid,
   Stack,
   Text,
-  Icon,
+  useColorModeValue,
+  VStack,
 } from '@chakra-ui/react'
 import { Link, LinkProps } from '@saas-ui/react'
-import { FaPhone, FaEnvelope } from 'react-icons/fa' // Importing icons
+import { 
+  FaPhone, 
+  FaEnvelope, 
+  FaMapMarkerAlt,
+  FaFacebook, 
+  FaTwitter, 
+  FaLinkedin, 
+  FaInstagram,
+  FaYoutube
+} from 'react-icons/fa'
+import { FiClock } from 'react-icons/fi'
 import siteConfig from '#data/config'
 
 export interface FooterProps extends BoxProps {
@@ -18,46 +32,221 @@ export interface FooterProps extends BoxProps {
 }
 
 export const Footer: React.FC<FooterProps> = (props) => {
-  const { columns = 2, ...rest } = props
-  return (
-    <Box bg="white" _dark={{ bg: 'gray.900' }} {...rest}>
-      <Container maxW="container.2xl" px="8" py="8">
-        <SimpleGrid columns={columns}>
-          <Stack spacing="8">
-            <Stack alignItems="flex-start">
-              <Flex>
-  <Box as={siteConfig.logo} w="full" h="80px" />
-</Flex>
+  const { columns = 4, ...rest } = props
+  
+  // Color mode values
+  const bgColor = useColorModeValue('white', 'gray.900')
+  const borderColor = useColorModeValue('gray.200', 'gray.700')
+  const headingColor = useColorModeValue('gray.800', 'white')
+  const hoverColor = useColorModeValue('purple.500', 'purple.300')
+  
+  // Theme colors
+  const themeColors = {
+    purple: useColorModeValue('purple.600', 'purple.300'),
+    blue: useColorModeValue('blue.600', 'blue.300'),
+    orange: useColorModeValue('orange.600', 'orange.300'),
+    green: useColorModeValue('green.600', 'green.300'),
+  }
 
+  return (
+    <Box 
+      bg={bgColor}
+      borderTopWidth="1px"
+      borderTopColor={borderColor}
+      {...rest}
+    >
+      <Container maxW="container.2xl" px={{ base: 4, md: 8 }} py={12}>
+        <Grid
+          templateColumns={{
+            base: 'repeat(1, 1fr)',
+            sm: 'repeat(2, 1fr)',
+            md: `repeat(${columns}, 1fr)`,
+          }}
+          gap={8}
+          mb={12}
+        >
+          {/* Company Info Column */}
+          <GridItem>
+            <VStack align="flex-start" spacing={6}>
+              <Flex>
+                <Box as={siteConfig.logo} w="full" h="80px" />
+              </Flex>
               <Text fontSize="md" color="muted">
                 {siteConfig.seo.description}
               </Text>
-              {/* Add contact information with icons */}
-              <Stack spacing="3" mt="2">
+              <Stack spacing={3}>
                 <HStack>
-                  <Icon as={FaPhone} color="muted" boxSize="4" />
+                  <Icon as={FaMapMarkerAlt} color={themeColors.purple} boxSize="4" />
+                  <Text fontSize="sm" color="muted">
+                    123 Business Ave, City, Country
+                  </Text>
+                </HStack>
+                <HStack>
+                  <Icon as={FaPhone} color={themeColors.blue} boxSize="4" />
                   <Text fontSize="sm" color="muted">
                     0741953190
                   </Text>
                 </HStack>
                 <HStack>
-                  <Icon as={FaEnvelope} color="muted" boxSize="4" />
+                  <Icon as={FaEnvelope} color={themeColors.orange} boxSize="4" />
                   <Text fontSize="sm" color="muted">
                     labanmwangi444@gmail.com
                   </Text>
                 </HStack>
+                <HStack>
+                  <Icon as={FiClock} color={themeColors.green} boxSize="4" />
+                  <Text fontSize="sm" color="muted">
+                    Mon-Fri: 9am-5pm
+                  </Text>
+                </HStack>
               </Stack>
-            </Stack>
-            <Copyright>{siteConfig.footer.copyright}</Copyright>
-          </Stack>
-          <HStack justify="flex-end" spacing="4" alignSelf="flex-end">
+            </VStack>
+          </GridItem>
+
+          {/* Quick Links Column */}
+          <GridItem>
+            <VStack align="flex-start" spacing={4}>
+              <Text fontWeight="bold" fontSize="lg" color={headingColor}>
+                Quick Links
+              </Text>
+              <VStack align="flex-start" spacing={3}>
+                <FooterLink href="/about" color="muted" _hover={{ color: hoverColor }}>
+                  About Us
+                </FooterLink>
+                <FooterLink href="/services" color="muted" _hover={{ color: hoverColor }}>
+                  Services
+                </FooterLink>
+                <FooterLink href="/portfolio" color="muted" _hover={{ color: hoverColor }}>
+                  Portfolio
+                </FooterLink>
+                <FooterLink href="/blog" color="muted" _hover={{ color: hoverColor }}>
+                  Blog
+                </FooterLink>
+                <FooterLink href="/contact" color="muted" _hover={{ color: hoverColor }}>
+                  Contact
+                </FooterLink>
+              </VStack>
+            </VStack>
+          </GridItem>
+
+          {/* Services Column */}
+          <GridItem>
+            <VStack align="flex-start" spacing={4}>
+              <Text fontWeight="bold" fontSize="lg" color={headingColor}>
+                Services
+              </Text>
+              <VStack align="flex-start" spacing={3}>
+                <FooterLink href="/services/web-development" color="muted" _hover={{ color: hoverColor }}>
+                  Web Development
+                </FooterLink>
+                <FooterLink href="/services/mobile-apps" color="muted" _hover={{ color: hoverColor }}>
+                  Mobile Apps
+                </FooterLink>
+                <FooterLink href="/services/ui-ux" color="muted" _hover={{ color: hoverColor }}>
+                  UI/UX Design
+                </FooterLink>
+                <FooterLink href="/services/digital-marketing" color="muted" _hover={{ color: hoverColor }}>
+                  Digital Marketing
+                </FooterLink>
+                <FooterLink href="/services/seo" color="muted" _hover={{ color: hoverColor }}>
+                  SEO Services
+                </FooterLink>
+              </VStack>
+            </VStack>
+          </GridItem>
+
+          {/* Newsletter Column */}
+          <GridItem>
+            <VStack align="flex-start" spacing={4}>
+              <Text fontWeight="bold" fontSize="lg" color={headingColor}>
+                Newsletter
+              </Text>
+              <Text fontSize="sm" color="muted">
+                Subscribe to our newsletter for the latest updates.
+              </Text>
+              <Box as="form" w="full">
+                <Flex>
+                  <Box
+                    as="input"
+                    type="email"
+                    placeholder="Your email"
+                    px={4}
+                    py={2}
+                    borderWidth="1px"
+                    borderColor={borderColor}
+                    rounded="md"
+                    flex="1"
+                    bg={useColorModeValue('white', 'gray.800')}
+                    _focus={{
+                      outline: 'none',
+                      borderColor: themeColors.purple,
+                    }}
+                  />
+                  <Box
+                    as="button"
+                    type="submit"
+                    ml={2}
+                    px={4}
+                    py={2}
+                    bg={themeColors.purple}
+                    color="white"
+                    rounded="md"
+                    fontWeight="medium"
+                    _hover={{
+                      bg: useColorModeValue('purple.700', 'purple.400'),
+                    }}
+                  >
+                    Subscribe
+                  </Box>
+                </Flex>
+              </Box>
+              
+              {/* Social Media Links */}
+              <VStack align="flex-start" spacing={3} mt={4}>
+                <Text fontWeight="medium" fontSize="sm" color={headingColor}>
+                  Follow Us
+                </Text>
+                <HStack spacing={4}>
+                  <FooterLink href="https://facebook.com" isExternal>
+                    <Icon as={FaFacebook} boxSize="5" color="muted" _hover={{ color: '#3b5998' }} />
+                  </FooterLink>
+                  <FooterLink href="https://twitter.com" isExternal>
+                    <Icon as={FaTwitter} boxSize="5" color="muted" _hover={{ color: '#1DA1F2' }} />
+                  </FooterLink>
+                  <FooterLink href="https://linkedin.com" isExternal>
+                    <Icon as={FaLinkedin} boxSize="5" color="muted" _hover={{ color: '#0077B5' }} />
+                  </FooterLink>
+                  <FooterLink href="https://instagram.com" isExternal>
+                    <Icon as={FaInstagram} boxSize="5" color="muted" _hover={{ color: '#E1306C' }} />
+                  </FooterLink>
+                  <FooterLink href="https://youtube.com" isExternal>
+                    <Icon as={FaYoutube} boxSize="5" color="muted" _hover={{ color: '#FF0000' }} />
+                  </FooterLink>
+                </HStack>
+              </VStack>
+            </VStack>
+          </GridItem>
+        </Grid>
+
+        {/* Bottom Footer */}
+        <Flex
+          direction={{ base: 'column', md: 'row' }}
+          justify="space-between"
+          align="center"
+          pt={8}
+          borderTopWidth="1px"
+          borderTopColor={borderColor}
+        >
+          <Copyright>{siteConfig.footer.copyright}</Copyright>
+          
+          <HStack spacing={6} mt={{ base: 4, md: 0 }}>
             {siteConfig.footer?.links?.map(({ href, label }) => (
-              <FooterLink key={href} href={href}>
+              <FooterLink key={href} href={href} _hover={{ color: hoverColor }}>
                 {label}
               </FooterLink>
             ))}
           </HStack>
-        </SimpleGrid>
+        </Flex>
       </Container>
     </Box>
   )
@@ -87,12 +276,10 @@ export const FooterLink: React.FC<LinkProps> = (props) => {
   const { children, ...rest } = props
   return (
     <Link
-      color="muted"
       fontSize="sm"
       textDecoration="none"
       _hover={{
-        color: 'white',
-        transition: 'color .2s ease-in',
+        textDecoration: 'none',
       }}
       {...rest}
     >
