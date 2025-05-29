@@ -86,7 +86,7 @@ import { Hero } from '#components/hero'
 import {
   Highlights,
   HighlightsItem,
- 
+  HighlightsTestimonialItem
 } from '#components/highlights'
 import { Testimonial, Testimonials } from '#components/testimonials'
 import { Em } from '#components/typography'
@@ -365,7 +365,7 @@ const HeroSection: React.FC = () => {
       setCurrentImageIndex((prevIndex) => 
         prevIndex === images.length - 1 ? 0 : prevIndex + 1
       );
-    }, 5000); // Change image every 5 seconds
+    }, 10000); // Change image every 5 seconds
 
     return () => clearInterval(interval);
   }, [images.length]);
@@ -617,7 +617,7 @@ const HighlightsSection = () => {
       </HighlightsItem>
 
     
-     <HighlightsItem colSpan={[1, null, 2]} title="">
+     <HighlightsTestimonialItem colSpan={[1, null, 2]} title="">
   <Box
   position="relative"     // REQUIRED for next/image fill
   overflow="hidden"
@@ -649,7 +649,7 @@ const HighlightsSection = () => {
   ))}
 </Box>
 
-</HighlightsItem>
+ </HighlightsTestimonialItem>
 
 
       <HighlightsItem
