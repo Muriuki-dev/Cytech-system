@@ -116,9 +116,7 @@ export const Footer: React.FC<FooterProps> = (props) => {
                 <FooterLink href="/" color="muted" _hover={{ color: hoverColor }}>
                   About Us
                 </FooterLink>
-                <FooterLink href="/" color="muted" _hover={{ color: hoverColor }}>
-                  Services
-                </FooterLink>
+               
                
                 <FooterLink href="/" color="muted" _hover={{ color: hoverColor }}>
                    Stratile Blog
@@ -134,7 +132,7 @@ export const Footer: React.FC<FooterProps> = (props) => {
           <GridItem>
             <VStack align="flex-start" spacing={4}>
               <Text fontWeight="bold" fontSize="lg" color={headingColor}>
-                Services
+                Stratile Services
               </Text>
               <VStack align="flex-start" spacing={3}>
                 <FooterLink href="/" color="muted" _hover={{ color: hoverColor }}>
@@ -204,29 +202,26 @@ export const Footer: React.FC<FooterProps> = (props) => {
                 </Flex>
               </Box>
               
-              {/* Social Media Links */}
-              <VStack align="flex-start" spacing={3} mt={4}>
-                <Text fontWeight="medium" fontSize="sm" color={headingColor}>
-                  Follow Us
-                </Text>
-                <HStack spacing={4}>
-                  <FooterLink href="/" isExternal>
-                    <Icon as={FaFacebook} boxSize="5" color="muted" _hover={{ color: '#3b5998' }} />
-                  </FooterLink>
-                  <FooterLink href="/" isExternal>
-                    <Icon as={FaTwitter} boxSize="5" color="muted" _hover={{ color: '#1DA1F2' }} />
-                  </FooterLink>
-                  <FooterLink href="/" isExternal>
-                    <Icon as={FaLinkedin} boxSize="5" color="muted" _hover={{ color: '#0077B5' }} />
-                  </FooterLink>
-                  <FooterLink href="/" isExternal>
-                    <Icon as={FaInstagram} boxSize="5" color="muted" _hover={{ color: '#E1306C' }} />
-                  </FooterLink>
-                  <FooterLink href="/" isExternal>
-                    <Icon as={FaYoutube} boxSize="5" color="muted" _hover={{ color: '#FF0000' }} />
-                  </FooterLink>
-                </HStack>
-              </VStack>
+             {/* Social Media Links - Now rendered from siteConfig */}
+              {siteConfig.footer?.socialLinks && (
+                <VStack align="flex-start" spacing={3} mt={4}>
+                  <Text fontWeight="medium" fontSize="sm" color={headingColor}>
+                    Follow Us
+                  </Text>
+                  <HStack spacing={4}>
+                    {siteConfig.footer.socialLinks.map(({ href, type, color }) => (
+                      <FooterLink key={href} href={href} isExternal>
+                        <Icon 
+                          as={socialIcons[type as keyof typeof socialIcons]} 
+                          boxSize="5" 
+                          color="muted" 
+                          _hover={{ color: color || hoverColor }} 
+                        />
+                      </FooterLink>
+                    ))}
+                  </HStack>
+                </VStack>
+              )}
             </VStack>
           </GridItem>
         </Grid>
