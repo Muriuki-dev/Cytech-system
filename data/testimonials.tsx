@@ -1,3 +1,5 @@
+import { Heading, Text } from '@chakra-ui/react'
+
 export default {
   title: 'Our Marketing & Community Services',
   items: [
