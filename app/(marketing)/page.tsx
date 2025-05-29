@@ -6,7 +6,6 @@ import {
   AlertDialogContent,
   AlertDialogFooter,
   SimpleGrid,
-  Image,
   AlertDialogHeader,
   AlertDialogOverlay,
   Accordion,
@@ -241,12 +240,79 @@ const LiveSupportChat = () => {
          <IconButton
   aria-label="Open live chat"
   icon={
-    <Box boxSize="24px">
-      <Image 
-        src="/static/images/support.png" 
-        alt="Support" 
-       
-        fit="contain"  // ensures image fits properly
+    <Box position="relative" width="24px" height="24px">
+      {/* Robot head */}
+      <Box 
+        position="absolute"
+        width="20px"
+        height="16px"
+        bg="gray.300"
+        borderRadius="4px"
+        top="4px"
+        left="2px"
+      />
+      
+      {/* Robot eyes */}
+      <Box 
+        position="absolute"
+        width="4px"
+        height="4px"
+        bg="green.500"
+        borderRadius="full"
+        top="6px"
+        left="6px"
+      />
+      <Box 
+        position="absolute"
+        width="4px"
+        height="4px"
+        bg="green.500"
+        borderRadius="full"
+        top="6px"
+        left="14px"
+      />
+      
+      {/* Robot mouth */}
+      <Box 
+        position="absolute"
+        width="12px"
+        height="2px"
+        bg="gray.500"
+        borderRadius="full"
+        top="12px"
+        left="6px"
+      />
+      
+      {/* Headphones */}
+      <Box 
+        position="absolute"
+        width="24px"
+        height="8px"
+        border="2px solid"
+        borderColor="gray.500"
+        borderRadius="12px"
+        top="0px"
+        left="0px"
+      />
+      <Box 
+        position="absolute"
+        width="6px"
+        height="6px"
+        border="2px solid"
+        borderColor="gray.500"
+        borderRadius="full"
+        top="1px"
+        left="-3px"
+      />
+      <Box 
+        position="absolute"
+        width="6px"
+        height="6px"
+        border="2px solid"
+        borderColor="gray.500"
+        borderRadius="full"
+        top="1px"
+        right="-3px"
       />
     </Box>
   }
@@ -255,6 +321,8 @@ const LiveSupportChat = () => {
   size="lg"
   isRound
   boxShadow="lg"
+  bg="gray.100"
+  _hover={{ bg: "gray.200" }}
 />
         ) : (
           <Box
