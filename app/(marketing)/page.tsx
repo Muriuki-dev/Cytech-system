@@ -58,6 +58,7 @@ import {
   FiGrid,
   FiLock,
   FiSearch,
+  FiCheckCircle,
   FiSliders,
   FiSmile,
   FiTerminal,
