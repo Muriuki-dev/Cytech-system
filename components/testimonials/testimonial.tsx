@@ -9,6 +9,8 @@ import {
   Box,
   usePrefersReducedMotion,
   useDisclosure,
+  InputGroup,
+  InputLeftElement,
   Modal,
   ModalOverlay,
   ModalContent,
@@ -315,41 +317,55 @@ export const Testimonial = ({
           <ModalBody py={6}>
             <form onSubmit={handleBookingSubmit}>
               <Stack spacing={4}>
-                <FormControl isRequired>
-                  <FormLabel>Full Name</FormLabel>
-                  <Input 
-                    name="name"
-                    value={bookingData.name}
-                    onChange={handleBookingChange}
-                    placeholder="Your full name"
-                    leftIcon={<FiUser />}
-                  />
-                </FormControl>
+               <FormControl isRequired>
+  <FormLabel>Full Name</FormLabel>
+  <InputGroup>
+    <InputLeftElement pointerEvents="none">
+      <Icon as={FiUser} color="gray.300" />
+    </InputLeftElement>
+    <Input 
+      name="name"
+      value={bookingData.name}
+      onChange={handleBookingChange}
+      placeholder="Your full name"
+      pl="10"
+    />
+  </InputGroup>
+</FormControl>
 
-                <FormControl isRequired>
-                  <FormLabel>Email Address</FormLabel>
-                  <Input 
-                    name="email"
-                    type="email"
-                    value={bookingData.email}
-                    onChange={handleBookingChange}
-                    placeholder="Your email address"
-                    leftIcon={<FiMail />}
-                  />
-                </FormControl>
+<FormControl isRequired>
+  <FormLabel>Email Address</FormLabel>
+  <InputGroup>
+    <InputLeftElement pointerEvents="none">
+      <Icon as={FiMail} color="gray.300" />
+    </InputLeftElement>
+    <Input 
+      name="email"
+      type="email"
+      value={bookingData.email}
+      onChange={handleBookingChange}
+      placeholder="Your email address"
+      pl="10"
+    />
+  </InputGroup>
+</FormControl>
 
-                <FormControl isRequired>
-                  <FormLabel>Phone Number</FormLabel>
-                  <Input 
-                    name="phone"
-                    type="tel"
-                    value={bookingData.phone}
-                    onChange={handleBookingChange}
-                    placeholder="Your phone number"
-                    leftIcon={<FiPhone />}
-                  />
-                </FormControl>
-
+<FormControl isRequired>
+  <FormLabel>Phone Number</FormLabel>
+  <InputGroup>
+    <InputLeftElement pointerEvents="none">
+      <Icon as={FiPhone} color="gray.300" />
+    </InputLeftElement>
+    <Input 
+      name="phone"
+      type="tel"
+      value={bookingData.phone}
+      onChange={handleBookingChange}
+      placeholder="Your phone number"
+      pl="10"
+    />
+  </InputGroup>
+</FormControl>
                 <FormControl isRequired>
                   <FormLabel>Preferred Date</FormLabel>
                   <Input 
