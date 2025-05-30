@@ -1467,27 +1467,63 @@ const EventsSection = () => {
     position="relative"
     overflow="hidden"
   >
-    {/* Red bar and "Event Finished" text */}
+    {/* Animated Diagonal Corner Banner */}
     <Box
       position="absolute"
       top="0"
-      left="0"
       right="0"
-      height="4px"
-      bg="red.500"
-    />
-    <Text
-      position="absolute"
-      top="2"
-      left="4"
-      fontSize="sm"
-      fontWeight="bold"
-      color="red"
+      width="0"
+      height="0"
+      borderTop="24px solid red.500"
+      borderLeft="24px solid transparent"
+      borderRight="24px solid red.500"
+      borderBottom="24px solid transparent"
+      animation="pulse 2s cubic-bezier(0.4, 0, 0.6, 1) infinite"
+      sx={{
+        "@keyframes pulse": {
+          "0%, 100%": {
+            opacity: 1,
+            borderTopColor: "red.500",
+            borderRightColor: "red.500"
+          },
+          "50%": {
+            opacity: 0.8,
+            borderTopColor: "red.600",
+            borderRightColor: "red.600"
+          }
+        }
+      }}
     >
-      EVENT FINISHED
-    </Text>
+      <Text
+        position="absolute"
+        top="4px"
+        right="-22px"
+        fontSize="xs"
+        fontWeight="extrabold"
+        color="red"
+        transform="rotate(45deg)"
+        transformOrigin="0 0"
+        whiteSpace="nowrap"
+        textShadow="0 0 2px black"
+        animation="textPop 2s ease-in-out infinite"
+        sx={{
+          "@keyframes textPop": {
+            "0%, 100%": {
+              transform: "rotate(45deg) scale(1)",
+              opacity: 1
+            },
+            "50%": {
+              transform: "rotate(45deg) scale(1.1)",
+              opacity: 0.9
+            }
+          }
+        }}
+      >
+        EVENT FINISHED
+      </Text>
+    </Box>
     
-    <Heading size="lg" mb="4" mt="4">Kanini Opening Activations</Heading>
+    <Heading size="lg" mb="4">Kanini Opening Activations</Heading>
     <Text color="muted" mb="2"><strong>Date:</strong> May 30, 2025</Text>
     <Text color="muted" mb="2"><strong>Location:</strong> Naivasha Town, Dubai Plaza, Opposite Modern Market, Next to Ketias Supermarket</Text>
     <Text mb="4">Join us as we bring the energy to the new Kanini opening,
@@ -1496,21 +1532,6 @@ If you want custom data report on your brand review (how customers felt about yo
     
   </Box>
 </Stack>
-        
-      <Box textAlign="center" pt="8">
-  <ButtonLink 
-    colorScheme="primary" 
-    size="lg" 
-    href="/events"
-    onClick={(e) => {
-      e.preventDefault();
-      alert("Check later when more events are available");
-    }}
-  >
-    View All Events
-  </ButtonLink>
-</Box>
-      </Stack>
 
       {/* Information Modal */}
       <Modal isOpen={isInfoOpen} onClose={onInfoClose} size="6xl">
