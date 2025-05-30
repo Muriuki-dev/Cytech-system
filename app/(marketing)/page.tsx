@@ -1531,6 +1531,13 @@ We will offer VR gaming to help engage consumers
 If you want custom data report on your brand review (how customers felt about your product ).</Text>
     
   </Box>
+     <Button 
+      
+      colorScheme="red" 
+      
+    >
+      Event Closed
+    </Button>
 </Stack>
 </Stack>
   
