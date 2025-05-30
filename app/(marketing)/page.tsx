@@ -242,7 +242,7 @@ const LiveSupportChat = () => {
   icon={
     <div style={{ width: '24px', height: '24px', position: 'relative' }}>
       <Image 
-        src="/static/images/support.jpg" 
+        src="/static/images/support.png" 
         alt="Support icon"
         fill
         style={{
