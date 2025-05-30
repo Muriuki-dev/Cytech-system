@@ -119,107 +119,342 @@ const LiveSupportChat = () => {
   const { isOpen, onOpen, onClose } = useDisclosure();
   const [message, setMessage] = useState('');
   const [chatMessages, setChatMessages] = useState([
-    { id: 1, sender: 'support', text: 'Hello! Welcome to Stratile Ltd. How can we help you today?', time: new Date() }
+    { 
+      id: 1, 
+      sender: 'support', 
+      text: 'Hello there! 👋 Welcome to Stratile Ltd. I\'m your virtual assistant here to help with anything from market activations to logistics solutions. What can I do for you today?', 
+      time: new Date() 
+    }
   ]);
   const messagesEndRef = useRef<HTMLDivElement>(null);
   const [awaitingHuman, setAwaitingHuman] = useState(false);
+  const [conversationContext, setConversationContext] = useState({
+    currentTopic: '',
+    previousTopics: [] as string[],
+    customerInterest: '',
+    pricingRequests: 0
+  });
+
+  // Knowledge base for different services
+  const serviceKnowledge = {
+    marketing: {
+      description: `Our Market Activations service is all about getting your brand noticed where it matters most. We specialize in:\n\n• B2B engagement through local retailers/distributors\n• Product marketing and strategic stocking\n• Salesforce management (from KSH 4800/day)\n• Merchandising solutions (from KSH 3800/day)\n\nWe create eye-catching merchandising centers at major distributors and gather valuable consumer data to boost your sales.`,
+      benefits: [
+        "Increased brand visibility at point of sale",
+        "Direct consumer engagement",
+        "Data-driven sales strategies",
+        "Professional merchandising teams"
+      ],
+      pricing: {
+        merchandising: "KSH 3800/day per merchandiser",
+        fieldMarketing: "KSH 4800/day per field agent",
+        graphicDesign: "Custom quotes based on project scope"
+      }
+    },
+    digital: {
+      description: `In our Modern Marketing Activations, we blend creativity with technology to tell your brand's story:\n\n• Meta & Google Ads management\n• Professional content creation\n• Social media account management\n• Training programs (from KSH 7200/day)\n• Multi-lingual support\n\nWe use state-of-the-art equipment to produce training materials that ensure compliance and engagement.`,
+      benefits: [
+        "Guaranteed online ad space",
+        "Professional video production",
+        "Measurable campaign results",
+        "Certified training programs"
+      ]
+    },
+    community: {
+      description: `The Imani Mettle Foundation brings communities together through:\n\n• Organized sports activities\n• Community hikes (KSH 500)\n• Archery sessions (KSH 1500/hour)\n• Healthy lifestyle programs\n\nBased at Tatu City, we create vibrant sporting opportunities that enhance quality of life.`,
+      benefits: [
+        "Improved community relations",
+        "Health and wellness focus",
+        "Professional equipment and facilities",
+        "Flexible booking system"
+      ]
+    },
+    logistics: {
+      description: `Stratile Logistics provides smart solutions for your supply chain:\n\n• Logistics consultancy (from KSH 2800/day)\n• Business cost analysis\n• Market demand forecasting\n• Technology-integrated solutions\n\nWe help businesses make data-driven logistical decisions.`,
+      benefits: [
+        "Cost optimization",
+        "Technology-driven solutions",
+        "Customized for your business size",
+        "End-to-end supply chain analysis"
+      ]
+    }
+  };
 
   const handleSendMessage = () => {
     if (!message.trim()) return;
 
     // Add user message
-    const userMessage = { id: Date.now(), sender: 'user', text: message, time: new Date() };
+    const userMessage = { 
+      id: Date.now(), 
+      sender: 'user', 
+      text: message, 
+      time: new Date() 
+    };
     setChatMessages(prev => [...prev, userMessage]);
     setMessage('');
 
-    // Process the message
+    // Process the message with slight delay for natural feel
     setTimeout(() => {
       const response = generateResponse(message);
       setChatMessages(prev => [...prev, response]);
-    }, 1000);
+    }, 800 + Math.random() * 700); // Random delay between 800-1500ms
   };
 
-  const generateResponse = (userMessage: string): { id: number, sender: string, text: string, time: Date } => {
+  const generateResponse = (userMessage: string) => {
     const lowerMessage = userMessage.toLowerCase();
-    
-    // Check if user wants human support
+    let responseText = '';
+    let newContext = {...conversationContext};
+
+    // Check for conversation continuations first
+    if (conversationContext.currentTopic) {
+      const followUp = handleFollowUp(lowerMessage, conversationContext.currentTopic);
+      if (followUp) {
+        newContext.previousTopics.push(conversationContext.currentTopic);
+        return {
+          id: Date.now(),
+          sender: 'support',
+          text: followUp,
+          time: new Date()
+        };
+      }
+    }
+
+    // Human support request
     if (lowerMessage.includes('human') || lowerMessage.includes('agent') || lowerMessage.includes('representative')) {
       setAwaitingHuman(true);
+      newContext.currentTopic = 'human_support';
+      setConversationContext(newContext);
       return {
         id: Date.now(),
         sender: 'support',
-        text: 'I\'ve requested a human support representative to join this chat. In the meantime, is there anything else I can help you with?',
+        text: 'I\'ve flagged a support representative to join us. They\'ll be with you shortly! \n\nWhile we wait, I can still help with:\n• Service details\n• Pricing\n• Event bookings\n• Or anything else you need!',
         time: new Date()
       };
     }
 
-    // Check for greetings
-    if (lowerMessage.includes('hi') || lowerMessage.includes('hello') || lowerMessage.includes('hey')) {
+    // Greetings
+    if (/^(hi|hello|hey|greetings|good\s(morning|afternoon|evening))/i.test(lowerMessage)) {
+      const greetings = [
+        `Hello again! What can I help you with today?`,
+        `Hi there! How can I assist you?`,
+        `Greetings! What brings you to Stratile today?`,
+        `Good ${getTimeOfDay()}! What would you like to know about our services?`
+      ];
       return {
         id: Date.now(),
         sender: 'support',
-        text: 'Hello! Thank you for contacting Stratile Ltd. How can I assist you today?',
+        text: greetings[Math.floor(Math.random() * greetings.length)],
         time: new Date()
       };
     }
 
-    // Check for services
-    if (lowerMessage.includes('service') || lowerMessage.includes('offer') || lowerMessage.includes('do you provide')) {
+    // Thanks response
+    if (/thank|thanks|appreciate/i.test(lowerMessage)) {
+      const thanksResponses = [
+        `You're very welcome! Is there anything else I can help with?`,
+        `My pleasure! Don't hesitate to ask if you need anything more.`,
+        `Glad I could help! 😊 What else can I do for you today?`
+      ];
       return {
         id: Date.now(),
         sender: 'support',
-        text: 'Stratile Ltd offers comprehensive services including:\n\n- Marketing Activations\n- Creative Solutions\n- Advertising Solutions\n- Social Media Marketing\n- Community & Sports Engagement Events\n- Project Management\n\nWhich service are you interested in?',
+        text: thanksResponses[Math.floor(Math.random() * thanksResponses.length)],
         time: new Date()
       };
     }
 
-    // Check for vision/mission
-    if (lowerMessage.includes('vision') || lowerMessage.includes('mission') || lowerMessage.includes('purpose')) {
+    // Service inquiries
+    if (/service|offer|provide|do you have|what can you do/i.test(lowerMessage)) {
+      newContext.currentTopic = 'services_overview';
+      setConversationContext(newContext);
       return {
         id: Date.now(),
         sender: 'support',
-        text: 'Our Vision: To be the leading project management organization that empowers individuals and communities.\n\nOur Mission: To deliver exceptional project management services that foster functional businesses and drive meaningful social development.',
+        text: `We offer several specialized services - which area interests you most?\n\n1. **Market Activations** (Retail merchandising & field marketing)\n2. **Digital Marketing** (Ads, social media & training)\n3. **Community Engagement** (Sports & wellness programs)\n4. **Logistics Solutions** (Supply chain consulting)\n\nOr shall I explain them all?`,
         time: new Date()
       };
     }
 
-    // Check for events
-    if (lowerMessage.includes('event') || lowerMessage.includes('upcoming') || lowerMessage.includes('kanini')) {
+    // Marketing activations
+    if (/(market activation|merchandising|field marketing|salesforce|retail)/i.test(lowerMessage)) {
+      newContext.currentTopic = 'marketing';
+      newContext.customerInterest = 'marketing';
+      setConversationContext(newContext);
+      
+      const benefitsList = serviceKnowledge.marketing.benefits
+        .map(b => `• ${b}`)
+        .join('\n');
+      
       return {
         id: Date.now(),
         sender: 'support',
-        text: 'Our upcoming event: Kanini Haraka Wholesalers and Distribution Marketing Package Promotion on May 30, 2025 in Naivasha. Would you like more details or to book a package?',
+        text: `Ah, our Market Activations! 🛍️ ${serviceKnowledge.marketing.description}\n\n**Key Benefits:**\n${benefitsList}\n\nWould you like pricing details, or should I explain how we implement these activations?`,
         time: new Date()
       };
     }
 
-    // Check for contact
-    if (lowerMessage.includes('contact') || lowerMessage.includes('reach') || lowerMessage.includes('phone')) {
+    // Digital marketing
+    if (/(digital|online|social media|meta|google ads|training)/i.test(lowerMessage)) {
+      newContext.currentTopic = 'digital';
+      newContext.customerInterest = 'digital';
+      setConversationContext(newContext);
+      
       return {
         id: Date.now(),
         sender: 'support',
-        text: 'You can reach us at:\n\nPhone: 0741953190\nEmail: labanmwangi444@gmail.com\n\nWould you like me to connect you with a human representative?',
+        text: `Our Digital Marketing services are perfect for today's connected world! 📱 ${serviceKnowledge.digital.description}\n\nDid you know we can create campaigns in multiple languages? Would you like details about our:\n1. Ad packages\n2. Training programs\n3. Content creation\n4. Or something else?`,
         time: new Date()
       };
     }
 
-    // Check for project management
-    if (lowerMessage.includes('project') || lowerMessage.includes('management') || lowerMessage.includes('pmo')) {
+    // Community engagement
+    if (/(community|imani|sports|archery|hike|wellness)/i.test(lowerMessage)) {
+      newContext.currentTopic = 'community';
+      newContext.customerInterest = 'community';
+      setConversationContext(newContext);
+      
       return {
         id: Date.now(),
         sender: 'support',
-        text: 'We provide end-to-end project management from conceptualization to execution. Our services include stakeholder management, community engagement, and ensuring sustainable outcomes. Would you like to discuss a specific project?',
+        text: `The Imani Mettle Foundation is all about building stronger communities through sports! ⚽ ${serviceKnowledge.community.description}\n\nWe can help you:\n• Book activities\n• Organize corporate wellness events\n• Plan competitive tournaments\n\nWhat interests you most?`,
         time: new Date()
       };
     }
 
-    // Default response
+    // Logistics
+    if (/(logistics|supply chain|delivery|consultancy|business analysis)/i.test(lowerMessage)) {
+      newContext.currentTopic = 'logistics';
+      newContext.customerInterest = 'logistics';
+      setConversationContext(newContext);
+      
+      return {
+        id: Date.now(),
+        sender: 'support',
+        text: `Smart logistics can transform your business operations! 🚛 ${serviceKnowledge.logistics.description}\n\nOur consultants help identify:\n• Cost-saving opportunities\n• Process improvements\n• Technology integration points\n\nWould you like a consultation overview or pricing details?`,
+        time: new Date()
+      };
+    }
+
+    // Pricing requests
+    if (/(price|cost|rate|how much|fee)/i.test(lowerMessage)) {
+      newContext.pricingRequests += 1;
+      setConversationContext(newContext);
+      
+      if (conversationContext.customerInterest) {
+        return generatePricingResponse(conversationContext.customerInterest);
+      } else {
+        return {
+          id: Date.now(),
+          sender: 'support',
+          text: `I'd be happy to provide pricing! Our rates vary by service:\n\n• Market Activations: from KSH 3800/day\n• Digital Marketing: from KSH 7200/day\n• Community Activities: from KSH 500/session\n• Logistics Consultancy: from KSH 2800/day\n\nWhich service would you like detailed pricing for?`,
+          time: new Date()
+        };
+      }
+    }
+
+    // Contact information
+    if (/(contact|reach|phone|email|address)/i.test(lowerMessage)) {
+      return {
+        id: Date.now(),
+        sender: 'support',
+        text: `You can reach us through:\n\n📞 Phone: 0741953190\n📧 Email: labanmwangi444@gmail.com\n📍 Location: Tatu City (for community activities)\n\nWould you like me to connect you with a specific department?`,
+        time: new Date()
+      };
+    }
+
+    // Default intelligent response
+    const defaultResponses = [
+      `Interesting question! Could you tell me more about what you're looking for?`,
+      `I'd be happy to help with that. To give you the best answer, could you clarify: are you interested in our services, events, or something else?`,
+      `Great question! We have several options that might suit your needs. Could you tell me more about your specific requirements?`,
+      `I can definitely help with that. Let me understand better - is this for a business, community group, or personal interest?`
+    ];
+    
     return {
       id: Date.now(),
       sender: 'support',
-      text: 'Thank you for your message. I can help with information about our services, upcoming events, or connect you with human support if needed. Could you please specify your question?',
+      text: defaultResponses[Math.floor(Math.random() * defaultResponses.length)],
       time: new Date()
     };
+  };
+
+  const handleFollowUp = (message: string, topic: string) => {
+    switch(topic) {
+      case 'marketing':
+        if (/(price|cost|rate)/i.test(message)) {
+          return `Here's our marketing activation pricing:\n\n• Merchandising: ${serviceKnowledge.marketing.pricing.merchandising}\n• Field Marketing: ${serviceKnowledge.marketing.pricing.fieldMarketing}\n• Graphic Design: ${serviceKnowledge.marketing.pricing.graphicDesign}\n\nWould you like a customized quote based on your specific needs?`;
+        }
+        if (/(how|process|implement)/i.test(message)) {
+          return `Our marketing activation process:\n1. Needs assessment meeting\n2. Retailer/distributor mapping\n3. Team deployment\n4. Ongoing monitoring\n5. Performance reporting\n\nWe typically see measurable results within 4-6 weeks. Would you like a case study example?`;
+        }
+        break;
+        
+      case 'digital':
+        if (/(price|cost)/i.test(message)) {
+          return `Digital marketing service rates:\n\n• Basic Ad Management: KSH 15,000/month\n• Full Campaign Management: KSH 35,000/month\n• Training Programs: KSH 7,200/day per participant\n\nWe offer package discounts for combined services. Interested in a consultation?`;
+        }
+        break;
+        
+      case 'community':
+        if (/(book|reserve|sign up)/i.test(message)) {
+          return `To book community activities:\n1. Choose your activity (hikes, archery, etc.)\n2. Select preferred date(s)\n3. Provide participant count\n4. We'll confirm availability\n\nWould you like to start a booking now?`;
+        }
+        break;
+        
+      case 'logistics':
+        if (/(consult|meeting)/i.test(message)) {
+          return `We'd love to discuss your logistics needs! Our typical process:\n1. Initial discovery call (30 mins)\n2. Business assessment\n3. Solution proposal\n4. Implementation\n\nI can arrange a consultation - would tomorrow or later this week work better?`;
+        }
+        break;
+    }
+    return null;
+  };
+
+  const generatePricingResponse = (service: string) => {
+    switch(service) {
+      case 'marketing':
+        return {
+          id: Date.now(),
+          sender: 'support',
+          text: `Here's detailed pricing for Market Activations:\n\n• Basic Merchandising: KSH 3800/day per staff\n• Premium Merchandising (with reporting): KSH 4500/day\n• Field Marketing Agents: KSH 4800/day\n• Salesforce Management: KSH 5500/day\n\nVolume discounts available for 30+ day engagements. Need a customized quote?`,
+          time: new Date()
+        };
+      case 'digital':
+        return {
+          id: Date.now(),
+          sender: 'support',
+          text: `Digital Marketing Services Pricing:\n\n• Social Media Management: from KSH 20,000/month\n• Google/Meta Ads: 15% of ad spend (min. KSH 10,000)\n• Training Programs: KSH 7200/day per person\n• Video Production: KSH 25,000/day\n\nPackage deals available for multiple services.`,
+          time: new Date()
+        };
+      case 'community':
+        return {
+          id: Date.now(),
+          sender: 'support',
+          text: `Community Activity Rates:\n\n• Community Hikes: KSH 500 per person\n• Archery Sessions: KSH 1500/hour (equipment included)\n• Corporate Wellness Days: Custom pricing\n• Tournament Organization: From KSH 25,000\n\nGroup discounts available for 10+ participants.`,
+          time: new Date()
+        };
+      case 'logistics':
+        return {
+          id: Date.now(),
+          sender: 'support',
+          text: `Logistics Consultancy Fees:\n\n• Initial Assessment: KSH 2800/day\n• Full Analysis: KSH 15,000-50,000 (project-based)\n• Ongoing Support: KSH 10,000/month\n\nFirst consultation is free for new clients!`,
+          time: new Date()
+        };
+      default:
+        return {
+          id: Date.now(),
+          sender: 'support',
+          text: `I'd be happy to provide pricing details. Could you specify which service you're interested in? We offer:\n1. Market Activations\n2. Digital Marketing\n3. Community Programs\n4. Logistics Solutions`,
+          time: new Date()
+        };
+    }
+  };
+
+  const getTimeOfDay = () => {
+    const hour = new Date().getHours();
+    if (hour < 12) return 'morning';
+    if (hour < 17) return 'afternoon';
+    return 'evening';
   };
 
   const handleKeyPress = (e: React.KeyboardEvent) => {
@@ -237,24 +472,23 @@ const LiveSupportChat = () => {
     <>
       <Box position="fixed" bottom="6" right="6" zIndex="999">
         {!isOpen ? (
-       <IconButton
-  aria-label="Open live chat"
-  icon={
-    <div style={{ width: '24px', height: '24px', position: 'relative' }}>
-      <Image 
-        src="/static/images/support.png" 
-        alt="Support icon"
-        fill
-        
-      />
-    </div>
-  }
-  onClick={onOpen}
-  colorScheme="green"
-  size="lg"
-  isRound
-  boxShadow="lg"
-/>
+          <IconButton
+            aria-label="Open live chat"
+            icon={
+              <div style={{ width: '24px', height: '24px', position: 'relative' }}>
+                <Image 
+                  src="/static/images/support.png" 
+                  alt="Support icon"
+                  fill
+                />
+              </div>
+            }
+            onClick={onOpen}
+            colorScheme="green"
+            size="lg"
+            isRound
+            boxShadow="lg"
+          />
         ) : (
           <Box
             bg={useColorModeValue('white', 'gray.800')}
@@ -275,7 +509,7 @@ const LiveSupportChat = () => {
               alignItems="center"
             >
               <Text fontWeight="bold">
-                {awaitingHuman ? 'Connecting to support...' : 'Stratile Support'}
+                {awaitingHuman ? 'Connecting to support...' : 'Stratile Assistant'}
               </Text>
               <IconButton
                 aria-label="Close chat"
@@ -347,7 +581,7 @@ const LiveSupportChat = () => {
               </HStack>
               {!awaitingHuman && (
                 <Text mt={2} fontSize="sm" textAlign="center" color="gray.500">
-                  Type "human" to connect with a support representative
+                  Ask me about services, pricing, or type "human" for live support
                 </Text>
               )}
             </Box>
