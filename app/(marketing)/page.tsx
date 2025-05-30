@@ -1451,35 +1451,57 @@ const EventsSection = () => {
           </Text>
         </Box>
 
-        <Stack direction={{ base: 'column', md: 'row' }} spacing="8">
-          <Box 
-            flex="1" 
-            p="6" 
-            borderWidth="1px" 
-            borderRadius="lg"
-            borderColor="blue.400"
-            _hover={{
-              borderColor: 'blue.500',
-              transform: 'translateY(-2px)',
-              boxShadow: 'lg'
-            }}
-            transition="all 0.2s"
-          >
-            <Heading size="lg" mb="4">Kanini Opening Activations</Heading>
-            <Text color="muted" mb="2"><strong>Date:</strong> May 30, 2025</Text>
-            <Text color="muted" mb="2"><strong>Location:</strong> Naivasha Town, Dubai Plaza, Opposite Modern Market, Next to Ketias Supermarket</Text>
-            <Text mb="4">Join us as we bring the energy to the new Kanini opening,
+       <Stack direction={{ base: 'column', md: 'row' }} spacing="8">
+  <Box 
+    flex="1" 
+    p="6" 
+    borderWidth="1px" 
+    borderRadius="lg"
+    borderColor="blue.400"
+    _hover={{
+      borderColor: 'blue.500',
+      transform: 'translateY(-2px)',
+      boxShadow: 'lg'
+    }}
+    transition="all 0.2s"
+    position="relative"
+    overflow="hidden"
+  >
+    {/* Red bar and "Event Finished" text */}
+    <Box
+      position="absolute"
+      top="0"
+      left="0"
+      right="0"
+      height="4px"
+      bg="red.500"
+    />
+    <Text
+      position="absolute"
+      top="2"
+      left="4"
+      fontSize="sm"
+      fontWeight="bold"
+      color="red.500"
+    >
+      EVENT FINISHED
+    </Text>
+    
+    <Heading size="lg" mb="4" mt="4">Kanini Opening Activations</Heading>
+    <Text color="muted" mb="2"><strong>Date:</strong> May 30, 2025</Text>
+    <Text color="muted" mb="2"><strong>Location:</strong> Naivasha Town, Dubai Plaza, Opposite Modern Market, Next to Ketias Supermarket</Text>
+    <Text mb="4">Join us as we bring the energy to the new Kanini opening,
 We will offer VR gaming to help engage consumers
 If you want custom data report on your brand review (how customers felt about your product ).</Text>
-            <Button 
-              onClick={onInfoOpen}
-              colorScheme="green" 
-              rightIcon={<FiArrowRight />}
-            >
-              Book Now
-            </Button>
-          </Box>
-        </Stack>
+    <Button 
+      onClick={onInfoOpen}
+      colorScheme="green" 
+      rightIcon={<FiArrowRight />}
+    >
+      Book Now
+    </Button>
+  </Box>
+</Stack>
         
       <Box textAlign="center" pt="8">
   <ButtonLink 
