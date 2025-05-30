@@ -122,7 +122,7 @@ const LiveSupportChat = () => {
     { 
       id: 1, 
       sender: 'support', 
-      text: 'Hello there! 👋 Welcome to Stratile Ltd. I\'m your virtual assistant here to help with anything from market activations to logistics solutions. What can I do for you today?', 
+      text: 'Hello there! 👋 Welcome to Stratile Ltd. May I know your name before we proceed?', 
       time: new Date() 
     }
   ]);
@@ -132,8 +132,10 @@ const LiveSupportChat = () => {
     currentTopic: '',
     previousTopics: [] as string[],
     customerInterest: '',
-    pricingRequests: 0
+    pricingRequests: 0,
+    userName: ''
   });
+  const [hasAskedForName, setHasAskedForName] = useState(false);
 
   // FAQ State
   const [faqs] = useState([
@@ -221,6 +223,27 @@ const LiveSupportChat = () => {
     setChatMessages(prev => [...prev, userMessage]);
     setMessage('');
 
+    // If we haven't captured the user's name yet and this is the first message
+    if (!conversationContext.userName && !hasAskedForName) {
+      setHasAskedForName(true);
+      // Store the name and acknowledge it
+      setConversationContext(prev => ({
+        ...prev,
+        userName: message.trim()
+      }));
+      
+      // Add welcome message with name
+      setTimeout(() => {
+        setChatMessages(prev => [...prev, {
+          id: Date.now(),
+          sender: 'support',
+          text: `Nice to meet you, ${message.trim()}! I'm your virtual assistant here to help with anything from market activations to logistics solutions. What can I do for you today?`,
+          time: new Date()
+        }]);
+      }, 800);
+      return;
+    }
+
     // Process the message with slight delay for natural feel
     setTimeout(() => {
       const response = generateResponse(message);
@@ -232,6 +255,8 @@ const LiveSupportChat = () => {
     const lowerMessage = userMessage.toLowerCase();
     let responseText = '';
     let newContext = {...conversationContext};
+    
+    const userName = newContext.userName ? `, ${newContext.userName}` : '';
 
     // Check for conversation continuations first
     if (conversationContext.currentTopic) {
@@ -249,7 +274,7 @@ const LiveSupportChat = () => {
 
     // FAQ Handling
     const matchedFAQ = faqs.find(faq => 
-      lowerMessage.includes(faq.question.toLowerCase().split(' ')[0]) || // Match first word
+      lowerMessage.includes(faq.question.toLowerCase().split(' ')[0]) || 
       faq.question.toLowerCase().split(' ').some(word => 
         word.length > 3 && lowerMessage.includes(word)
       )
@@ -278,7 +303,7 @@ const LiveSupportChat = () => {
       return {
         id: Date.now(),
         sender: 'support',
-        text: `Here are our frequently asked questions:\n\n${faqList}\n\nWhich one would you like me to explain? (just type the number)`,
+        text: `Here are our frequently asked questions${userName}:\n\n${faqList}\n\nWhich one would you like me to explain? (just type the number)`,
         time: new Date()
       };
     }
@@ -291,7 +316,7 @@ const LiveSupportChat = () => {
       return {
         id: Date.now(),
         sender: 'support',
-        text: 'I\'ve flagged a support representative to join us. They\'ll be with you shortly! \n\nWhile we wait, I can still help with:\n• Service details\n• Pricing\n• Event bookings\n• Or anything else you need!',
+        text: `I've flagged a support representative to join us${userName}. They'll be with you shortly! \n\nWhile we wait, I can still help with:\n• Service details\n• Pricing\n• Event bookings\n• Or anything else you need!`,
         time: new Date()
       };
     }
@@ -299,10 +324,10 @@ const LiveSupportChat = () => {
     // Greetings
     if (/^(hi|hello|hey|greetings|good\s(morning|afternoon|evening))/i.test(lowerMessage)) {
       const greetings = [
-        `Hello again! What can I help you with today?`,
-        `Hi there! How can I assist you?`,
-        `Greetings! What brings you to Stratile today?`,
-        `Good ${getTimeOfDay()}! What would you like to know about our services?`
+        `Hello again${userName}! What can I help you with today?`,
+        `Hi there${userName}! How can I assist you?`,
+        `Greetings${userName}! What brings you to Stratile today?`,
+        `Good ${getTimeOfDay()}${userName}! What would you like to know about our services?`
       ];
       return {
         id: Date.now(),
@@ -315,9 +340,9 @@ const LiveSupportChat = () => {
     // Thanks response
     if (/thank|thanks|appreciate/i.test(lowerMessage)) {
       const thanksResponses = [
-        `You're very welcome! Is there anything else I can help with?`,
-        `My pleasure! Don't hesitate to ask if you need anything more.`,
-        `Glad I could help! 😊 What else can I do for you today?`
+        `You're very welcome${userName}! Is there anything else I can help with?`,
+        `My pleasure${userName}! Don't hesitate to ask if you need anything more.`,
+        `Glad I could help${userName}! 😊 What else can I do for you today?`
       ];
       return {
         id: Date.now(),
@@ -327,80 +352,84 @@ const LiveSupportChat = () => {
       };
     }
 
-   // Service inquiries
-if (
-  /what (services|can you do|do you offer|do you provide|does stratle do|stratile (can|do) you have)|services?|offer|provide|stratile do you have/i.test(lowerMessage)
-) {
-  newContext.currentTopic = 'services_overview';
-  setConversationContext(newContext);
-  return {
-    id: Date.now(),
-    sender: 'support',
-    text: `We offer several specialized services - which area interests you most?\n\n1. **Market Activations** (Retail merchandising & field marketing)\n2. **Digital Marketing** (Ads, social media & training)\n3. **Community Engagement** (Sports & wellness programs)\n4. **Logistics Solutions** (Supply chain consulting)\n\nOr shall I explain them all?`,
-    time: new Date()
-  };
-}
-
-
-   // Marketing activations
-if (
-  /(market activations?|brand activations?|product launch|merchandising|retail (promotion|setup|activation)|field (marketing|campaigns?)|sales (force|agents?)|sales team|on-ground marketing|push my brand|introduce.*product.*market)/i.test(lowerMessage)
-) {
-  newContext.currentTopic = 'marketing';
-  newContext.customerInterest = 'marketing';
-  setConversationContext(newContext);
-
-  const benefitsList = serviceKnowledge.marketing.benefits
-    .map(b => `• ${b}`)
-    .join('\n');
-
-  return {
-    id: Date.now(),
-    sender: 'support',
-    text: `Ah, our Market Activations! 🛍️ ${serviceKnowledge.marketing.description}\n\n**Key Benefits:**\n${benefitsList}\n\nWould you like pricing details, or should I explain how we implement these activations?`,
-    time: new Date()
-  };
-}
-
-
-    // Digital marketing
-    if (/(digital|online|social media|meta|google ads|training)/i.test(lowerMessage)) {
-      newContext.currentTopic = 'digital';
-      newContext.customerInterest = 'digital';
+    // Service inquiries
+    if (
+      /what (services|can you do|do you offer|do you provide|does stratle do|stratile (can|do) you have)|services?|offer|provide|stratile do you have/i.test(lowerMessage)
+    ) {
+      newContext.currentTopic = 'services_overview';
       setConversationContext(newContext);
-      
       return {
         id: Date.now(),
         sender: 'support',
-        text: `Our Digital Marketing services are perfect for today's connected world! 📱 ${serviceKnowledge.digital.description}\n\nDid you know we can create campaigns in multiple languages? Would you like details about our:\n1. Ad packages\n2. Training programs\n3. Content creation\n4. Or something else?`,
+        text: `We offer several specialized services - which area interests you most?\n\n1. **Market Activations** (Retail merchandising & field marketing)\n2. **Digital Marketing** (Ads, social media & training)\n3. **Community Engagement** (Sports & wellness programs)\n4. **Logistics Solutions** (Supply chain consulting)\n\nOr shall I explain them all?`,
+        time: new Date()
+      };
+    }
+
+    // Marketing activations
+    if (
+      /(market activations?|brand activations?|product launch|merchandising|retail (promotion|setup|activation)|field (marketing|campaigns?)|sales (force|agents?)|sales team|on-ground marketing|push my brand|introduce.*product.*market)/i.test(lowerMessage)
+    ) {
+      newContext.currentTopic = 'marketing';
+      newContext.customerInterest = 'marketing';
+      setConversationContext(newContext);
+
+      const benefitsList = serviceKnowledge.marketing.benefits
+        .map(b => `• ${b}`)
+        .join('\n');
+
+      return {
+        id: Date.now(),
+        sender: 'support',
+        text: `Ah${userName}, our Market Activations! 🛍️ ${serviceKnowledge.marketing.description}\n\n**Key Benefits:**\n${benefitsList}\n\nWould you like pricing details, or should I explain how we implement these activations?`,
+        time: new Date()
+      };
+    }
+
+    // Digital marketing
+    if (
+      /(digital marketing|online marketing|social media( marketing| ads)?|facebook ads?|instagram ads?|meta ads?|meta campaigns?|google (ads?|campaigns?)|run ads|online promotions?|content creation|business promotion|train(ing)?|learn (digital|online|social media)|manage (facebook|instagram)|grow my page|get customers online|boost(ed)? posts?)/i.test(lowerMessage)
+    ) {
+      newContext.currentTopic = 'digital';
+      newContext.customerInterest = 'digital';
+      setConversationContext(newContext);
+
+      return {
+        id: Date.now(),
+        sender: 'support',
+        text: `Our Digital Marketing services are perfect for today's connected world${userName}! 📱 ${serviceKnowledge.digital.description}\n\nDid you know we can create campaigns in multiple languages? Would you like details about our:\n1. Ad packages\n2. Training programs\n3. Content creation\n4. Or something else?`,
         time: new Date()
       };
     }
 
     // Community engagement
-    if (/(community|imani|sports|archery|hike|wellness)/i.test(lowerMessage)) {
+    if (
+      /(community (events?|programs?|projects?|engagement)|imani (foundation)?|sports (events?|tournaments?)|join.*football|football (match|event|tournament)|archery|hikes?|book.*hike|wellness (day|event|program)|team[- ]?building|corporate wellness|youth empowerment|outreach|fitness activities|plan.*sports event|register.*tournament|host.*community event)/i.test(lowerMessage)
+    ) {
       newContext.currentTopic = 'community';
       newContext.customerInterest = 'community';
       setConversationContext(newContext);
-      
+
       return {
         id: Date.now(),
         sender: 'support',
-        text: `The Imani Mettle Foundation is all about building stronger communities through sports! ⚽ ${serviceKnowledge.community.description}\n\nWe can help you:\n• Book activities\n• Organize corporate wellness events\n• Plan competitive tournaments\n\nWhat interests you most?`,
+        text: `The Imani Mettle Foundation is all about building stronger communities through sports${userName}! ⚽ ${serviceKnowledge.community.description}\n\nWe can help you:\n• Book activities\n• Organize corporate wellness events\n• Plan competitive tournaments\n\nWhat interests you most?`,
         time: new Date()
       };
     }
 
     // Logistics
-    if (/(logistics|supply chain|delivery|consultancy|business analysis)/i.test(lowerMessage)) {
+    if (
+      /(logistics (services|support)?|supply chain (management|solutions)?|delivery (services|support)?|business delivery|delivery strategy|logistics strategy|logistics partner|delivery help|help with deliveries|consultancy (services)?|business analysis|process improvement|cost saving|transportation planning|business operations|how to improve logistics|streamline my supply chain|delivery challenges|outsourcing logistics|inventory management|distribution planning)/i.test(lowerMessage)
+    ) {
       newContext.currentTopic = 'logistics';
       newContext.customerInterest = 'logistics';
       setConversationContext(newContext);
-      
+
       return {
         id: Date.now(),
         sender: 'support',
-        text: `Smart logistics can transform your business operations! 🚛 ${serviceKnowledge.logistics.description}\n\nOur consultants help identify:\n• Cost-saving opportunities\n• Process improvements\n• Technology integration points\n\nWould you like a consultation overview or pricing details?`,
+        text: `Smart logistics can transform your business operations${userName}! 🚛 ${serviceKnowledge.logistics.description}\n\nOur consultants help identify:\n• Cost-saving opportunities\n• Process improvements\n• Technology integration points\n\nWould you like a consultation overview or pricing details?`,
         time: new Date()
       };
     }
@@ -416,7 +445,7 @@ if (
         return {
           id: Date.now(),
           sender: 'support',
-          text: `I'd be happy to provide pricing! Our rates vary by service:\n\n• Market Activations: from KSH 3800/day\n• Digital Marketing: from KSH 7200/day\n• Community Activities: from KSH 500/session\n• Logistics Consultancy: from KSH 2800/day\n\nWhich service would you like detailed pricing for?`,
+          text: `I'd be happy to provide pricing${userName}! Our rates vary by service:\n\n• Market Activations: from KSH 3800/day\n• Digital Marketing: from KSH 7200/day\n• Community Activities: from KSH 500/session\n• Logistics Consultancy: from KSH 2800/day\n\nWhich service would you like detailed pricing for?`,
           time: new Date()
         };
       }
@@ -427,17 +456,17 @@ if (
       return {
         id: Date.now(),
         sender: 'support',
-        text: `You can reach us through:\n\n📞 Phone: 0741953190\n📧 Email: labanmwangi444@gmail.com\n📍 Location: Tatu City (for community activities)\n\nWould you like me to connect you with a specific department?`,
+        text: `You can reach us through${userName}:\n\n📞 Phone: 0741953190\n📧 Email: labanmwangi444@gmail.com\n📍 Location: Tatu City (for community activities)\n\nWould you like me to connect you with a specific department?`,
         time: new Date()
       };
     }
 
     // Default intelligent response
     const defaultResponses = [
-      `Interesting question! Could you tell me more about what you're looking for?`,
-      `I'd be happy to help with that. To give you the best answer, could you clarify: are you interested in our services, events, or something else?`,
-      `Great question! We have several options that might suit your needs. Could you tell me more about your specific requirements?`,
-      `I can definitely help with that. Let me understand better - is this for a business, community group, or personal interest?`
+      `Interesting question${userName}! Could you tell me more about what you're looking for?`,
+      `I'd be happy to help with that${userName}. To give you the best answer, could you clarify: are you interested in our services, events, or something else?`,
+      `Great question${userName}! We have several options that might suit your needs. Could you tell me more about your specific requirements?`,
+      `I can definitely help with that${userName}. Let me understand better - is this for a business, community group, or personal interest?`
     ];
     
     return {
@@ -449,31 +478,33 @@ if (
   };
 
   const handleFollowUp = (message: string, topic: string) => {
+    const userName = conversationContext.userName ? `, ${conversationContext.userName}` : '';
+    
     switch(topic) {
       case 'marketing':
         if (/(price|cost|rate)/i.test(message)) {
-          return `Here's our marketing activation pricing:\n\n• Merchandising: ${serviceKnowledge.marketing.pricing.merchandising}\n• Field Marketing: ${serviceKnowledge.marketing.pricing.fieldMarketing}\n• Graphic Design: ${serviceKnowledge.marketing.pricing.graphicDesign}\n\nWould you like a customized quote based on your specific needs?`;
+          return `Here's our marketing activation pricing${userName}:\n\n• Merchandising: ${serviceKnowledge.marketing.pricing.merchandising}\n• Field Marketing: ${serviceKnowledge.marketing.pricing.fieldMarketing}\n• Graphic Design: ${serviceKnowledge.marketing.pricing.graphicDesign}\n\nWould you like a customized quote based on your specific needs?`;
         }
         if (/(how|process|implement)/i.test(message)) {
-          return `Our marketing activation process:\n1. Needs assessment meeting\n2. Retailer/distributor mapping\n3. Team deployment\n4. Ongoing monitoring\n5. Performance reporting\n\nWe typically see measurable results within 4-6 weeks. Would you like a case study example?`;
+          return `Our marketing activation process${userName}:\n1. Needs assessment meeting\n2. Retailer/distributor mapping\n3. Team deployment\n4. Ongoing monitoring\n5. Performance reporting\n\nWe typically see measurable results within 4-6 weeks. Would you like a case study example?`;
         }
         break;
         
       case 'digital':
         if (/(price|cost)/i.test(message)) {
-          return `Digital marketing service rates:\n\n• Basic Ad Management: KSH 15,000/month\n• Full Campaign Management: KSH 35,000/month\n• Training Programs: KSH 7,200/day per participant\n\nWe offer package discounts for combined services. Interested in a consultation?`;
+          return `Digital marketing service rates${userName}:\n\n• Basic Ad Management: KSH 15,000/month\n• Full Campaign Management: KSH 35,000/month\n• Training Programs: KSH 7,200/day per participant\n• Video Production: KSH 25,000/day\n\nWe offer package discounts for combined services. Interested in a consultation?`;
         }
         break;
         
       case 'community':
         if (/(book|reserve|sign up)/i.test(message)) {
-          return `To book community activities:\n1. Choose your activity (hikes, archery, etc.)\n2. Select preferred date(s)\n3. Provide participant count\n4. We'll confirm availability\n\nWould you like to start a booking now?`;
+          return `To book community activities${userName}:\n1. Choose your activity (hikes, archery, etc.)\n2. Select preferred date(s)\n3. Provide participant count\n4. We'll confirm availability\n\nWould you like to start a booking now?`;
         }
         break;
         
       case 'logistics':
         if (/(consult|meeting)/i.test(message)) {
-          return `We'd love to discuss your logistics needs! Our typical process:\n1. Initial discovery call (30 mins)\n2. Business assessment\n3. Solution proposal\n4. Implementation\n\nI can arrange a consultation - would tomorrow or later this week work better?`;
+          return `We'd love to discuss your logistics needs${userName}! Our typical process:\n1. Initial discovery call (30 mins)\n2. Business assessment\n3. Solution proposal\n4. Implementation\n\nI can arrange a consultation - would tomorrow or later this week work better?`;
         }
         break;
 
@@ -488,40 +519,42 @@ if (
   };
 
   const generatePricingResponse = (service: string) => {
+    const userName = conversationContext.userName ? `, ${conversationContext.userName}` : '';
+    
     switch(service) {
       case 'marketing':
         return {
           id: Date.now(),
           sender: 'support',
-          text: `Here's detailed pricing for Market Activations:\n\n• Basic Merchandising: KSH 3800/day per staff\n• Premium Merchandising (with reporting): KSH 4500/day\n• Field Marketing Agents: KSH 4800/day\n• Salesforce Management: KSH 5500/day\n\nVolume discounts available for 30+ day engagements. Need a customized quote?`,
+          text: `Here's detailed pricing for Market Activations${userName}:\n\n• Basic Merchandising: KSH 3800/day per staff\n• Premium Merchandising (with reporting): KSH 4500/day\n• Field Marketing Agents: KSH 4800/day\n• Salesforce Management: KSH 5500/day\n\nVolume discounts available for 30+ day engagements. Need a customized quote?`,
           time: new Date()
         };
       case 'digital':
         return {
           id: Date.now(),
           sender: 'support',
-          text: `Digital Marketing Services Pricing:\n\n• Social Media Management: from KSH 20,000/month\n• Google/Meta Ads: 15% of ad spend (min. KSH 10,000)\n• Training Programs: KSH 7200/day per person\n• Video Production: KSH 25,000/day\n\nPackage deals available for multiple services.`,
+          text: `Digital Marketing Services Pricing${userName}:\n\n• Social Media Management: from KSH 20,000/month\n• Google/Meta Ads: 15% of ad spend (min. KSH 10,000)\n• Training Programs: KSH 7200/day per person\n• Video Production: KSH 25,000/day\n\nPackage deals available for multiple services.`,
           time: new Date()
         };
       case 'community':
         return {
           id: Date.now(),
           sender: 'support',
-          text: `Community Activity Rates:\n\n• Community Hikes: KSH 500 per person\n• Archery Sessions: KSH 1500/hour (equipment included)\n• Corporate Wellness Days: Custom pricing\n• Tournament Organization: From KSH 25,000\n\nGroup discounts available for 10+ participants.`,
+          text: `Community Activity Rates${userName}:\n\n• Community Hikes: KSH 500 per person\n• Archery Sessions: KSH 1500/hour (equipment included)\n• Corporate Wellness Days: Custom pricing\n• Tournament Organization: From KSH 25,000\n\nGroup discounts available for 10+ participants.`,
           time: new Date()
         };
       case 'logistics':
         return {
           id: Date.now(),
           sender: 'support',
-          text: `Logistics Consultancy Fees:\n\n• Initial Assessment: KSH 2800/day\n• Full Analysis: KSH 15,000-50,000 (project-based)\n• Ongoing Support: KSH 10,000/month\n\nFirst consultation is free for new clients!`,
+          text: `Logistics Consultancy Fees${userName}:\n\n• Initial Assessment: KSH 2800/day\n• Full Analysis: KSH 15,000-50,000 (project-based)\n• Ongoing Support: KSH 10,000/month\n\nFirst consultation is free for new clients!`,
           time: new Date()
         };
       default:
         return {
           id: Date.now(),
           sender: 'support',
-          text: `I'd be happy to provide pricing details. Could you specify which service you're interested in? We offer:\n1. Market Activations\n2. Digital Marketing\n3. Community Programs\n4. Logistics Solutions`,
+          text: `I'd be happy to provide pricing details${userName}. Could you specify which service you're interested in? We offer:\n1. Market Activations\n2. Digital Marketing\n3. Community Programs\n4. Logistics Solutions`,
           time: new Date()
         };
     }
@@ -539,6 +572,25 @@ if (
       e.preventDefault();
       handleSendMessage();
     }
+  };
+
+  const handleClose = () => {
+    onClose();
+    setAwaitingHuman(false);
+    setHasAskedForName(false);
+    setConversationContext(prev => ({
+      ...prev,
+      userName: ''
+    }));
+    // Reset to initial state when closing
+    setChatMessages([
+      { 
+        id: 1, 
+        sender: 'support', 
+        text: 'Hello there! 👋 Welcome to Stratile Ltd. May I know your name before we proceed?', 
+        time: new Date() 
+      }
+    ]);
   };
 
   useEffect(() => {
@@ -591,10 +643,7 @@ if (
               <IconButton
                 aria-label="Close chat"
                 icon={<Icon as={FiX} />}
-                onClick={() => {
-                  onClose();
-                  setAwaitingHuman(false);
-                }}
+                onClick={handleClose}
                 variant="ghost"
                 color="white"
                 size="sm"
