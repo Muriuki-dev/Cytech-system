@@ -897,9 +897,10 @@ const HighlightsSection = () => {
   }, [images.length]);
 
   return (
-    <BackgroundGradient height="100%" zIndex="-1" />
+   
     <Highlights>
       <HighlightsItem colSpan={[1, null, 2]} title="Our Vision">
+         <BackgroundGradient height="100%" zIndex="-1" />
         <VStack alignItems="flex-start" spacing="8">
           <Text color="muted" fontSize="xl">
             To be the leading project management organization that empowers individuals and communities to realize their full potential through strategically managed and successfully implemented projects.
