@@ -1,4 +1,13 @@
-import { chakra, SimpleGrid } from '@chakra-ui/react'
+import {
+  chakra,
+  SimpleGrid,
+  Accordion,
+  AccordionItem,
+  AccordionButton,
+  AccordionPanel,
+  AccordionIcon,
+  Box
+} from '@chakra-ui/react'
 import { Section, SectionProps, SectionTitle } from 'components/section'
 
 interface FaqProps extends Omit<SectionProps, 'title' | 'children'> {
@@ -9,19 +18,22 @@ interface FaqProps extends Omit<SectionProps, 'title' | 'children'> {
 
 export const Faq: React.FC<FaqProps> = (props) => {
   const {
-    title = 'Frequently asked questions',
+    title = 'Frequently Asked Questions',
     description,
     items = [],
+    ...rest
   } = props
   return (
-    <Section id="faq">
+    <Section id="faq" {...rest}>
       <SectionTitle title={title} description={description} />
 
-      <SimpleGrid columns={[1, null, 2]} spacingY={10} spacingX="20">
-        {items?.map(({ q, a }, i) => {
-          return <FaqItem key={i} question={q} answer={a} />
-        })}
-      </SimpleGrid>
+      <Accordion allowToggle>
+        <SimpleGrid columns={[1, null, 2]} spacingY={4} spacingX="20">
+          {items?.map(({ q, a }, i) => (
+            <FaqItem key={i} question={q} answer={a} />
+          ))}
+        </SimpleGrid>
+      </Accordion>
     </Section>
   )
 }
@@ -33,11 +45,24 @@ export interface FaqItemProps {
 
 const FaqItem: React.FC<FaqItemProps> = ({ question, answer }) => {
   return (
-    <chakra.dl>
-      <chakra.dt fontWeight="semibold" mb="2">
-        {question}
-      </chakra.dt>
-      <chakra.dd color="muted">{answer}</chakra.dd>
-    </chakra.dl>
+    <AccordionItem border="none">
+      <chakra.dl>
+        <AccordionButton
+          px={0}
+          py={4}
+          _hover={{ bg: 'transparent' }}
+          _expanded={{ color: 'primary.500' }}
+        >
+          <Box flex="1" textAlign="left">
+            <chakra.dt fontWeight="semibold">{question}</chakra.dt>
+          </Box>
+          <AccordionIcon />
+        </AccordionButton>
+
+        <AccordionPanel px={0} pb={4}>
+          <chakra.dd color="muted">{answer}</chakra.dd>
+        </AccordionPanel>
+      </chakra.dl>
+    </AccordionItem>
   )
 }
