@@ -208,6 +208,20 @@ const LiveSupportChat = () => {
     }
   };
 
+  const companyInfo = {
+    intro: `STRATILE LTD – PROJECTING SUCCESS, BUILDING COMMUNITIES\n\nEstablished in 2024, Stratile Ltd is a dynamic and forward-thinking Project Management Organization (PMO) dedicated to transforming visionary projects into thriving businesses and impactful community development initiatives. We serve as a catalyst for progress, providing expert guidance and comprehensive project management solutions that ensure successful execution and sustainable outcomes.`,
+    
+    visionMission: {
+      vision: "To be the leading project management organization that empowers individuals and communities to realize their full potential through strategically managed and successfully implemented projects.",
+      mission: "To embody the values of partnership, coherent relationships, and unity in delivering exceptional project management services that foster functional businesses and drive meaningful social development. We are committed to organizing impactful community activities, establishing social development, and sharing valuable insights through our work and digital platforms.",
+      values: [
+        "Partnership: We believe in fostering strong, collaborative relationships with our clients, stakeholders, and the communities we serve. Working together is key to achieving shared success.",
+        "Coherent Relationships: We prioritize clear communication, mutual respect, and transparent engagement to build trust and ensure seamless project execution.",
+        "Unity: We champion a unified approach, bringing together diverse talents and perspectives to achieve common goals and create a stronger collective impact."
+      ]
+    }
+  };
+
   const handleSendMessage = () => {
     if (!message.trim()) return;
 
@@ -425,6 +439,41 @@ const LiveSupportChat = () => {
         time: new Date()
       };
     }
+    if (/(about|who are you|company|stratile|background)/i.test(lowerMessage)) {
+      newContext.currentTopic = 'company_info';
+      setConversationContext(newContext);
+      return {
+        id: Date.now(),
+        sender: 'support',
+        text: `${companyInfo.intro}\n\nWould you like to know about our:\n1. Vision & Mission\n2. Core Values\n3. Services\n4. Or something more specific?`,
+        time: new Date()
+      };
+    }
+
+    // Vision/Mission requests
+    if (/(vision|mission|purpose)/i.test(lowerMessage)) {
+      newContext.currentTopic = 'vision_mission';
+      setConversationContext(newContext);
+      return {
+        id: Date.now(),
+        sender: 'support',
+        text: `Our Vision:\n${companyInfo.visionMission.vision}\n\nOur Mission:\n${companyInfo.visionMission.mission}\n\nWould you like to know about our core values or how we implement this in our services?`,
+        time: new Date()
+      };
+    }
+
+    // Values requests
+    if (/(values|principles|ethos)/i.test(lowerMessage)) {
+      newContext.currentTopic = 'company_values';
+      setConversationContext(newContext);
+      const valuesList = companyInfo.visionMission.values.map(v => `• ${v}`).join('\n');
+      return {
+        id: Date.now(),
+        sender: 'support',
+        text: `Our Core Values:\n\n${valuesList}\n\nThese values guide everything we do at Stratile Ltd. Would you like examples of how we apply these in our projects?`,
+        time: new Date()
+      };
+    }
 
     // Default intelligent response
     const defaultResponses = [
@@ -477,8 +526,36 @@ const LiveSupportChat = () => {
           return faqs[faqIndex].answer;
         }
         break;
+        case 'company_info':
+        if (/1|vision|mission/i.test(message)) {
+          return `Our Vision:\n${companyInfo.visionMission.vision}\n\nOur Mission:\n${companyInfo.visionMission.mission}\n\nWould you like to know about our core values or services?`;
+        }
+        if (/2|values|principles/i.test(message)) {
+          const valuesList = companyInfo.visionMission.values.map(v => `• ${v}`).join('\n');
+          return `Our Core Values:\n\n${valuesList}\n\nWould you like examples of how we apply these values in our work?`;
+        }
+        if (/3|services|offer/i.test(message)) {
+          return `We offer several specialized services:\n\n1. Market Activations\n2. Digital Marketing\n3. Community Engagement\n4. Logistics Solutions\n\nWhich one would you like details about?`;
+        }
+        break;
+
+      case 'vision_mission':
+        if (/(values|principles)/i.test(message)) {
+          const valuesList = companyInfo.visionMission.values.map(v => `• ${v}`).join('\n');
+          return `Our Core Values:\n\n${valuesList}\n\nThese principles guide all our projects and partnerships.`;
+        }
+        if (/(service|implement|apply)/i.test(message)) {
+          return `We bring our vision to life through:\n\n• Strategic project management\n• Community development programs\n• Business growth initiatives\n• Partnership collaborations\n\nWould you like a specific example from one of our service areas?`;
+        }
+        break;
+
+      case 'company_values':
+        if (/(example|application|apply)/i.test(message)) {
+          return `Here's how we live our values:\n\n• In Marketing: Partnering closely with clients to understand their brand\n• In Community: Building coherent relationships with local stakeholders\n• In Logistics: Uniting technology with human expertise\n\nWould you like a case study from a specific area?`;
+        }
+        break;
     }
-    return null;
+   
   };
 
   const generatePricingResponse = (service: string) => {
@@ -520,7 +597,8 @@ const LiveSupportChat = () => {
         };
     }
   };
-
+ return null;
+  
   const getTimeOfDay = () => {
     const hour = new Date().getHours();
     if (hour < 12) return 'morning';
@@ -1036,6 +1114,9 @@ const ServicesSection = () => {
       overflow="hidden"
       
     >
+      {/* Background Gradient Component */}
+    <BackgroundGradient height="100%" zIndex="-1" />
+      
       {/* Decorative elements */}
       <Box
         position="absolute"
