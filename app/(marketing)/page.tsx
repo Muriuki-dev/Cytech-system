@@ -1532,7 +1532,8 @@ If you want custom data report on your brand review (how customers felt about yo
     
   </Box>
 </Stack>
-
+</Stack>
+      </Container>
       {/* Information Modal */}
       <Modal isOpen={isInfoOpen} onClose={onInfoClose} size="6xl">
         <ModalOverlay />
