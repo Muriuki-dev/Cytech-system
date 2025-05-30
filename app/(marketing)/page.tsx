@@ -245,10 +245,7 @@ const LiveSupportChat = () => {
         src="/static/images/support.png" 
         alt="Support icon"
         fill
-        style={{
-          objectFit: 'cover',
-          borderRadius: '50%' // for circular image
-        }}
+        
       />
     </div>
   }
