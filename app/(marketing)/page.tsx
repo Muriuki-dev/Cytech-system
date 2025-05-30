@@ -1451,7 +1451,7 @@ const EventsSection = () => {
           </Text>
         </Box>
 
-    <Stack direction={{ base: 'column', md: 'row' }} spacing="8">
+   <Stack direction={{ base: 'column', md: 'row' }} spacing="8">
   <Box 
     flex="1" 
     p="6" 
@@ -1480,26 +1480,20 @@ const EventsSection = () => {
       position="absolute"
       top="2"
       left="4"
-      fontSize="md"  {/* Increased from sm to md */}
+      fontSize="sm"
       fontWeight="bold"
-      color="red.800"
+      color="red"
     >
       EVENT FINISHED
     </Text>
     
-    <Heading size="lg" mb="4" mt="4" color="red.600">Kanini Opening Activations</Heading>
-    <Text color="red.500" mb="2" fontSize="lg">  {/* Added red color and increased font size */}
-      <strong>Date:</strong> May 30, 2025
-    </Text>
-    <Text color="red.500" mb="2" fontSize="lg">  {/* Added red color and increased font size */}
-      <strong>Location:</strong> Naivasha Town, Dubai Plaza, Opposite Modern Market, Next to Ketias Supermarket
-    </Text>
-    <Text mb="4" color="red.500" fontSize="md">  {/* Added red color and increased font size */}
-      Join us as we bring the energy to the new Kanini opening,
-      We will offer VR gaming to help engage consumers
-      If you want custom data report on your brand review (how customers felt about your product ).
-    </Text>
-   
+    <Heading size="lg" mb="4" mt="4">Kanini Opening Activations</Heading>
+    <Text color="muted" mb="2"><strong>Date:</strong> May 30, 2025</Text>
+    <Text color="muted" mb="2"><strong>Location:</strong> Naivasha Town, Dubai Plaza, Opposite Modern Market, Next to Ketias Supermarket</Text>
+    <Text mb="4">Join us as we bring the energy to the new Kanini opening,
+We will offer VR gaming to help engage consumers
+If you want custom data report on your brand review (how customers felt about your product ).</Text>
+    
   </Box>
 </Stack>
         
