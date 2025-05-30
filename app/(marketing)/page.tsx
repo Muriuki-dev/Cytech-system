@@ -327,35 +327,41 @@ const LiveSupportChat = () => {
       };
     }
 
-    // Service inquiries
-    if (/service|offer|provide|do you have|what can you do/i.test(lowerMessage)) {
-      newContext.currentTopic = 'services_overview';
-      setConversationContext(newContext);
-      return {
-        id: Date.now(),
-        sender: 'support',
-        text: `We offer several specialized services - which area interests you most?\n\n1. **Market Activations** (Retail merchandising & field marketing)\n2. **Digital Marketing** (Ads, social media & training)\n3. **Community Engagement** (Sports & wellness programs)\n4. **Logistics Solutions** (Supply chain consulting)\n\nOr shall I explain them all?`,
-        time: new Date()
-      };
-    }
+   // Service inquiries
+if (
+  /what (services|can you do|do you offer|do you provide|does stratle do|stratile (can|do) you have)|services?|offer|provide|stratile do you have/i.test(lowerMessage)
+) {
+  newContext.currentTopic = 'services_overview';
+  setConversationContext(newContext);
+  return {
+    id: Date.now(),
+    sender: 'support',
+    text: `We offer several specialized services - which area interests you most?\n\n1. **Market Activations** (Retail merchandising & field marketing)\n2. **Digital Marketing** (Ads, social media & training)\n3. **Community Engagement** (Sports & wellness programs)\n4. **Logistics Solutions** (Supply chain consulting)\n\nOr shall I explain them all?`,
+    time: new Date()
+  };
+}
 
-    // Marketing activations
-    if (/(market activation|merchandising|field marketing|salesforce|retail)/i.test(lowerMessage)) {
-      newContext.currentTopic = 'marketing';
-      newContext.customerInterest = 'marketing';
-      setConversationContext(newContext);
-      
-      const benefitsList = serviceKnowledge.marketing.benefits
-        .map(b => `• ${b}`)
-        .join('\n');
-      
-      return {
-        id: Date.now(),
-        sender: 'support',
-        text: `Ah, our Market Activations! 🛍️ ${serviceKnowledge.marketing.description}\n\n**Key Benefits:**\n${benefitsList}\n\nWould you like pricing details, or should I explain how we implement these activations?`,
-        time: new Date()
-      };
-    }
+
+   // Marketing activations
+if (
+  /(market activations?|brand activations?|product launch|merchandising|retail (promotion|setup|activation)|field (marketing|campaigns?)|sales (force|agents?)|sales team|on-ground marketing|push my brand|introduce.*product.*market)/i.test(lowerMessage)
+) {
+  newContext.currentTopic = 'marketing';
+  newContext.customerInterest = 'marketing';
+  setConversationContext(newContext);
+
+  const benefitsList = serviceKnowledge.marketing.benefits
+    .map(b => `• ${b}`)
+    .join('\n');
+
+  return {
+    id: Date.now(),
+    sender: 'support',
+    text: `Ah, our Market Activations! 🛍️ ${serviceKnowledge.marketing.description}\n\n**Key Benefits:**\n${benefitsList}\n\nWould you like pricing details, or should I explain how we implement these activations?`,
+    time: new Date()
+  };
+}
+
 
     // Digital marketing
     if (/(digital|online|social media|meta|google ads|training)/i.test(lowerMessage)) {
@@ -891,9 +897,8 @@ const HighlightsSection = () => {
   }, [images.length]);
 
   return (
-    <Highlights>
-       
     <BackgroundGradient height="100%" zIndex="-1" />
+    <Highlights>
       <HighlightsItem colSpan={[1, null, 2]} title="Our Vision">
         <VStack alignItems="flex-start" spacing="8">
           <Text color="muted" fontSize="xl">
