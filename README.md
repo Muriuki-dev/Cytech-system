@@ -43,3 +43,12 @@ upcoming events
       Reserve Your Spot
     </ButtonLink>
   </Box>
+///////////////////////////
+>button to kanini haraka event
+ <Button 
+      onClick={onInfoOpen}
+      colorScheme="green" 
+      rightIcon={<FiArrowRight />}
+    >
+      Book Now
+    </Button>
