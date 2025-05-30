@@ -1504,7 +1504,7 @@ const EventsSection = () => {
         transform="rotate(45deg)"
         transformOrigin="0 0"
         whiteSpace="nowrap"
-        textShadow="0 0 2px black"
+       
         animation="textPop 2s ease-in-out infinite"
         sx={{
           "@keyframes textPop": {
