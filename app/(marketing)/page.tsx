@@ -238,14 +238,20 @@ const LiveSupportChat = () => {
       <Box position="fixed" bottom="6" right="6" zIndex="999">
         {!isOpen ? (
         <IconButton
-            aria-label="Open live chat"
-            icon={<Icon as={FiMessageSquare} />}
-            onClick={onOpen}
-            colorScheme="green"
-            size="lg"
-            isRound
-            boxShadow="lg"
-          />
+    aria-label="Open live chat"
+    icon={
+      <Image 
+        src="/static/images/support.jpg" 
+        boxSize="24px" 
+        alt="Support icon"
+      />
+    }
+    onClick={onOpen}
+    colorScheme="green"
+    size="lg"
+    isRound
+    boxShadow="lg"
+  />
         ) : (
           <Box
             bg={useColorModeValue('white', 'gray.800')}
