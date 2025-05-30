@@ -1108,11 +1108,15 @@ If you want custom data report on your brand review (how customers felt about yo
           </Box>
         </Stack>
         
-        <Box textAlign="center" pt="8">
-          <ButtonLink colorScheme="primary" size="lg" href="/events">
-            View All Events
-          </ButtonLink>
-        </Box>
+       <Box textAlign="center" pt="8">
+  <ButtonLink 
+    colorScheme="primary" 
+    size="lg" 
+    onClick={() => alert("Check later when more events are available")}
+  >
+    View All Events
+  </ButtonLink>
+</Box>
       </Stack>
 
       {/* Information Modal */}
