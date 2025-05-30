@@ -135,6 +135,34 @@ const LiveSupportChat = () => {
     pricingRequests: 0
   });
 
+  // FAQ State
+  const [faqs] = useState([
+    {
+      question: "What services does Stratile Ltd offer?",
+      answer: `At Stratile Ltd, we're your one-stop solution for:\n\n• **Project Management** - End-to-end execution\n• **Marketing Activations** - Retail & field marketing\n• **Social Media Management** - Professional content & ads\n• **Creative Design** - Graphics & branding\n• **Advertising Campaigns** - Multi-channel strategies\n• **Merchandising** - In-store brand presence\n• **Community Engagement** - Sports & wellness programs\n\nWe help both businesses and communities thrive through tailored solutions. Which service interests you most?`
+    },
+    {
+      question: "Can Stratile help with launching a new product or service?",
+      answer: `Absolutely! 🚀 We specialize in product launches from concept to market:\n\n1. **Strategy Development** - Market positioning\n2. **Creative Design** - Branding & packaging\n3. **Marketing Activations** - Retail & digital campaigns\n4. **Implementation** - Nationwide rollout\n\nWe ensure your launch makes maximum impact. Would you like to discuss a specific product?`
+    },
+    {
+      question: "Do you work with government or community organizations?",
+      answer: `Yes! 🤝 We actively collaborate with:\n\n• County governments\n• National agencies\n• NGOs & CBOs\n• International development partners\n\nOur community projects focus on sustainable social impact through sports, wellness, and economic empowerment programs. Interested in partnership opportunities?`
+    },
+    {
+      question: "Can Stratile handle both small and large-scale projects?",
+      answer: `We scale to fit your needs perfectly:\n\n🔹 **Startups/SMEs**: Cost-effective small activations\n🔹 **Corporates**: Nationwide campaigns\n🔹 **Government**: County-wide programs\n🔹 **Communities**: Grassroots initiatives\n\nFrom one-day merchandising to multi-year development projects, we've got you covered. What's your project scale?`
+    },
+    {
+      question: "How can I get started with Stratile?",
+      answer: `Getting started is easy:\n\n1. **Reach out**: Call/WhatsApp 0741953190 or email labanmwangi444@gmail.com\n2. **Consultation**: Free initial discussion\n3. **Proposal**: Tailored solution plan\n4. **Kickoff**: We implement while you focus on your business\n\nWould you like me to connect you with our team now?`
+    },
+    {
+      question: "Is your team available countrywide?",
+      answer: `🌍 Yes! We operate across Kenya with:\n\n• Trained teams in all major counties\n• Rural outreach programs\n• Flexible mobile units\n• Local partner networks\n\nWhether you need activations in Nairobi or community programs in remote areas, we deliver. Where do you need services?`
+    }
+  ]);
+
   // Knowledge base for different services
   const serviceKnowledge = {
     marketing: {
@@ -217,6 +245,42 @@ const LiveSupportChat = () => {
           time: new Date()
         };
       }
+    }
+
+    // FAQ Handling
+    const matchedFAQ = faqs.find(faq => 
+      lowerMessage.includes(faq.question.toLowerCase().split(' ')[0]) || // Match first word
+      faq.question.toLowerCase().split(' ').some(word => 
+        word.length > 3 && lowerMessage.includes(word)
+      )
+    );
+
+    if (matchedFAQ) {
+      newContext.currentTopic = 'faq';
+      setConversationContext(newContext);
+      return {
+        id: Date.now(),
+        sender: 'support',
+        text: matchedFAQ.answer,
+        time: new Date()
+      };
+    }
+
+    // FAQ shortcut handler
+    if (/faq|frequently asked|common questions/i.test(lowerMessage)) {
+      newContext.currentTopic = 'faq_list';
+      setConversationContext(newContext);
+      
+      const faqList = faqs.map((faq, i) => 
+        `${i+1}. ${faq.question.replace('?', '')}`
+      ).join('\n');
+      
+      return {
+        id: Date.now(),
+        sender: 'support',
+        text: `Here are our frequently asked questions:\n\n${faqList}\n\nWhich one would you like me to explain? (just type the number)`,
+        time: new Date()
+      };
     }
 
     // Human support request
@@ -404,6 +468,13 @@ const LiveSupportChat = () => {
       case 'logistics':
         if (/(consult|meeting)/i.test(message)) {
           return `We'd love to discuss your logistics needs! Our typical process:\n1. Initial discovery call (30 mins)\n2. Business assessment\n3. Solution proposal\n4. Implementation\n\nI can arrange a consultation - would tomorrow or later this week work better?`;
+        }
+        break;
+
+      case 'faq_list':
+        const faqIndex = parseInt(message) - 1;
+        if (!isNaN(faqIndex) && faqs[faqIndex]) {
+          return faqs[faqIndex].answer;
         }
         break;
     }
