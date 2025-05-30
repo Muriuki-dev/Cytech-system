@@ -1451,7 +1451,7 @@ const EventsSection = () => {
           </Text>
         </Box>
 
-     <Stack direction={{ base: 'column', md: 'row' }} spacing="8">
+    <Stack direction={{ base: 'column', md: 'row' }} spacing="8">
   <Box 
     flex="1" 
     p="6" 
@@ -1467,68 +1467,38 @@ const EventsSection = () => {
     position="relative"
     overflow="hidden"
   >
-    {/* Animated Diagonal Corner Banner */}
+    {/* Red bar and "Event Finished" text */}
     <Box
       position="absolute"
       top="0"
+      left="0"
       right="0"
-      width="0"
-      height="0"
-      borderTop="24px solid red.500"
-      borderLeft="24px solid transparent"
-      borderRight="24px solid red.500"
-      borderBottom="24px solid transparent"
-      animation="pulse 2s cubic-bezier(0.4, 0, 0.6, 1) infinite"
-      sx={{
-        "@keyframes pulse": {
-          "0%, 100%": {
-            opacity: 1,
-            borderTopColor: "red.500",
-            borderRightColor: "red.500"
-          },
-          "50%": {
-            opacity: 0.8,
-            borderTopColor: "red.600",
-            borderRightColor: "red.600"
-          }
-        }
-      }}
+      height="4px"
+      bg="red.500"
+    />
+    <Text
+      position="absolute"
+      top="2"
+      left="4"
+      fontSize="md"  {/* Increased from sm to md */}
+      fontWeight="bold"
+      color="red.800"
     >
-      <Text
-        position="absolute"
-        top="4px"
-        right="-22px"
-        fontSize="xs"
-        fontWeight="extrabold"
-        color="white"
-        transform="rotate(45deg)"
-        transformOrigin="0 0"
-        whiteSpace="nowrap"
-        textShadow="0 0 2px black"
-        animation="textPop 2s ease-in-out infinite"
-        sx={{
-          "@keyframes textPop": {
-            "0%, 100%": {
-              transform: "rotate(45deg) scale(1)",
-              opacity: 1
-            },
-            "50%": {
-              transform: "rotate(45deg) scale(1.1)",
-              opacity: 0.9
-            }
-          }
-        }}
-      >
-        EVENT FINISHED
-      </Text>
-    </Box>
+      EVENT FINISHED
+    </Text>
     
-    <Heading size="lg" mb="4">Kanini Opening Activations</Heading>
-    <Text color="muted" mb="2"><strong>Date:</strong> May 30, 2025</Text>
-    <Text color="muted" mb="2"><strong>Location:</strong> Naivasha Town, Dubai Plaza, Opposite Modern Market, Next to Ketias Supermarket</Text>
-    <Text mb="4">Join us as we bring the energy to the new Kanini opening,
-We will offer VR gaming to help engage consumers
-If you want custom data report on your brand review (how customers felt about your product ).</Text>
+    <Heading size="lg" mb="4" mt="4" color="red.600">Kanini Opening Activations</Heading>
+    <Text color="red.500" mb="2" fontSize="lg">  {/* Added red color and increased font size */}
+      <strong>Date:</strong> May 30, 2025
+    </Text>
+    <Text color="red.500" mb="2" fontSize="lg">  {/* Added red color and increased font size */}
+      <strong>Location:</strong> Naivasha Town, Dubai Plaza, Opposite Modern Market, Next to Ketias Supermarket
+    </Text>
+    <Text mb="4" color="red.500" fontSize="md">  {/* Added red color and increased font size */}
+      Join us as we bring the energy to the new Kanini opening,
+      We will offer VR gaming to help engage consumers
+      If you want custom data report on your brand review (how customers felt about your product ).
+    </Text>
    
   </Box>
 </Stack>
