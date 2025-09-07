@@ -290,7 +290,7 @@ const WhoWeAreSection = () => {
             initial={{ opacity: 0, y: 30 }}
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
-            transition={{ duration: 0.8, delay: 0.2 }}
+            transition={{ duration: 0.8 } as any}  // ✅ fix typing issue
           >
             Cy-Tech Systems is a leading provider of advanced telematics and
             security solutions for residential, commercial, and automotive
