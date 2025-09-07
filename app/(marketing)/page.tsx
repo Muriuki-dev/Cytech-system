@@ -1,4 +1,4 @@
-
+'use client'
 
 import {
   Box,
@@ -17,7 +17,7 @@ import {
   useClipboard,
 } from '@chakra-ui/react'
 import { Br, Link } from '@saas-ui/react'
-import type { Metadata, NextPage } from 'next'
+import type { Metadata } from 'next'
 import Image from 'next/image'
 import {
   FiArrowRight,
