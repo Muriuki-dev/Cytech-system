@@ -1,8 +1,8 @@
 import { chakra, HTMLChakraProps, useColorModeValue } from '@chakra-ui/react'
 
 export const Logo: React.FC<HTMLChakraProps<'img'>> = (props) => {
-  const lightModeLogo = '/static/images/logo1.png';
-  const darkModeLogo = '/static/images/logo2.png'; // Change if you have a dark mode logo
+  const lightModeLogo = '/static/images/logo.png';
+  const darkModeLogo = '/static/images/logo.png'; // Change if you have a dark mode logo
   const logoUrl = useColorModeValue(lightModeLogo, darkModeLogo);
 
   return (
