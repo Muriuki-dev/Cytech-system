@@ -224,7 +224,8 @@ const WhoWeAreSection = () => {
   useEffect(() => {
     // Load canvas-confetti via CDN
     const script = document.createElement('script')
-    script.src = 'https://cdn.jsdelivr.net/npm/canvas-confetti@1.9.3/dist/confetti.browser.min.js'
+    script.src =
+      'https://cdn.jsdelivr.net/npm/canvas-confetti@1.9.3/dist/confetti.browser.min.js'
     script.async = true
     document.body.appendChild(script)
 
@@ -235,9 +236,9 @@ const WhoWeAreSection = () => {
         const animationEnd = Date.now() + duration
         const defaults = { startVelocity: 30, spread: 360, ticks: 60, zIndex: 0 }
 
-        function randomInRange(min: number, max: number) {
-          return Math.random() * (max - min) + min
-        }
+        // ✅ use arrow function instead of function declaration
+        const randomInRange = (min: number, max: number) =>
+          Math.random() * (max - min) + min
 
         const interval = setInterval(() => {
           const timeLeft = animationEnd - Date.now()
@@ -299,21 +300,23 @@ const WhoWeAreSection = () => {
           </MotionText>
 
           <Wrap>
-            {['Precision', 'Cost-effective', 'Professional', 'Real-time', 'Reliable'].map((v, i) => (
-              <MotionTag
-                key={v}
-                colorScheme="purple"
-                variant="subtle"
-                rounded="full"
-                px={3}
-                initial={{ opacity: 0, y: 20 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                viewport={{ once: true }}
-                transition={{ duration: 0.5, delay: 0.3 + i * 0.15 }}
-              >
-                {v}
-              </MotionTag>
-            ))}
+            {['Precision', 'Cost-effective', 'Professional', 'Real-time', 'Reliable'].map(
+              (v, i) => (
+                <MotionTag
+                  key={v}
+                  colorScheme="purple"
+                  variant="subtle"
+                  rounded="full"
+                  px={3}
+                  initial={{ opacity: 0, y: 20 }}
+                  whileInView={{ opacity: 1, y: 0 }}
+                  viewport={{ once: true }}
+                  transition={{ duration: 0.5, delay: 0.3 + i * 0.15 }}
+                >
+                  {v}
+                </MotionTag>
+              ),
+            )}
           </Wrap>
         </MotionVStack>
 
@@ -340,6 +343,7 @@ const WhoWeAreSection = () => {
     </Container>
   )
 }
+
 
 /** SERVICES WITH MODALS **/
 const services = [
