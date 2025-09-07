@@ -60,6 +60,7 @@ import {
 import { FaWhatsapp } from 'react-icons/fa'
 
 import * as React from 'react'
+import { useEffect } from 'react'
 
 import { ButtonLink } from '#components/button-link/button-link'
 import { BackgroundGradient } from '#components/gradients/background-gradient'
