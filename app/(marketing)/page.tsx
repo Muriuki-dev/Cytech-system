@@ -215,15 +215,16 @@ const HeroSection: React.FC = () => {
 
       <Container maxW="container.xl" pt={{ base: 32, lg: 48 }} pb={24}>
         <Stack direction={{ base: 'column', lg: 'row' }} alignItems="center" spacing={12}>
-          <MotionVStack
-            align={{ base: 'center', lg: 'start' }}
-            spacing={8}
-            zIndex={1}
-            color={textColor}
-            initial={{ opacity: 0, x: -100 }}
-            animate={{ opacity: 1, x: 0 }}
-            transition={{ duration: 1.2, ease: "easeOut" } as any}
-          >
+         <MotionVStack
+  alignItems={{ base: 'center', lg: 'start' }}
+  spacing={8}
+  zIndex={1}
+  color={textColor}
+  initial={{ opacity: 0, x: -100 }}
+  animate={{ opacity: 1, x: 0 }}
+  transition={{ duration: 1.2, ease: "easeOut" } as any}
+/>
+
             <MotionHeading 
               fontSize={{ base: '4xl', lg: '7xl' }} 
               lineHeight="1.1"
