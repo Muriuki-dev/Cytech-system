@@ -719,7 +719,7 @@ const LiveSupportChat = () => {
 }
 
 const heroImage =
-  "/static/images/slide.jpeg"; // Replace with your actual image link
+  "/static/images/slide.jpg"; 
 
 const HeroSection: React.FC = () => {
   return (
