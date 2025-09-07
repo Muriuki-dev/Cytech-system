@@ -2,7 +2,7 @@
 const nextConfig = {
   reactStrictMode: true,
   eslint: {
-    ignoreDuringBuilds: true, // ✅ Skip ESLint in CI/Vercel to prevent CLI errors
+    ignoreDuringBuilds: true, // ✅ Skip ESLint in CI/Vercel
   },
   images: {
     remotePatterns: [
@@ -35,4 +35,4 @@ const nextConfig = {
   },
 };
 
-module.exports = nextConfig;
+export default nextConfig;
