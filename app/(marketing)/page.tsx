@@ -59,7 +59,7 @@ import faq from '#data/faq'
 import pricing from '#data/pricing'
 import testimonials from '#data/testimonials'
 
-export const meta: Metadata = {
+export const meta: = {
   title: 'Saas UI Landingspage',
   description: 'Free SaaS landingspage starter kit',
 }
