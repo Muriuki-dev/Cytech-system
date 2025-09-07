@@ -31,11 +31,11 @@ import {
   shouldForwardProp,
   useColorMode,
   useColorModeValue,
-  keyframes,
   Textarea,
   Input,
 } from '@chakra-ui/react'
 
+import { keyframes } from '@emotion/react' // Changed import source
 import { motion, isValidMotionProp, AnimatePresence } from 'framer-motion'
 import { Br, Link } from '@saas-ui/react'
 
@@ -65,7 +65,7 @@ import {
   FiTool,
   FiSettings,
   FiEye,
-  FiCar,
+  FiCar, // Fixed: FiCar should be available in react-icons/fi
 } from 'react-icons/fi'
 import { FaWhatsapp, FaRobot } from 'react-icons/fa'
 
