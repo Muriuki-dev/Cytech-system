@@ -35,7 +35,7 @@ import {
   Input,
 } from '@chakra-ui/react'
 
-import { keyframes } from '@emotion/react' // Changed import source
+import { keyframes } from '@emotion/react'
 import { motion, isValidMotionProp, AnimatePresence } from 'framer-motion'
 import { Br, Link } from '@saas-ui/react'
 
@@ -71,32 +71,25 @@ import { FaWhatsapp, FaCar, FaRobot } from "react-icons/fa"
 import * as React from 'react'
 import { useEffect, useState } from 'react'
 
-
-
-// Create motion-enabled Chakra components
+// Create motion-enabled Chakra components with proper typing
 const MotionBox = chakra(motion.div, {
-  shouldForwardProp: (prop) =>
-    isValidMotionProp(prop) || shouldForwardProp(prop),
+  shouldForwardProp: (prop) => isValidMotionProp(prop) || shouldForwardProp(prop),
 })
 
-const MotionVStack = chakra(motion.div, {
-  shouldForwardProp: (prop) =>
-    isValidMotionProp(prop) || shouldForwardProp(prop),
+const MotionVStack = chakra(motion(VStack), {
+  shouldForwardProp: (prop) => isValidMotionProp(prop) || shouldForwardProp(prop),
 })
 
-const MotionHeading = chakra(motion.h2, {
-  shouldForwardProp: (prop) =>
-    isValidMotionProp(prop) || shouldForwardProp(prop),
+const MotionHeading = chakra(motion(Heading), {
+  shouldForwardProp: (prop) => isValidMotionProp(prop) || shouldForwardProp(prop),
 })
 
-const MotionText = chakra(motion.p, {
-  shouldForwardProp: (prop) =>
-    isValidMotionProp(prop) || shouldForwardProp(prop),
+const MotionText = chakra(motion(Text), {
+  shouldForwardProp: (prop) => isValidMotionProp(prop) || shouldForwardProp(prop),
 })
 
-const MotionTag = chakra(motion.span, {
-  shouldForwardProp: (prop) =>
-    isValidMotionProp(prop) || shouldForwardProp(prop),
+const MotionTag = chakra(motion(Tag), {
+  shouldForwardProp: (prop) => isValidMotionProp(prop) || shouldForwardProp(prop),
 })
 
 // Premium keyframe animations
@@ -143,7 +136,7 @@ const vehicleImgs = {
   modern: 'https://images.unsplash.com/photo-1542282088-fe8426682b8f?auto=format&fit=crop&w=1920&q=90',
 }
 
-const BackgroundGradient = ({ height = "100vh", zIndex = -1 }) => {
+const BackgroundGradient = ({ height = "100vh", zIndex = -1 }: { height?: string; zIndex?: number }) => {
   return (
     <Box
       position="absolute"
@@ -220,12 +213,11 @@ const HeroSection: React.FC = () => {
         <Stack direction={{ base: 'column', lg: 'row' }} alignItems="center" spacing={12}>
           <MotionVStack
             alignItems={{ base: 'center', lg: 'start' }}
-            
             zIndex={1}
             color={textColor}
             initial={{ opacity: 0, x: -100 }}
             animate={{ opacity: 1, x: 0 }}
-            transition={{ duration: 1.2, ease: 'easeOut' } as any}
+            transition={{ duration: 1.2, ease: 'easeOut' }}
           >
             <MotionHeading
               fontSize={{ base: '4xl', lg: '7xl' }}
@@ -233,7 +225,7 @@ const HeroSection: React.FC = () => {
               textAlign={{ base: 'center', lg: 'left' }}
               initial={{ scale: 0.5, opacity: 0 }}
               animate={{ scale: 1, opacity: 1 }}
-              transition={{ duration: 1.5, delay: 0.3 } as any}
+              transition={{ duration: 1.5, delay: 0.3 }}
               bgGradient="linear(to-r, white, gray.200)"
               bgClip="text"
             >
@@ -256,7 +248,7 @@ const HeroSection: React.FC = () => {
               textAlign={{ base: 'center', lg: 'left' }}
               initial={{ opacity: 0, y: 50 }}
               animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 1, delay: 0.8 } as any}
+              transition={{ duration: 1, delay: 0.8 }}
             >
               Driven by Trust. Powered by Technology. We provide advanced tracking,
               video telematics, and immobilization for vehicles and fleets across
@@ -266,7 +258,7 @@ const HeroSection: React.FC = () => {
             <MotionBox
               initial={{ opacity: 0, y: 30 }}
               animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.8, delay: 1.2 } as any}
+              transition={{ duration: 0.8, delay: 1.2 }}
             >
               <HStack
                 spacing={6}
@@ -285,7 +277,7 @@ const HeroSection: React.FC = () => {
                   Explore Services
                 </Button>
                 <Button
-                  as={Link}
+                  as="a"
                   href="mailto:cytechsystems254@gmail.com"
                   size="lg"
                   variant="outline"
@@ -307,7 +299,7 @@ const HeroSection: React.FC = () => {
             boxShadow="2xl"
             initial={{ opacity: 0, scale: 0.8, rotate: -5 }}
             animate={{ opacity: 1, scale: 1, rotate: 0 }}
-            transition={{ duration: 1.5, delay: 0.5 } as any}
+            transition={{ duration: 1.5, delay: 0.5 }}
             whileHover={{ scale: 1.05, rotate: 2 }}
             _hover={{
               boxShadow: '0 20px 60px rgba(0,0,0,0.3)',
@@ -368,7 +360,7 @@ const WhoWeAreSection = () => {
             initial={{ opacity: 0, x: -60 }}
             whileInView={{ opacity: 1, x: 0 }}
             viewport={{ once: true, amount: 0.4 }}
-            transition={{ duration: 0.8 } as any}
+            transition={{ duration: 0.8 }}
           >
             <MotionHeading
               size="2xl"
@@ -378,7 +370,7 @@ const WhoWeAreSection = () => {
               initial={{ scale: 0.9, opacity: 0 }}
               whileInView={{ scale: 1, opacity: 1 }}
               viewport={{ once: true }}
-              transition={{ duration: 0.6 } as any}
+              transition={{ duration: 0.6 }}
             >
               Who we are
             </MotionHeading>
@@ -389,7 +381,7 @@ const WhoWeAreSection = () => {
               initial={{ opacity: 0, y: 30 }}
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true }}
-              transition={{ duration: 0.8, delay: 0.2 } as any}
+              transition={{ duration: 0.8, delay: 0.2 }}
             >
               Cy-Tech Systems is a leading provider of advanced telematics and
               security solutions for residential, commercial, and automotive
@@ -411,7 +403,7 @@ const WhoWeAreSection = () => {
                     initial={{ opacity: 0, y: 20 }}
                     whileInView={{ opacity: 1, y: 0 }}
                     viewport={{ once: true }}
-                    transition={{ duration: 0.5, delay: 0.3 + i * 0.15 } as any}
+                    transition={{ duration: 0.5, delay: 0.3 + i * 0.15 }}
                     whileHover={{ scale: 1.1, y: -2 }}
                     cursor="pointer"
                   >
@@ -429,7 +421,7 @@ const WhoWeAreSection = () => {
             initial={{ opacity: 0, scale: 0.9, rotateY: -20 }}
             whileInView={{ opacity: 1, scale: 1, rotateY: 0 }}
             viewport={{ once: true }}
-            transition={{ duration: 0.8, delay: 0.4 } as any}
+            transition={{ duration: 0.8, delay: 0.4 }}
             whileHover={{ scale: 1.05, rotateY: 5 }}
             style={{ transformStyle: 'preserve-3d' }}
           >
@@ -455,7 +447,7 @@ const FallInPlace: React.FC<{ children: React.ReactNode; delay?: number }> = ({ 
       initial={{ opacity: 0, y: 30 }}
       whileInView={{ opacity: 1, y: 0 }}
       viewport={{ once: true }}
-      transition={{ duration: 0.6, delay } as any}
+      transition={{ duration: 0.6, delay }}
     >
       {children}
     </MotionBox>
@@ -651,7 +643,7 @@ const ServicesSection = () => {
           initial={{ opacity: 0, y: -50 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
-          transition={{ duration: 0.8 } as any}
+          transition={{ duration: 0.8 }}
         >
           <MotionHeading 
             textAlign="center" 
@@ -674,7 +666,7 @@ const ServicesSection = () => {
               initial={{ opacity: 0, y: 50, rotateY: -15 }}
               whileInView={{ opacity: 1, y: 0, rotateY: 0 }}
               viewport={{ once: true }}
-              transition={{ duration: 0.6, delay: index * 0.1 } as any}
+              transition={{ duration: 0.6, delay: index * 0.1 }}
               whileHover={{ y: -8, rotateY: 5 }}
               style={{ transformStyle: 'preserve-3d' }}
             >
@@ -786,8 +778,8 @@ const ServiceCard = ({ title, icon, img, shortDesc, details }: any) => {
           
           <HStack justify="space-between" align="center">
             <HStack>
-              <Badge colorScheme="red" variant="subtle" fontSize="xs">Premium</Badge>
-              <Badge variant="outline" fontSize="xs">HD Quality</Badge>
+              <Badge colorScheme="red" variant="subtle" fontSize="xs">24/7 support</Badge>
+              <Badge variant="outline" fontSize="xs">High Quality</Badge>
             </HStack>
             <Button 
               onClick={onOpen} 
@@ -922,7 +914,7 @@ const USPsSection = () => {
             initial={{ opacity: 0, x: -60 }}
             whileInView={{ opacity: 1, x: 0 }}
             viewport={{ once: true }}
-            transition={{ duration: 0.8 } as any}
+            transition={{ duration: 0.8 }}
           >
             <MotionHeading 
               size="3xl" 
@@ -932,7 +924,7 @@ const USPsSection = () => {
               initial={{ scale: 0.8, opacity: 0 }}
               whileInView={{ scale: 1, opacity: 1 }}
               viewport={{ once: true }}
-              transition={{ duration: 0.8, delay: 0.2 } as any}
+              transition={{ duration: 0.8, delay: 0.2 }}
             >
               Why Choose CY-TECH?
             </MotionHeading>
@@ -944,7 +936,7 @@ const USPsSection = () => {
                   initial={{ opacity: 0, y: 30 }}
                   whileInView={{ opacity: 1, y: 0 }}
                   viewport={{ once: true }}
-                  transition={{ duration: 0.5, delay: 0.3 + index * 0.1 } as any}
+                  transition={{ duration: 0.5, delay: 0.3 + index * 0.1 }}
                   whileHover={{ scale: 1.05, y: -2 }}
                 >
                   <HStack 
@@ -989,7 +981,7 @@ const USPsSection = () => {
             initial={{ opacity: 0, scale: 0.9, rotateY: 20 }}
             whileInView={{ opacity: 1, scale: 1, rotateY: 0 }}
             viewport={{ once: true }}
-            transition={{ duration: 0.8, delay: 0.4 } as any}
+            transition={{ duration: 0.8, delay: 0.4 }}
             whileHover={{ scale: 1.03, rotateY: -5 }}
             style={{ transformStyle: 'preserve-3d' }}
           >
@@ -1043,7 +1035,7 @@ const CTASection = () => {
           initial={{ opacity: 0, y: 50 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
-          transition={{ duration: 0.8 } as any}
+          transition={{ duration: 0.8 }}
         >
           <MotionHeading 
             size="3xl" 
@@ -1053,7 +1045,8 @@ const CTASection = () => {
             initial={{ scale: 0.8 }}
             whileInView={{ scale: 1 }}
             viewport={{ once: true }}
-            transition={{ duration: 0.8, delay: 0.2 } as any}
+            transition={{ duration: 0.8, delay: 0.2 }}
+            textAlign="center"
           >
             Our Vision & Mission
           </MotionHeading>
@@ -1069,7 +1062,7 @@ const CTASection = () => {
               initial={{ opacity: 0, x: -50 }}
               whileInView={{ opacity: 1, x: 0 }}
               viewport={{ once: true }}
-              transition={{ duration: 0.8, delay: 0.4 } as any}
+              transition={{ duration: 0.8, delay: 0.4 }}
             >
               <Text fontSize="xl" fontWeight="bold" color={brand.red} mb={2}>Vision</Text>
               <Text fontSize="lg" color={textColor}>
@@ -1087,7 +1080,7 @@ const CTASection = () => {
               initial={{ opacity: 0, x: 50 }}
               whileInView={{ opacity: 1, x: 0 }}
               viewport={{ once: true }}
-              transition={{ duration: 0.8, delay: 0.6 } as any}
+              transition={{ duration: 0.8, delay: 0.6 }}
             >
               <Text fontSize="xl" fontWeight="bold" color={brand.red} mb={2}>Mission</Text>
               <Text fontSize="lg" color={textColor}>
@@ -1100,7 +1093,7 @@ const CTASection = () => {
             initial={{ opacity: 0, y: 30 }}
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
-            transition={{ duration: 0.8, delay: 0.8 } as any}
+            transition={{ duration: 0.8, delay: 0.8 }}
           >
             <ButtonGroup spacing={4} flexWrap="wrap" justifyContent="center">
               <Button 
@@ -1192,7 +1185,7 @@ const FaqSection = () => {
           initial={{ opacity: 0, y: -30 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
-          transition={{ duration: 0.8 } as any}
+          transition={{ duration: 0.8 }}
         >
           Frequently Asked Questions
         </MotionHeading>
@@ -1204,7 +1197,7 @@ const FaqSection = () => {
               initial={{ opacity: 0, y: 50, rotateX: -10 }}
               whileInView={{ opacity: 1, y: 0, rotateX: 0 }}
               viewport={{ once: true }}
-              transition={{ duration: 0.6, delay: index * 0.1 } as any}
+              transition={{ duration: 0.6, delay: index * 0.1 }}
               whileHover={{ y: -4, rotateX: 5 }}
               style={{ transformStyle: 'preserve-3d' }}
             >
@@ -1290,7 +1283,7 @@ const ContactBar = () => {
             initial={{ opacity: 0, x: -30 }}
             whileInView={{ opacity: 1, x: 0 }}
             viewport={{ once: true }}
-            transition={{ duration: 0.6 } as any}
+            transition={{ duration: 0.6 }}
           >
             <HStack spacing={4}>
               <Box p={3} bg="red.600" rounded="full">
@@ -1307,7 +1300,7 @@ const ContactBar = () => {
             initial={{ opacity: 0, y: 30 }}
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
-            transition={{ duration: 0.6, delay: 0.1 } as any}
+            transition={{ duration: 0.6, delay: 0.1 }}
           >
             <HStack spacing={4}>
               <Box p={3} bg="purple.600" rounded="full">
@@ -1324,7 +1317,7 @@ const ContactBar = () => {
             initial={{ opacity: 0, x: 30 }}
             whileInView={{ opacity: 1, x: 0 }}
             viewport={{ once: true }}
-            transition={{ duration: 0.6, delay: 0.2 } as any}
+            transition={{ duration: 0.6, delay: 0.2 }}
           >
             <HStack spacing={4}>
               <Box p={3} bg="blue.600" rounded="full">
@@ -1364,7 +1357,7 @@ const WhatsAppButton = () => {
           initial={{ scale: 0, rotate: -180 }}
           animate={{ scale: 1, rotate: 0 }}
           exit={{ scale: 0, rotate: 180 }}
-          transition={{ type: "spring", stiffness: 200, damping: 20 } as any}
+          transition={{ type: "spring", stiffness: 200, damping: 20 }}
           whileHover={{ scale: 1.1 }}
           whileTap={{ scale: 0.95 }}
         >
@@ -1535,7 +1528,7 @@ const ChatBot = () => {
             initial={{ scale: 0, rotate: 180 }}
             animate={{ scale: 1, rotate: 0 }}
             exit={{ scale: 0, rotate: 180 }}
-            transition={{ type: "spring", stiffness: 200, damping: 20 } as any}
+            transition={{ type: "spring", stiffness: 200, damping: 20 }}
             whileHover={{ scale: 1.1 }}
             whileTap={{ scale: 0.95 }}
           >
@@ -1558,7 +1551,7 @@ const ChatBot = () => {
             initial={{ opacity: 0, scale: 0.8, y: 100 }}
             animate={{ opacity: 1, scale: 1, y: 0 }}
             exit={{ opacity: 0, scale: 0.8, y: 100 }}
-            transition={{ type: "spring", stiffness: 200, damping: 25 } as any}
+            transition={{ type: "spring", stiffness: 200, damping: 25 }}
           >
             <Box
               w="sm"
