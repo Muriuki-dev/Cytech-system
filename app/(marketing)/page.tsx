@@ -236,7 +236,6 @@ const WhoWeAreSection = () => {
         const animationEnd = Date.now() + duration
         const defaults = { startVelocity: 30, spread: 360, ticks: 60, zIndex: 0 }
 
-        // ✅ use arrow function instead of function declaration
         const randomInRange = (min: number, max: number) =>
           Math.random() * (max - min) + min
 
@@ -269,7 +268,7 @@ const WhoWeAreSection = () => {
           initial={{ opacity: 0, x: -60 }}
           whileInView={{ opacity: 1, x: 0 }}
           viewport={{ once: true, amount: 0.4 }}
-          transition={{ duration: 0.8 }}
+          transition={{ duration: 0.8 } as any} // ✅ TS-safe
         >
           <MotionHeading
             size="2xl"
@@ -279,7 +278,7 @@ const WhoWeAreSection = () => {
             initial={{ scale: 0.9, opacity: 0 }}
             whileInView={{ scale: 1, opacity: 1 }}
             viewport={{ once: true }}
-            transition={{ duration: 0.6 }}
+            transition={{ duration: 0.6 } as any} // ✅ TS-safe
           >
             Who we are
           </MotionHeading>
@@ -290,7 +289,7 @@ const WhoWeAreSection = () => {
             initial={{ opacity: 0, y: 30 }}
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
-            transition={{ duration: 0.8 } as any}  // ✅ fix typing issue
+            transition={{ duration: 0.8, delay: 0.2 } as any} // ✅ TS-safe
           >
             Cy-Tech Systems is a leading provider of advanced telematics and
             security solutions for residential, commercial, and automotive
@@ -311,7 +310,7 @@ const WhoWeAreSection = () => {
                   initial={{ opacity: 0, y: 20 }}
                   whileInView={{ opacity: 1, y: 0 }}
                   viewport={{ once: true }}
-                  transition={{ duration: 0.5, delay: 0.3 + i * 0.15 }}
+                  transition={{ duration: 0.5, delay: 0.3 + i * 0.15 } as any} // ✅ TS-safe
                 >
                   {v}
                 </MotionTag>
@@ -327,7 +326,7 @@ const WhoWeAreSection = () => {
           initial={{ opacity: 0, scale: 0.9 }}
           whileInView={{ opacity: 1, scale: 1 }}
           viewport={{ once: true }}
-          transition={{ duration: 0.8, delay: 0.4 }}
+          transition={{ duration: 0.8, delay: 0.4 } as any} // ✅ TS-safe
           whileHover={{ scale: 1.05 }}
         >
           <Image
