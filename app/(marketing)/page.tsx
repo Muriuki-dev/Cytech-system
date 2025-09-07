@@ -32,6 +32,7 @@ import {
   useColorModeValue,
 } from '@chakra-ui/react'
 import { Br, Link } from '@saas-ui/react'
+import { motion } from 'framer-motion'
 import type { NextPage } from 'next'
 import Image from 'next/image'
 import {
