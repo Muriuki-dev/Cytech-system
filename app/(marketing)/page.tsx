@@ -66,7 +66,7 @@ import {
   FiSettings,
   FiEye,
 } from 'react-icons/fi'
-import { FaWhatsapp, FiCar, FaRobot } from 'react-icons/fa'
+import { FaWhatsapp, FaCar, FaRobot } from "react-icons/fa"
 
 import * as React from 'react'
 import { useEffect, useState } from 'react'
