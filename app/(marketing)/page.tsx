@@ -71,6 +71,8 @@ import { FaWhatsapp, FaCar, FaRobot } from "react-icons/fa"
 import * as React from 'react'
 import { useEffect, useState } from 'react'
 
+const MotionVStack = motion(VStack)
+
 // Create motion-enabled Chakra components
 const MotionBox = chakra(motion.div, {
   shouldForwardProp: (prop) =>
