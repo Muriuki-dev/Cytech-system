@@ -412,7 +412,31 @@ const WhoWeAreSection = () => {
                   </MotionTag>
                 ),
               )}
-      </AnimatePresence>
+            </Wrap>
+          </MotionVStack>
+
+          <MotionBox
+            rounded="3xl"
+            overflow="hidden"
+            boxShadow="2xl"
+            initial={{ opacity: 0, scale: 0.9, rotateY: -20 }}
+            whileInView={{ opacity: 1, scale: 1, rotateY: 0 }}
+            viewport={{ once: true }}
+            transition={{ duration: 0.8, delay: 0.4 } as any}
+            whileHover={{ scale: 1.05, rotateY: 5 }}
+            style={{ transformStyle: 'preserve-3d' }}
+          >
+            <Image
+              src={vehicleImgs.modern}
+              alt="Modern vehicle technology"
+              width={1200}
+              height={800}
+              quality={95}
+              style={{ objectFit: 'cover' }}
+            />
+          </MotionBox>
+        </SimpleGrid>
+      </Container>
     </Box>
   )
 }
@@ -456,36 +480,6 @@ const ButtonLink: React.FC<{
     >
       {children}
     </Button>
-  )
-}
-
-export default Home
-            </Wrap>
-          </MotionVStack>
-
-          <MotionBox
-            rounded="3xl"
-            overflow="hidden"
-            boxShadow="2xl"
-            initial={{ opacity: 0, scale: 0.9, rotateY: -20 }}
-            whileInView={{ opacity: 1, scale: 1, rotateY: 0 }}
-            viewport={{ once: true }}
-            transition={{ duration: 0.8, delay: 0.4 } as any}
-            whileHover={{ scale: 1.05, rotateY: 5 }}
-            style={{ transformStyle: 'preserve-3d' }}
-          >
-            <Image
-              src={vehicleImgs.modern}
-              alt="Modern vehicle technology"
-              width={1200}
-              height={800}
-              quality={95}
-              style={{ objectFit: 'cover' }}
-            />
-          </MotionBox>
-        </SimpleGrid>
-      </Container>
-    </Box>
   )
 }
 
@@ -808,13 +802,9 @@ const ServiceCard = ({ title, icon, img, shortDesc, details }: any) => {
 
       <Modal isOpen={isOpen} onClose={onClose} size="4xl" motionPreset="slideInBottom" scrollBehavior="inside">
         <ModalOverlay backdropFilter="blur(10px)" />
-        <MotionContent
+        <ModalContent
           bg={useColorModeValue('white', 'gray.800')}
           maxH="90vh"
-          initial={{ scale: 0.9, opacity: 0, y: 50 }}
-          animate={{ scale: 1, opacity: 1, y: 0 }}
-          exit={{ scale: 0.9, opacity: 0, y: 50 }}
-          transition={{ duration: 0.3 } as any}
         >
           <ModalHeader 
             color={useColorModeValue('gray.800', 'white')} 
@@ -881,16 +871,11 @@ const ServiceCard = ({ title, icon, img, shortDesc, details }: any) => {
               </Button>
             </HStack>
           </ModalFooter>
-        </MotionContent>
+        </ModalContent>
       </Modal>
     </>
   )
 }
-
-// Create motion-enabled ModalContent
-const MotionContent = chakra(motion.div, {
-  shouldForwardProp: (prop) => isValidMotionProp(prop) || shouldForwardProp(prop),
-})
 
 const USPsSection = () => {
   const bullets = [
@@ -1538,7 +1523,7 @@ const ChatBot = () => {
       zIndex="1000"
     >
       <AnimatePresence>
-        {!isOpen        ? (
+        {!isOpen ? (
           <MotionBox
             initial={{ scale: 0, rotate: 180 }}
             animate={{ scale: 1, rotate: 0 }}
@@ -1690,3 +1675,5 @@ const ChatBot = () => {
     </Box>
   )
 }
+
+export default Home
