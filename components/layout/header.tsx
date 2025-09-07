@@ -24,7 +24,10 @@ export const Header = (props: HeaderProps) => {
     return scrollY.on('change', () => setY(scrollY.get()))
   }, [scrollY])
 
-  const bg = useColorModeValue('whiteAlpha.700', 'rgba(29, 32, 37, 0.7)')
+  // Background + border colors that adapt to dark/light
+  const bgColor = useColorModeValue('whiteAlpha.80', 'blackAlpha.700')
+  const borderColor = useColorModeValue('gray.200', 'gray.700')
+  const shadow = useColorModeValue('md', 'dark-lg')
 
   return (
     <Box
@@ -33,14 +36,14 @@ export const Header = (props: HeaderProps) => {
       top="0"
       w="full"
       position="fixed"
-      backdropFilter="blur(5px)"
+      backdropFilter="blur(8px)"
       zIndex="sticky"
-      borderColor="whiteAlpha.100"
       transitionProperty="common"
       transitionDuration="normal"
-      bg={y > height ? bg : ''}
-      boxShadow={y > height ? 'md' : ''}
-      borderBottomWidth={y > height ? '1px' : ''}
+      bg={y > height ? bgColor : 'transparent'}
+      boxShadow={y > height ? shadow : 'none'}
+      borderBottomWidth={y > height ? '1px' : '0'}
+      borderColor={y > height ? borderColor : 'transparent'}
       {...props}
     >
       <Container maxW="container.2xl" px="8" py="4">
@@ -49,7 +52,6 @@ export const Header = (props: HeaderProps) => {
             onClick={(e) => {
               if (window.location.pathname === '/') {
                 e.preventDefault()
-
                 window.scrollTo({
                   top: 0,
                   behavior: 'smooth',
