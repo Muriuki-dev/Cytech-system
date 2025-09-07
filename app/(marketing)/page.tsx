@@ -184,7 +184,7 @@ const Home: NextPage = () => {
 const HeroSection: React.FC = () => {
   const textColor = useColorModeValue('white', 'white')
   const subTextColor = useColorModeValue('gray.100', 'gray.200')
-  
+
   return (
     <Box position="relative" overflow="hidden" minH="100vh">
       <BackgroundGradient height="100%" zIndex={-1} />
@@ -207,7 +207,8 @@ const HeroSection: React.FC = () => {
           content: '""',
           position: 'absolute',
           inset: 0,
-          background: 'linear-gradient(45deg, rgba(220,38,38,0.3) 0%, rgba(147,51,234,0.3) 50%, rgba(59,130,246,0.3) 100%)',
+          background:
+            'linear-gradient(45deg, rgba(220,38,38,0.3) 0%, rgba(147,51,234,0.3) 50%, rgba(59,130,246,0.3) 100%)',
           backgroundSize: '400% 400%',
           animation: `${shimmer} 6s ease infinite`,
         }}
@@ -215,18 +216,17 @@ const HeroSection: React.FC = () => {
 
       <Container maxW="container.xl" pt={{ base: 32, lg: 48 }} pb={24}>
         <Stack direction={{ base: 'column', lg: 'row' }} alignItems="center" spacing={12}>
-         <MotionVStack
-  alignItems={{ base: 'center', lg: 'start' }}
-  spacing={8}
-  zIndex={1}
-  color={textColor}
-  initial={{ opacity: 0, x: -100 }}
-  animate={{ opacity: 1, x: 0 }}
-  transition={{ duration: 1.2, ease: "easeOut" } as any}
-/>
-
-            <MotionHeading 
-              fontSize={{ base: '4xl', lg: '7xl' }} 
+          <MotionVStack
+            alignItems={{ base: 'center', lg: 'start' }}
+            spacing={8}
+            zIndex={1}
+            color={textColor}
+            initial={{ opacity: 0, x: -100 }}
+            animate={{ opacity: 1, x: 0 }}
+            transition={{ duration: 1.2, ease: 'easeOut' } as any}
+          >
+            <MotionHeading
+              fontSize={{ base: '4xl', lg: '7xl' }}
               lineHeight="1.1"
               textAlign={{ base: 'center', lg: 'left' }}
               initial={{ scale: 0.5, opacity: 0 }}
@@ -237,7 +237,7 @@ const HeroSection: React.FC = () => {
             >
               CY – TECH SYSTEMS
               <Br />
-              <chakra.span 
+              <chakra.span
                 color={brand.red}
                 animation={`${glow} 3s ease-in-out infinite`}
                 display="inline-block"
@@ -246,10 +246,10 @@ const HeroSection: React.FC = () => {
               </chakra.span>
             </MotionHeading>
 
-            <MotionText 
-              mt={6} 
-              fontSize={{ base: 'lg', lg: 'xl' }} 
-              maxW="2xl" 
+            <MotionText
+              mt={6}
+              fontSize={{ base: 'lg', lg: 'xl' }}
+              maxW="2xl"
               color={subTextColor}
               textAlign={{ base: 'center', lg: 'left' }}
               initial={{ opacity: 0, y: 50 }}
@@ -266,10 +266,15 @@ const HeroSection: React.FC = () => {
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.8, delay: 1.2 } as any}
             >
-              <HStack spacing={6} mt={8} flexWrap="wrap" justify={{ base: 'center', lg: 'start' }}>
+              <HStack
+                spacing={6}
+                mt={8}
+                flexWrap="wrap"
+                justify={{ base: 'center', lg: 'start' }}
+              >
                 <Button
-                  colorScheme="red" 
-                  size="lg" 
+                  colorScheme="red"
+                  size="lg"
                   rightIcon={<Icon as={FiArrowRight} />}
                   _hover={{ transform: 'translateY(-2px)', boxShadow: 'xl' }}
                   transition="all 0.3s"
@@ -277,11 +282,11 @@ const HeroSection: React.FC = () => {
                 >
                   Explore Services
                 </Button>
-                <Button 
-                  as={Link} 
-                  href="mailto:cytechsystems254@gmail.com" 
-                  size="lg" 
-                  variant="outline" 
+                <Button
+                  as={Link}
+                  href="mailto:cytechsystems254@gmail.com"
+                  size="lg"
+                  variant="outline"
                   colorScheme="whiteAlpha"
                   _hover={{ transform: 'translateY(-2px)', bg: 'whiteAlpha.200' }}
                   transition="all 0.3s"
