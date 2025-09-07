@@ -363,7 +363,7 @@ const WhoWeAreSection = () => {
       <Container maxW="container.xl" position="relative">
         <SimpleGrid columns={{ base: 1, md: 2 }} spacing={12} alignItems="center">
           <MotionVStack
-            align="start"
+            alignItems="flex-start"
             spacing={6}
             initial={{ opacity: 0, x: -60 }}
             whileInView={{ opacity: 1, x: 0 }}
