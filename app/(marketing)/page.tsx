@@ -187,7 +187,7 @@ const HeroSection: React.FC = () => {
   
   return (
     <Box position="relative" overflow="hidden" minH="100vh">
-      <BackgroundGradient height="100%" zIndex="-1" />
+      <BackgroundGradient height="100%" zIndex={-1} />
 
       {/* Animated background with multiple layers */}
       <Box
