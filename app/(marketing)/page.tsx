@@ -262,10 +262,11 @@ const ServicesSection = () => {
         </Text>
 
         <SimpleGrid columns={{ base: 1, md: 2, xl: 3 }} spacing={8}>
-          {services.map((s) => (
-            <ServiceCard key={s.key} {...s} />
-          ))}
-        </SimpleGrid>
+  {services.map(({ key, ...rest }) => (
+    <ServiceCard key={key} {...rest} />
+  ))}
+</SimpleGrid>
+
       </Container>
     </Box>
   )
