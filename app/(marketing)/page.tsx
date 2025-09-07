@@ -27,8 +27,6 @@ import {
   Card,
   CardBody,
   HStack,
-  Tag,
-  useColorModeValue,
   Image,
   Link
 } from '@chakra-ui/react'
@@ -40,12 +38,20 @@ import {
   FiMap,
   FiLock,
   FiSettings,
-  FiEye,
-  FiTool,
   FiClock,
   FiGlobe,
   FiStar
 } from 'react-icons/fi'
+
+// Define types for our services
+interface Service {
+  id: number;
+  title: string;
+  description: string;
+  icon: any;
+  image: string;
+  details: string;
+}
 
 const Home = () => {
   return (
@@ -106,9 +112,9 @@ const HeroSection = () => {
 
 const ServicesSection = () => {
   const { isOpen, onOpen, onClose } = useDisclosure()
-  const [selectedService, setSelectedService] = useState(null)
+  const [selectedService, setSelectedService] = useState<Service | null>(null)
 
-  const services = [
+  const services: Service[] = [
     {
       id: 1,
       title: "Automotive Security",
@@ -143,7 +149,7 @@ const ServicesSection = () => {
     }
   ]
 
-  const handleServiceClick = (service) => {
+  const handleServiceClick = (service: Service) => {
     setSelectedService(service)
     onOpen()
   }
@@ -227,7 +233,7 @@ const ServicesSection = () => {
 const WhyChooseUsSection = () => {
   const features = [
     {
-      icon: FiTool,
+      icon: FiCheck,
       title: "99.9% Hardware Reliability",
       description: "Built to perform, built to last."
     },
