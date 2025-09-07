@@ -3,492 +3,447 @@
 import {
   Box,
   Button,
+  ButtonGroup,
   Container,
   Flex,
-  Grid,
+  HStack,
   Heading,
   Icon,
+  IconButton,
+  SimpleGrid,
+  Stack,
+  Tag,
+  Text,
+  VStack,
+  Wrap,
+  useClipboard,
+  useDisclosure,
   Modal,
-  ModalBody,
-  ModalCloseButton,
+  ModalOverlay,
   ModalContent,
   ModalHeader,
-  ModalOverlay,
-  Stack,
-  Text,
-  useDisclosure,
-  VStack,
-  Accordion,
-  AccordionItem,
-  AccordionButton,
-  AccordionPanel,
-  AccordionIcon,
-  SimpleGrid,
-  Card,
-  CardBody,
-  HStack,
-  Image,
-  Link
+  ModalCloseButton,
+  ModalBody,
+  ModalFooter,
+  Divider,
+  Badge,
+  chakra,
 } from '@chakra-ui/react'
-import { useState } from 'react'
+import { Br, Link } from '@saas-ui/react'
+import type { NextPage } from 'next'
+import Image from 'next/image'
 import {
   FiArrowRight,
   FiCheck,
-  FiShield,
-  FiMap,
+  FiCopy,
+  FiGrid,
   FiLock,
-  FiSettings,
-  FiClock,
-  FiGlobe,
-  FiStar
+  FiMapPin,
+  FiPhone,
+  FiSearch,
+  FiShield,
+  FiSliders,
+  FiSmartphone,
+  FiToggleLeft,
+  FiTruck,
+  FiVideo,
+  FiZap,
 } from 'react-icons/fi'
 
-// Define types for our services
-interface Service {
-  id: number;
-  title: string;
-  description: string;
-  icon: any;
-  image: string;
-  details: string;
+import * as React from 'react'
+
+import { ButtonLink } from '#components/button-link/button-link'
+import { BackgroundGradient } from '#components/gradients/background-gradient'
+import { FallInPlace } from '#components/motion/fall-in-place'
+
+/**
+ * THEME NOTES
+ * Using brand colors from the logo:
+ *  - Primary red: use Chakra colorScheme="red" where appropriate
+ *  - Dark navy/charcoal: leverage _dark and gray.900 backgrounds
+ * The page respects both light & dark modes by using Chakra tokens and _dark overrides.
+ */
+
+const brand = {
+  red: 'red.600', // primary accent similar to the logo
+  dark: 'gray.900',
 }
 
-const Home = () => {
+const vehicleImgs = {
+  hero:
+    'https://images.unsplash.com/photo-Dl3zfNV8x_8?auto=format&fit=crop&w=2400&q=80', // black SUV at night
+  gps:
+    'https://images.unsplash.com/photo-6QGwah013Lo?auto=format&fit=crop&w=1920&q=80', // car dashboard w/ GPS
+  fleet:
+    'https://images.unsplash.com/photo-CUjioboIKUk?auto=format&fit=crop&w=1920&q=80', // cars on road at night
+  citySUV:
+    'https://images.unsplash.com/photo-gUwv_7vJ9rE?auto=format&fit=crop&w=1920&q=80',
+  darkSUV:
+    'https://images.unsplash.com/photo-EmTviaxPNdU?auto=format&fit=crop&w=1920&q=80',
+  nav:
+    'https://images.unsplash.com/photo-9aaD5DWs2_g?auto=format&fit=crop&w=1920&q=80',
+}
+
+const Home: NextPage = () => {
   return (
     <Box>
       <HeroSection />
+      <WhoWeAreSection />
       <ServicesSection />
-      <WhyChooseUsSection />
-      <TestimonialsSection />
+      <USPsSection />
+      <CTASection />
       <FaqSection />
-      <Footer />
+      <ContactBar />
     </Box>
   )
 }
 
-const HeroSection = () => {
+const HeroSection: React.FC = () => {
   return (
-    <Box 
-      position="relative" 
-      height="100vh" 
-      overflow="hidden"
-      bgImage="url('https://images.unsplash.com/photo-1568605117036-5fe5e7bab0b7?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=2070&q=80')"
-      bgSize="cover"
-      bgPosition="center"
-    >
+    <Box position="relative" overflow="hidden">
+      <BackgroundGradient height="100%" zIndex="-1" />
+
+      {/* HERO BACKDROP WITH 4K VEHICLE IMAGE */}
       <Box
         position="absolute"
-        top="0"
-        left="0"
-        right="0"
-        bottom="0"
-        bgGradient="linear(to-r, blackAlpha.800, blueAlpha.800)"
-        zIndex="1"
+        inset={0}
+        _before={{
+          content: '""',
+          position: 'absolute',
+          inset: 0,
+          backgroundImage: `url(${vehicleImgs.hero})`,
+          backgroundSize: 'cover',
+          backgroundPosition: 'center',
+          filter: 'brightness(0.55)',
+        }}
+        _dark={{
+          _before: {
+            filter: 'brightness(0.4)',
+          },
+        }}
       />
-      
-      <Container position="relative" zIndex="2" maxW="container.xl" height="full">
-        <Flex alignItems="center" height="full">
-          <Stack spacing={6} maxW="2xl">
-            <Heading as="h1" size="2xl" color="white" fontWeight="bold">
-              Advanced Telematics & Security Solutions
+
+      <Container maxW="container.xl" pt={{ base: 32, lg: 48 }} pb={24}>
+        <Stack direction={{ base: 'column', lg: 'row' }} alignItems="center">
+          <Box zIndex={1} color="white">
+            <Heading fontSize={{ base: '4xl', lg: '6xl' }} lineHeight="1.1">
+              CY – TECH SYSTEMS
+              <Br />
+              <chakra.span color={brand.red}>Auto Security & Telematics</chakra.span>
             </Heading>
-            <Text fontSize="xl" color="gray.100">
-              Cy-Tech Systems delivers state-of-the-art technology and intelligent monitoring platforms for residential, commercial, and automotive sectors.
+            <Text mt={6} fontSize={{ base: 'lg', lg: 'xl' }} maxW="2xl" opacity={0.95}>
+              Driven by Trust. Powered by Technology. We provide advanced tracking,
+              video telematics, and immobilization for vehicles and fleets across
+              Kenya and beyond.
             </Text>
-            <HStack spacing={4}>
-              <Button colorScheme="blue" size="lg" rightIcon={<FiArrowRight />}>
-                Get Started
-              </Button>
-              <Button variant="outline" size="lg" color="white" _hover={{ bg: 'whiteAlpha.200' }}>
-                View Demo
-              </Button>
+
+            <HStack spacing={6} mt={8} flexWrap="wrap">
+              <ButtonLink colorScheme="red" size="lg" href="#services" rightIcon={<Icon as={FiArrowRight} />}>Explore Services</ButtonLink>
+              <Button as={Link} href="mailto:cytechsystems254@gmail.com" size="lg" variant="outline" colorScheme="whiteAlpha">Request a Quote</Button>
             </HStack>
-          </Stack>
-        </Flex>
+          </Box>
+
+          {/* SIDE IMAGE STRIP */}
+          <Box
+            display={{ base: 'none', lg: 'block' }}
+            ms={{ lg: 10 }}
+            zIndex={1}
+            rounded="2xl"
+            overflow="hidden"
+            boxShadow="2xl"
+          >
+            <Image
+              src={vehicleImgs.gps}
+              width={700}
+              height={430}
+              alt="Premium GPS dashboard"
+              quality={90}
+              priority
+            />
+          </Box>
+        </Stack>
       </Container>
     </Box>
   )
 }
+
+const WhoWeAreSection = () => {
+  return (
+    <Container maxW="container.xl" py={{ base: 16, lg: 24 }}>
+      <SimpleGrid columns={{ base: 1, md: 2 }} spacing={12} alignItems="center">
+        <VStack align="start" spacing={6}>
+          <Heading size="2xl">Who we are</Heading>
+          <Text fontSize="lg" color="muted">
+            Cy‑Tech Systems is a leading provider of advanced telematics and security
+            solutions for residential, commercial, and automotive sectors. We leverage
+            state‑of‑the‑art technology and intelligent monitoring platforms to deliver
+            real‑time tracking and security systems that consistently meet and exceed market expectations.
+          </Text>
+          <Wrap>
+            {['Precision', 'Cost‑effective', 'Professional', 'Real‑time', 'Reliable'].map((v) => (
+              <Tag key={v} colorScheme="red" variant="subtle" rounded="full" px={3}>{v}</Tag>
+            ))}
+          </Wrap>
+        </VStack>
+
+        <Box rounded="2xl" overflow="hidden" boxShadow="xl">
+          <Image
+            src={vehicleImgs.citySUV}
+            alt="SUV in city at night"
+            width={1200}
+            height={800}
+            quality={90}
+          />
+        </Box>
+      </SimpleGrid>
+    </Container>
+  )
+}
+
+/** SERVICES WITH MODALS **/
+const services = [
+  {
+    key: 'tracking',
+    title: 'GPS Vehicle Tracking',
+    icon: FiSearch,
+    img: vehicleImgs.nav,
+    details:
+      'Live location, trip history, geofencing, and instant alerts. Visualize routes, stops, and utilization in real‑time on any device.',
+  },
+  {
+    key: 'fleet',
+    title: 'Fleet Management',
+    icon: FiTruck,
+    img: vehicleImgs.fleet,
+    details:
+      'Optimize operations with maintenance reminders, driver behavior analytics, fuel insights, and automated reports for your entire fleet.',
+  },
+  {
+    key: 'immobilizer',
+    title: 'Remote Immobilization & Anti‑Theft',
+    icon: FiShield,
+    img: vehicleImgs.darkSUV,
+    details:
+      'Secure your assets with remote engine cut‑off, tamper detection, and 24/7 monitoring backed by reliable hardware (99.9% uptime).',
+  },
+  {
+    key: 'video',
+    title: 'Dashcams & Video Telematics',
+    icon: FiVideo,
+    img: vehicleImgs.gps,
+    details:
+      'High‑definition road and in‑cab video with AI events. Protect drivers, exonerate claims, and improve safety culture.',
+  },
+  {
+    key: 'alerts',
+    title: 'Geofencing & Smart Alerts',
+    icon: FiMapPin,
+    img: vehicleImgs.citySUV,
+    details:
+      'Create zones and receive instant notifications for entries, exits, idling, speeding, and unauthorized usage.',
+  },
+  {
+    key: 'support',
+    title: 'Installation & 24/7 Support',
+    icon: FiZap,
+    img: vehicleImgs.hero,
+    details:
+      'Professional on‑site installation, user training, free check‑ups, and around‑the‑clock support with global‑backed warranty.',
+  },
+]
 
 const ServicesSection = () => {
-  const { isOpen, onOpen, onClose } = useDisclosure()
-  const [selectedService, setSelectedService] = useState<Service | null>(null)
-
-  const services: Service[] = [
-    {
-      id: 1,
-      title: "Automotive Security",
-      description: "Advanced vehicle security systems with real-time tracking and anti-theft protection.",
-      icon: FiShield,
-      image: "https://images.unsplash.com/photo-1549317661-bd32c8ce0db2?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=2070&q=80",
-      details: "Our automotive security systems provide comprehensive protection for your vehicle with features like GPS tracking, remote immobilization, and real-time alerts. Our systems are designed to deter thieves and recover your vehicle quickly if stolen."
-    },
-    {
-      id: 2,
-      title: "Fleet Management",
-      description: "Optimize your fleet operations with our advanced telematics solutions.",
-      icon: FiMap,
-      image: "https://images.unsplash.com/photo-1569686961384-10d956f4b6f9?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=2070&q=80",
-      details: "Our fleet management solutions help businesses optimize routes, monitor driver behavior, reduce fuel consumption, and improve overall operational efficiency. Real-time data and analytics provide insights to make informed decisions."
-    },
-    {
-      id: 3,
-      title: "Residential Security",
-      description: "Protect your home with our intelligent monitoring and security systems.",
-      icon: FiLock,
-      image: "https://images.unsplash.com/photo-1588880331179-bc9b93a8cb5e?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=2070&q=80",
-      details: "Our residential security systems offer comprehensive protection for your home with features like remote monitoring, intrusion detection, and emergency response integration. Keep your family safe with our reliable technology."
-    },
-    {
-      id: 4,
-      title: "Commercial Solutions",
-      description: "Tailored security solutions for businesses of all sizes.",
-      icon: FiSettings,
-      image: "https://images.unsplash.com/photo-1497366811353-6870744d04b2?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=2069&q=80",
-      details: "We provide customized security solutions for commercial properties, including access control, surveillance systems, and integrated monitoring platforms. Protect your assets and ensure business continuity with our professional-grade systems."
-    }
-  ]
-
-  const handleServiceClick = (service: Service) => {
-    setSelectedService(service)
-    onOpen()
-  }
-
   return (
-    <Box py={20} bg="gray.50">
+    <Box id="services" py={{ base: 16, lg: 24 }} bg="white" _dark={{ bg: 'gray.800' }}>
       <Container maxW="container.xl">
-        <VStack spacing={16}>
-          <VStack textAlign="center" spacing={4}>
-            <Heading as="h2" size="xl">Our Services</Heading>
-            <Text fontSize="lg" color="gray.600" maxW="2xl">
-              We provide cutting-edge telematics and security solutions for residential, commercial, and automotive applications.
-            </Text>
-          </VStack>
+        <Heading textAlign="left" size="2xl" mb={3}>Services</Heading>
+        <Text color="muted" mb={10} fontSize="lg">
+          Smart, seamless and dependable solutions for individuals and fleets.
+        </Text>
 
-          <SimpleGrid columns={{ base: 1, md: 2, lg: 4 }} spacing={8}>
-            {services.map((service) => (
-              <Card 
-                key={service.id} 
-                overflow="hidden" 
-                variant="outline" 
-                cursor="pointer"
-                transition="all 0.3s"
-                _hover={{ transform: 'translateY(-5px)', shadow: 'lg' }}
-                onClick={() => handleServiceClick(service)}
-              >
-                <Box height="200px" overflow="hidden">
-                  <Image
-                    src={service.image}
-                    alt={service.title}
-                    objectFit="cover"
-                    width="100%"
-                    height="100%"
-                    transition="all 0.3s"
-                    _hover={{ transform: 'scale(1.05)' }}
-                  />
-                </Box>
-                <CardBody>
-                  <HStack spacing={3} mb={3}>
-                    <Icon as={service.icon} boxSize={6} color="blue.500" />
-                    <Heading as="h3" size="md">{service.title}</Heading>
-                  </HStack>
-                  <Text color="gray.600">{service.description}</Text>
-                  <Button variant="link" colorScheme="blue" rightIcon={<FiArrowRight />} mt={4}>
-                    Learn more
-                  </Button>
-                </CardBody>
-              </Card>
-            ))}
-          </SimpleGrid>
-
-          <Modal isOpen={isOpen} onClose={onClose} size="xl">
-            <ModalOverlay />
-            <ModalContent>
-              <ModalHeader>{selectedService?.title}</ModalHeader>
-              <ModalCloseButton />
-              <ModalBody pb={6}>
-                {selectedService && (
-                  <>
-                    <Image
-                      src={selectedService.image}
-                      alt={selectedService.title}
-                      borderRadius="md"
-                      mb={4}
-                    />
-                    <Text>{selectedService.details}</Text>
-                    <Button colorScheme="blue" mt={6}>
-                      Request a Quote
-                    </Button>
-                  </>
-                )}
-              </ModalBody>
-            </ModalContent>
-          </Modal>
-        </VStack>
+        <SimpleGrid columns={{ base: 1, md: 2, xl: 3 }} spacing={8}>
+          {services.map((s) => (
+            <ServiceCard key={s.key} {...s} />
+          ))}
+        </SimpleGrid>
       </Container>
     </Box>
   )
 }
 
-const WhyChooseUsSection = () => {
-  const features = [
-    {
-      icon: FiCheck,
-      title: "99.9% Hardware Reliability",
-      description: "Built to perform, built to last."
-    },
-    {
-      icon: FiSettings,
-      title: "Smart, Easy to Use Software",
-      description: "Seamless, secure, and intuitive."
-    },
-    {
-      icon: FiStar,
-      title: "Expert Workmanship",
-      description: "Professional installation, every time."
-    },
-    {
-      icon: FiClock,
-      title: "Free Check-Ups & 24/7 Support",
-      description: "We're with you, always."
-    },
-    {
-      icon: FiCheck,
-      title: "Guaranteed Value & Satisfaction",
-      description: "Your success is our promise."
-    },
-    {
-      icon: FiGlobe,
-      title: "Global-Backed Warranty",
-      description: "Trusted partnerships, reliable after-sales service."
-    }
-  ]
-
+const ServiceCard = ({ title, icon, img, details }: any) => {
+  const { isOpen, onOpen, onClose } = useDisclosure()
   return (
-    <Box 
-      py={20} 
-      bgImage="url('https://images.unsplash.com/photo-1503376780353-7e6692767b70?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=2070&q=80')"
-      bgSize="cover"
-      bgPosition="center"
-      position="relative"
-    >
-      <Box
-        position="absolute"
-        top="0"
-        left="0"
-        right="0"
-        bottom="0"
-        bgGradient="linear(to-r, blue.900, blueAlpha.800)"
-        opacity="0.9"
-      />
-      
-      <Container position="relative" zIndex="1" maxW="container.xl">
-        <VStack spacing={16} color="white">
-          <VStack textAlign="center" spacing={4}>
-            <Heading as="h2" size="xl">Why Choose Us?</Heading>
-            <Text fontSize="lg" maxW="2xl">
-              Our commitment is anchored in precision, cost-effectiveness, and professionalism.
-            </Text>
-          </VStack>
+    <Box rounded="2xl" overflow="hidden" borderWidth="1px" _dark={{ borderColor: 'gray.700' }}>
+      <Box position="relative" h={{ base: 48, md: 56 }}>
+        <Image src={img} alt={title} fill style={{ objectFit: 'cover' }} />
+      </Box>
+      <Stack p={6} spacing={4}>
+        <HStack>
+          <Icon as={icon} fontSize="xl" color={brand.red} />
+          <Heading size="md">{title}</Heading>
+        </HStack>
+        <Text noOfLines={3} color="muted">{details}</Text>
+        <HStack>
+          <Badge colorScheme="red" variant="subtle">Premium</Badge>
+          <Badge variant="outline">HD/4K Imagery</Badge>
+        </HStack>
+        <Button onClick={onOpen} colorScheme="red" variant="solid" alignSelf="start">
+          More details
+        </Button>
+      </Stack>
 
-          <SimpleGrid columns={{ base: 1, md: 2, lg: 3 }} spacing={10}>
-            {features.map((feature, index) => (
-              <HStack key={index} align="start" spacing={6}>
-                <Flex
-                  justify="center"
-                  align="center"
-                  borderRadius="lg"
-                  bg="blue.500"
-                  color="white"
-                  boxSize={12}
-                  flexShrink={0}
-                >
-                  <Icon as={feature.icon} boxSize={6} />
-                </Flex>
-                <Box>
-                  <Text fontWeight="bold" fontSize="lg" mb={2}>{feature.title}</Text>
-                  <Text color="blue.100">{feature.description}</Text>
-                </Box>
+      <Modal isOpen={isOpen} onClose={onClose} size="xl" motionPreset="slideInBottom">
+        <ModalOverlay />
+        <ModalContent>
+          <ModalHeader>{title}</ModalHeader>
+          <ModalCloseButton />
+          <ModalBody>
+            <Text mb={4}>{details}</Text>
+            <Box rounded="xl" overflow="hidden">
+              <Image src={img} alt={`${title} image`} width={1200} height={700} />
+            </Box>
+          </ModalBody>
+          <ModalFooter>
+            <Button as={Link} href="mailto:cytechsystems254@gmail.com" colorScheme="red">
+              Get a quote
+            </Button>
+          </ModalFooter>
+        </ModalContent>
+      </Modal>
+    </Box>
+  )
+}
+
+const USPsSection = () => {
+  const bullets = [
+    { label: '99.9% hardware reliability', icon: FiCheck },
+    { label: 'Smart, easy‑to‑use software', icon: FiSmartphone },
+    { label: 'Expert workmanship', icon: FiLock },
+    { label: 'Free check‑ups & 24/7 support', icon: FiGrid },
+    { label: 'Guaranteed value & satisfaction', icon: FiSliders },
+    { label: 'Global‑backed warranty', icon: FiShield },
+  ]
+  return (
+    <Container maxW="container.xl" py={{ base: 16, lg: 24 }}>
+      <SimpleGrid columns={{ base: 1, lg: 2 }} spacing={10}>
+        <VStack align="start" spacing={6}>
+          <Heading size="2xl">Why choose us</Heading>
+          <Wrap>
+            {bullets.map((b) => (
+              <HStack key={b.label} p={3} borderWidth="1px" rounded="full" spacing={2} _dark={{ borderColor: 'gray.700' }}>
+                <Icon as={b.icon} />
+                <Text>{b.label}</Text>
               </HStack>
             ))}
-          </SimpleGrid>
+          </Wrap>
         </VStack>
-      </Container>
-    </Box>
+        <Box rounded="2xl" overflow="hidden" boxShadow="xl">
+          <Image src={vehicleImgs.fleet} width={1200} height={800} alt="Fleet on the move" />
+        </Box>
+      </SimpleGrid>
+    </Container>
   )
 }
 
-const TestimonialsSection = () => {
-  const testimonials = [
-    {
-      id: 1,
-      name: "John Anderson",
-      company: "TransGlobal Logistics",
-      content: "Cy-Tech's fleet management system has reduced our fuel costs by 18% and improved our delivery times significantly. Their support team is always available when we need them.",
-      image: "https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=987&q=80"
-    },
-    {
-      id: 2,
-      name: "Sarah Johnson",
-      company: "Premium Auto Group",
-      content: "The automotive security systems from Cy-Tech have dramatically reduced theft incidents across our dealership network. The peace of mind is invaluable.",
-      image: "https://images.unsplash.com/photo-1544005313-94ddf0286df2?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=988&q=80"
-    },
-    {
-      id: 3,
-      name: "Michael Roberts",
-      company: "Secure Properties Ltd",
-      content: "We've integrated Cy-Tech's residential security solutions across all our properties. The systems are reliable, and their professional installation team is exceptional.",
-      image: "https://images.unsplash.com/photo-1552058544-f2b08422138a?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=996&q=80"
-    }
-  ]
-
+const CTASection = () => {
   return (
-    <Box py={20}>
+    <Box py={20} bg="gray.50" _dark={{ bg: 'gray.900' }}>
       <Container maxW="container.xl">
-        <VStack spacing={16}>
-          <VStack textAlign="center" spacing={4}>
-            <Heading as="h2" size="xl">What Our Clients Say</Heading>
-            <Text fontSize="lg" color="gray.600" maxW="2xl">
-              Don't just take our word for it - hear from some of our satisfied clients.
-            </Text>
-          </VStack>
-
-          <SimpleGrid columns={{ base: 1, md: 2, lg: 3 }} spacing={8}>
-            {testimonials.map((testimonial) => (
-              <Card key={testimonial.id} variant="outline">
-                <CardBody>
-                  <HStack spacing={4} mb={4}>
-                    <Image
-                      src={testimonial.image}
-                      alt={testimonial.name}
-                      boxSize={12}
-                      borderRadius="full"
-                      objectFit="cover"
-                    />
-                    <Box>
-                      <Text fontWeight="bold">{testimonial.name}</Text>
-                      <Text fontSize="sm" color="gray.600">{testimonial.company}</Text>
-                    </Box>
-                  </HStack>
-                  <Text color="gray.700">{testimonial.content}</Text>
-                </CardBody>
-              </Card>
-            ))}
-          </SimpleGrid>
-        </VStack>
+        <Stack align="center" spacing={6} textAlign="center">
+          <Heading>Vision & Mission</Heading>
+          <Text maxW="3xl" color="muted">
+            Vision: To be the leading provider of innovative telematics and auto security solutions.
+          </Text>
+          <Text maxW="3xl" color="muted">
+            Mission: Delivering smart, seamless, and dependable solutions that empower businesses every day.
+          </Text>
+          <ButtonGroup>
+            <Button as={Link} href="#services" colorScheme="red">Explore services</Button>
+            <Button as={Link} href="mailto:cytechsystems254@gmail.com" variant="outline">Talk to us</Button>
+          </ButtonGroup>
+        </Stack>
       </Container>
     </Box>
   )
 }
 
 const FaqSection = () => {
-  const faqItems = [
+  const { value, onCopy, hasCopied } = useClipboard('CY‑TECH SYSTEMS — Auto Security & Telematics')
+  const faqs = [
     {
-      question: "What industries do you serve?",
-      answer: "We provide solutions for residential, commercial, and automotive sectors. Our clients range from individual homeowners to large fleet operators and commercial property managers."
+      q: 'How quickly can you install and activate tracking?',
+      a: 'Most installs are completed within 24–48 hours in Nairobi. Activation is instant once installed and tested.',
     },
     {
-      question: "How does your tracking technology work?",
-      answer: "Our systems use GPS technology combined with cellular networks to provide real-time location data. This information is accessible through our secure online platform or mobile app."
+      q: 'Do you offer immobilization and recovery support?',
+      a: 'Yes. With proper authorization, we can trigger remote immobilization and coordinate with recovery teams 24/7.',
     },
     {
-      question: "What kind of support do you offer?",
-      answer: "We provide 24/7 technical support, regular system check-ups, and remote troubleshooting. Our team is always available to assist with any issues or questions."
+      q: 'Will this work for my entire fleet?',
+      a: 'Absolutely. Our platform scales from a single car to hundreds of assets with multi‑user roles, reports and alerts.',
     },
     {
-      question: "Are your systems compatible with existing security infrastructure?",
-      answer: "Yes, our systems are designed to integrate with most existing security infrastructure. Our team will assess your current setup and provide a customized integration plan."
+      q: 'What about warranty and after‑sales?',
+      a: 'All devices include a global‑backed warranty and free check‑ups. We provide user training and dedicated support.',
     },
-    {
-      question: "How long does installation typically take?",
-      answer: "Installation time varies based on the system complexity, but most residential installations are completed within a few hours. Commercial and fleet installations may take longer depending on the scope."
-    },
-    {
-      question: "What warranty do you provide on your equipment?",
-      answer: "We offer a comprehensive global-backed warranty on all our hardware. Specific terms vary by product, but typically include 2-3 years of coverage with optional extensions available."
-    }
   ]
 
   return (
-    <Box py={20} bg="gray.50">
-      <Container maxW="container.lg">
-        <VStack spacing={16}>
-          <VStack textAlign="center" spacing={4}>
-            <Heading as="h2" size="xl">Frequently Asked Questions</Heading>
-            <Text fontSize="lg" color="gray.600" maxW="2xl">
-              Find answers to common questions about our products and services.
-            </Text>
-          </VStack>
+    <Box py={{ base: 16, lg: 24 }} position="relative" overflow="hidden">
+      {/* subtle background image */}
+      <Box position="absolute" inset={0} opacity={0.08} backgroundImage={`url(${vehicleImgs.fleet})`} backgroundSize="cover" backgroundPosition="center" />
 
-          <Accordion allowToggle width="100%">
-            {faqItems.map((item, index) => (
-              <AccordionItem key={index} border="none" mb={4} bg="white" borderRadius="lg" overflow="hidden">
-                <AccordionButton py={4} px={6} _expanded={{ bg: "blue.50", color: "blue.600" }}>
-                  <Box as="span" flex='1' textAlign='left' fontWeight="semibold">
-                    {item.question}
-                  </Box>
-                  <AccordionIcon />
-                </AccordionButton>
-                <AccordionPanel pb={4} px={6}>
-                  {item.answer}
-                </AccordionPanel>
-              </AccordionItem>
-            ))}
-          </Accordion>
-        </VStack>
+      <Container maxW="container.xl" position="relative">
+        <Heading size="2xl" mb={8}>Frequently asked questions</Heading>
+        <SimpleGrid columns={{ base: 1, md: 2 }} spacing={6}>
+          {faqs.map((f) => (
+            <Box key={f.q} p={6} rounded="2xl" borderWidth="1px" _dark={{ borderColor: 'gray.700' }} boxShadow="sm" bg="white" _dark_bg="gray.800">
+              <HStack justify="space-between" align="start">
+                <Heading size="md">{f.q}</Heading>
+                <IconButton
+                  aria-label="Copy"
+                  size="sm"
+                  variant="ghost"
+                  onClick={onCopy}
+                  icon={hasCopied ? <FiCheck /> : <FiCopy />}
+                />
+              </HStack>
+              <Text mt={3} color="muted">{f.a}</Text>
+              <Divider my={4} />
+              <HStack spacing={3}>
+                <Tag colorScheme="red" variant="subtle">Auto</Tag>
+                <Tag variant="outline">Security</Tag>
+                <Tag variant="outline">Telematics</Tag>
+              </HStack>
+            </Box>
+          ))}
+        </SimpleGrid>
       </Container>
     </Box>
   )
 }
 
-const Footer = () => {
-  return (
-    <Box bg="gray.900" color="white" py={12}>
-      <Container maxW="container.xl">
-        <Grid templateColumns={{ base: "1fr", md: "repeat(4, 1fr)" }} gap={8}>
-          <Box>
-            <Heading as="h3" size="md" mb={4}>CY-TECH SYSTEMS</Heading>
-            <Text color="gray.400">Advanced telematics and security solutions for residential, commercial, and automotive sectors.</Text>
-          </Box>
-          
-          <Box>
-            <Heading as="h4" size="sm" mb={4}>Services</Heading>
-            <Stack spacing={2}>
-              <Link href="#" color="gray.400" _hover={{ color: "white" }}>Automotive Security</Link>
-              <Link href="#" color="gray.400" _hover={{ color: "white" }}>Fleet Management</Link>
-              <Link href="#" color="gray.400" _hover={{ color: "white" }}>Residential Security</Link>
-              <Link href="#" color="gray.400" _hover={{ color: "white" }}>Commercial Solutions</Link>
-            </Stack>
-          </Box>
-          
-          <Box>
-            <Heading as="h4" size="sm" mb={4}>Company</Heading>
-            <Stack spacing={2}>
-              <Link href="#" color="gray.400" _hover={{ color: "white" }}>About Us</Link>
-              <Link href="#" color="gray.400" _hover={{ color: "white" }}>Careers</Link>
-              <Link href="#" color="gray.400" _hover={{ color: "white" }}>Contact</Link>
-              <Link href="#" color="gray.400" _hover={{ color: "white" }}>Support</Link>
-            </Stack>
-          </Box>
-          
-          <Box>
-            <Heading as="h4" size="sm" mb={4}>Contact</Heading>
-            <Stack spacing={2} color="gray.400">
-              <Text>1234 Tech Drive</Text>
-              <Text>Innovation City, IC 12345</Text>
-              <Text>Phone: (123) 456-7890</Text>
-              <Text>Email: info@cytech.com</Text>
-            </Stack>
-          </Box>
-        </Grid>
-        
-        <Box borderTopWidth={1} borderColor="gray.700" mt={8} pt={8} textAlign="center" color="gray.500">
-          <Text>&copy; {new Date().getFullYear()} Cy-Tech Systems. All rights reserved.</Text>
-        </Box>
-      </Container>
-    </Box>
-  )
-}
+const ContactBar = () => (
+  <Box py={10} bg="black" _dark={{ bg: 'gray.950' }} color="white">
+    <Container maxW="container.xl">
+      <Flex direction={{ base: 'column', md: 'row' }} align={{ base: 'start', md: 'center' }} justify="space-between" gap={4}>
+        <HStack spacing={4}>
+          <Icon as={FiPhone} />
+          <Text>Mobile / WhatsApp: (+254) 715 643457</Text>
+        </HStack>
+        <HStack spacing={4}>
+          <Icon as={FiSmartphone} />
+          <Text>Email: cytechsystems254@gmail.com</Text>
+        </HStack>
+        <HStack spacing={4}>
+          <Icon as={FiMapPin} />
+          <Text>CyTech Systems, Westlands, Nairobi, Kenya</Text>
+        </HStack>
+      </Flex>
+      <Text mt={3} fontSize="sm" opacity={0.8}>Anthony Kalu — Operations Manager</Text>
+    </Container>
+  </Box>
+)
 
 export default Home
