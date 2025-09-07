@@ -584,7 +584,7 @@ Applications:
   {
     key: 'autocare',
     title: 'Auto Care & Security Services',
-    icon: FiCar,
+    icon: FaCar,
     img: vehicleImgs.autocare,
     shortDesc: 'Transform Your Ride – Style & Safety One Stop!',
     details: `Upgrade your car with our premium range of auto accessories and professional services designed to give you comfort, security, and a standout look.
