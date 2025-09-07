@@ -399,8 +399,16 @@ const FaqSection = () => {
         <Heading size="2xl" mb={8}>Frequently asked questions</Heading>
         <SimpleGrid columns={{ base: 1, md: 2 }} spacing={6}>
           {faqs.map((f) => (
-            <Box key={f.q} p={6} rounded="2xl" borderWidth="1px" _dark={{ borderColor: 'gray.700' }} boxShadow="sm" bg="white" _dark_bg="gray.800">
-              <HStack justify="space-between" align="start">
+            <Box
+  key={f.q}
+  p={6}
+  rounded="2xl"
+  borderWidth="1px"
+  _dark={{ borderColor: 'gray.700', bg: 'gray.800' }}
+  boxShadow="sm"
+  bg="white"
+>
+ <HStack justify="space-between" align="start">
                 <Heading size="md">{f.q}</Heading>
                 <IconButton
                   aria-label="Copy"
