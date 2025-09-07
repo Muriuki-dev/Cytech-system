@@ -4,6 +4,14 @@ const nextConfig = {
   eslint: {
     ignoreDuringBuilds: true, // ✅ Skip ESLint in CI/Vercel to prevent CLI errors
   },
+  images: {
+    remotePatterns: [
+      {
+        protocol: 'https',
+        hostname: 'images.unsplash.com',
+      },
+    ],
+  },
   webpack(config) {
     config.module.rules.push({
       test: /\.svg$/,
@@ -27,4 +35,4 @@ const nextConfig = {
   },
 };
 
-export default nextConfig;
+module.exports = nextConfig;
