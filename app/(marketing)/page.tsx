@@ -718,212 +718,93 @@ const LiveSupportChat = () => {
   )
 }
 
+const heroImage =
+  "/static/images/slide.jpeg"; // Replace with your actual image link
+
 const HeroSection: React.FC = () => {
-  const { isOpen, onOpen, onClose } = useDisclosure();
-  const cancelRef = useRef<HTMLButtonElement>(null);
-  const { colorMode } = useColorMode();
-  const [name, setName] = useState("");
-  const [email, setEmail] = useState("");
-  const [message, setMessage] = useState("");
-  const [currentImageIndex, setCurrentImageIndex] = useState(0);
-
-  const images = [
-    '/static/images/slide1.jpeg',
-    '/static/images/slide2.jpeg',
-    '/static/images/slide3.jpeg',
-    '/static/images/slide4.jpeg',
-    '/static/images/slide5.jpeg'
-  ];
-
-  useEffect(() => {
-    const interval = setInterval(() => {
-      setCurrentImageIndex((prevIndex) => 
-        prevIndex === images.length - 1 ? 0 : prevIndex + 1
-      );
-    }, 10000); // Change image every 5 seconds
-
-    return () => clearInterval(interval);
-  }, [images.length]);
-
-  const handleSubmit = () => {
-    if (name && email && message) {
-      alert(`Thank you, ${name}! We'll contact you soon at ${email}.`);
-      onClose();
-      setName("");
-      setEmail("");
-      setMessage("");
-    }
-  };
-
   return (
-    <Box position="relative" overflow="hidden" minH="100vh">
-      {/* Image Slideshow Background */}
-      <Box
-        position="absolute"
-        top={0}
-        left={0}
-        right={0}
-        bottom={0}
-        zIndex={-2}
-        backgroundImage={`url(${images[currentImageIndex]})`}
-        backgroundSize="cover"
-        backgroundPosition="center"
-        backgroundRepeat="no-repeat"
-        transition="background-image 1s ease-in-out"
-      />
-      
-      {/* Dark overlay for better text visibility */}
-      <Box
-        position="absolute"
-        top={0}
-        left={0}
-        right={0}
-        bottom={0}
-        bg="blackAlpha.600"
-        zIndex={-1}
-      />
-
-      {/* Gradient overlay (kept from your original) */}
+    <Box position="relative" overflow="hidden">
       <BackgroundGradient height="100%" zIndex="-1" />
-
-      <Container maxW="container.xl" pt={{ base: 20, lg: 40 }} pb="20">
-        <Stack direction={{ base: 'column', lg: 'row' }} alignItems="center" spacing={8}>
+      <Container maxW="container.xl" pt={{ base: 40, lg: 60 }} pb="40">
+        <Stack direction={{ base: "column", lg: "row" }} alignItems="center">
           <Hero
             id="home"
             justifyContent="flex-start"
             px="0"
             title={
               <FallInPlace>
-                STRATILE LTD – PROJECTING SUCCESS,  
-                <Br display={{ base: "none", md: "block" }} /> 
-                <Box as="span" display={{ base: "block", md: "none" }}> </Box>
-                BUILDING COMMUNITIES
+                Driven by Trust.
+                <Br /> Powered by Technology.
               </FallInPlace>
             }
             description={
               <FallInPlace delay={0.4} fontWeight="medium">
-                <Text as="span" fontSize={["sm", "md", "lg"]}>
-                  <Em>Established in 2024, Stratile Ltd is a dynamic and forward-thinking Project Management 
-                  Organization (PMO) dedicated to transforming visionary projects into thriving businesses and 
-                  impactful community development initiatives. We serve as a catalyst for progress, providing 
-                  expert guidance and comprehensive project management solutions that ensure successful 
-                  execution and sustainable outcomes.</Em>
-                </Text>
+                Cy-Tech Systems is a leading provider of{" "}
+                <Em>advanced telematics and security solutions</Em> for
+                residential, commercial, and automotive sectors.
+                <Br /> We deliver smart, seamless, and dependable solutions that
+                empower businesses every day.
               </FallInPlace>
             }
           >
             <FallInPlace delay={0.8}>
-              <ButtonGroup 
-                spacing={4} 
-                alignItems="center" 
-                flexDirection="row"
-                w="full"
-                maxW={{ base: "100%", md: "auto" }}
-              >
-                <ButtonLink 
-                  colorScheme="primary" 
-                  size={{ base: "md", md: "lg" }} 
-                  href="/"
-                  width={{ base: "full", md: "auto" }}
-                >
-                  Explore our services 
+              <ButtonGroup spacing={4} alignItems="center">
+                <ButtonLink colorScheme="primary" size="lg" href="/signup">
+                  Get Started
                 </ButtonLink>
-                <Button
-                  size={{ base: "md", md: "lg" }}
-                  onClick={onOpen}
+                <ButtonLink
+                  size="lg"
+                  href="/about"
                   variant="outline"
-                  width={{ base: "full", md: "auto" }}
                   rightIcon={
                     <Icon
                       as={FiArrowRight}
                       sx={{
-                        transitionProperty: 'common',
-                        transitionDuration: 'normal',
-                        '.chakra-button:hover &': {
-                          transform: 'translate(5px)',
+                        transitionProperty: "common",
+                        transitionDuration: "normal",
+                        ".chakra-button:hover &": {
+                          transform: "translate(5px)",
                         },
                       }}
                     />
                   }
-                  _light={{ bg: "white", color: "black" }}
-                  _dark={{ bg: "white", color: "black" }}
                 >
-                  Contact us
-                </Button>
+                  Learn More
+                </ButtonLink>
               </ButtonGroup>
             </FallInPlace>
           </Hero>
+
+          {/* Image visible on desktop, stacked on mobile */}
+          <Box
+            height={{ base: "300px", lg: "600px" }}
+            position={{ base: "relative", lg: "absolute" }}
+            display="block"
+            left={{ lg: "60%", xl: "55%" }}
+            width={{ base: "100%", lg: "80vw" }}
+            maxW="1100px"
+            mt={{ base: 10, lg: 0 }}
+            mx="auto"
+          >
+            <FallInPlace delay={1}>
+              <Box overflow="hidden" height="100%">
+                <Image
+                  src={heroImage}
+                  width={1200}
+                  height={762}
+                  alt="Cy-Tech Systems advanced telematics and security solutions"
+                  quality="75"
+                  priority
+                />
+              </Box>
+            </FallInPlace>
+          </Box>
         </Stack>
       </Container>
-
-      {/* Contact Form Modal */}
-      <AlertDialog
-        isOpen={isOpen}
-        leastDestructiveRef={cancelRef}
-        onClose={onClose}
-        isCentered
-      >
-        <AlertDialogOverlay>
-          <AlertDialogContent
-            bg={colorMode === "dark" ? "gray.800" : "white"}
-            color={colorMode === "dark" ? "white" : "gray.800"}
-          >
-            <AlertDialogHeader fontSize="lg" fontWeight="bold">
-              Contact Us
-            </AlertDialogHeader>
-
-            <AlertDialogBody>
-              <VStack spacing={4}>
-                <FormControl isRequired>
-                  <FormLabel>Name</FormLabel>
-                  <Input
-                    value={name}
-                    onChange={(e) => setName(e.target.value)}
-                    placeholder="Your name"
-                  />
-                </FormControl>
-
-                <FormControl isRequired>
-                  <FormLabel>Email</FormLabel>
-                  <Input
-                    type="email"
-                    value={email}
-                    onChange={(e) => setEmail(e.target.value)}
-                    placeholder="Your email address"
-                  />
-                </FormControl>
-
-                <FormControl isRequired>
-                  <FormLabel>Message</FormLabel>
-                  <Textarea
-                    value={message}
-                    onChange={(e) => setMessage(e.target.value)}
-                    placeholder="Message us with your requirements, and we'll send you a custom quotation tailored to your needs"
-                    rows={4}
-                  />
-                </FormControl>
-              </VStack>
-            </AlertDialogBody>
-
-            <AlertDialogFooter>
-              <Button ref={cancelRef} onClick={onClose}>
-                Cancel
-              </Button>
-              <Button
-                colorScheme="primary"
-                onClick={handleSubmit}
-                ml={3}
-                isDisabled={!name || !email || !message}
-              >
-                Submit
-              </Button>
-            </AlertDialogFooter>
-          </AlertDialogContent>
-        </AlertDialogOverlay>
-      </AlertDialog>
     </Box>
   );
-}
+};
+
 
 const HighlightsSection = () => {
   const images = [
