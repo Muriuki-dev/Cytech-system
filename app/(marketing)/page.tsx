@@ -28,6 +28,8 @@ import {
   Divider,
   Badge,
   chakra,
+  useColorMode,
+  useColorModeValue,
 } from '@chakra-ui/react'
 import { Br, Link } from '@saas-ui/react'
 import type { NextPage } from 'next'
@@ -48,7 +50,10 @@ import {
   FiTruck,
   FiVideo,
   FiZap,
+  FiMessageCircle,
+  FiX,
 } from 'react-icons/fi'
+import { FaWhatsapp } from 'react-icons/fa'
 
 import * as React from 'react'
 
@@ -69,19 +74,24 @@ const brand = {
   dark: 'gray.900',
 }
 
+// Updated with professional HD/4K vehicle images
 const vehicleImgs = {
   hero:
-    'https://images.unsplash.com/photo-Dl3zfNV8x_8?auto=format&fit=crop&w=2400&q=80', // black SUV at night
+    'https://images.unsplash.com/photo-1544829099-b9a0c07fad1a?auto=format&fit=crop&w=2400&q=80', // Premium black SUV
   gps:
-    'https://images.unsplash.com/photo-6QGwah013Lo?auto=format&fit=crop&w=1920&q=80', // car dashboard w/ GPS
+    'https://images.unsplash.com/photo-1503376780353-7e6692767b70?auto=format&fit=crop&w=1920&q=80', // Luxury car dashboard
   fleet:
-    'https://images.unsplash.com/photo-CUjioboIKUk?auto=format&fit=crop&w=1920&q=80', // cars on road at night
+    'https://images.unsplash.com/photo-1549317661-bd32c8ce0db2?auto=format&fit=crop&w=1920&q=80', // Modern fleet vehicles
   citySUV:
-    'https://images.unsplash.com/photo-gUwv_7vJ9rE?auto=format&fit=crop&w=1920&q=80',
+    'https://images.unsplash.com/photo-1542362567-b07e54358753?auto=format&fit=crop&w=1920&q=80',
   darkSUV:
-    'https://images.unsplash.com/photo-EmTviaxPNdU?auto=format&fit=crop&w=1920&q=80',
+    'https://images.unsplash.com/photo-1553440569-bcc63803a83d?auto=format&fit=crop&w=1920&q=80',
   nav:
-    'https://images.unsplash.com/photo-9aaD5DWs2_g?auto=format&fit=crop&w=1920&q=80',
+    'https://images.unsplash.com/photo-1506905925346-21bda4d32df4?auto=format&fit=crop&w=1920&q=80',
+  security:
+    'https://images.unsplash.com/photo-1569336415962-a4bd9f69cd83?auto=format&fit=crop&w=1920&q=80',
+  support:
+    'https://images.unsplash.com/photo-1581291518633-83b4ebd1d83e?auto=format&fit=crop&w=1920&q=80',
 }
 
 const Home: NextPage = () => {
@@ -94,11 +104,16 @@ const Home: NextPage = () => {
       <CTASection />
       <FaqSection />
       <ContactBar />
+      <WhatsAppButton />
+      <ChatBot />
     </Box>
   )
 }
 
 const HeroSection: React.FC = () => {
+  const textColor = useColorModeValue('white', 'white')
+  const subTextColor = useColorModeValue('gray.100', 'gray.200')
+  
   return (
     <Box position="relative" overflow="hidden">
       <BackgroundGradient height="100%" zIndex="-1" />
@@ -114,7 +129,8 @@ const HeroSection: React.FC = () => {
           backgroundImage: `url(${vehicleImgs.hero})`,
           backgroundSize: 'cover',
           backgroundPosition: 'center',
-          filter: 'brightness(0.55)',
+          filter: 'brightness(0.6)',
+          transition: 'filter 0.3s ease-in-out',
         }}
         _dark={{
           _before: {
@@ -125,13 +141,13 @@ const HeroSection: React.FC = () => {
 
       <Container maxW="container.xl" pt={{ base: 32, lg: 48 }} pb={24}>
         <Stack direction={{ base: 'column', lg: 'row' }} alignItems="center">
-          <Box zIndex={1} color="white">
+          <Box zIndex={1} color={textColor}>
             <Heading fontSize={{ base: '4xl', lg: '6xl' }} lineHeight="1.1">
               CY – TECH SYSTEMS
               <Br />
               <chakra.span color={brand.red}>Auto Security & Telematics</chakra.span>
             </Heading>
-            <Text mt={6} fontSize={{ base: 'lg', lg: 'xl' }} maxW="2xl" opacity={0.95}>
+            <Text mt={6} fontSize={{ base: 'lg', lg: 'xl' }} maxW="2xl" color={subTextColor}>
               Driven by Trust. Powered by Technology. We provide advanced tracking,
               video telematics, and immobilization for vehicles and fleets across
               Kenya and beyond.
@@ -168,12 +184,15 @@ const HeroSection: React.FC = () => {
 }
 
 const WhoWeAreSection = () => {
+  const headingColor = useColorModeValue('gray.800', 'white')
+  const textColor = useColorModeValue('gray.600', 'gray.300')
+  
   return (
     <Container maxW="container.xl" py={{ base: 16, lg: 24 }}>
       <SimpleGrid columns={{ base: 1, md: 2 }} spacing={12} alignItems="center">
         <VStack align="start" spacing={6}>
-          <Heading size="2xl">Who we are</Heading>
-          <Text fontSize="lg" color="muted">
+          <Heading size="2xl" color={headingColor}>Who we are</Heading>
+          <Text fontSize="lg" color={textColor}>
             Cy‑Tech Systems is a leading provider of advanced telematics and security
             solutions for residential, commercial, and automotive sectors. We leverage
             state‑of‑the‑art technology and intelligent monitoring platforms to deliver
@@ -222,7 +241,7 @@ const services = [
     key: 'immobilizer',
     title: 'Remote Immobilization & Anti‑Theft',
     icon: FiShield,
-    img: vehicleImgs.darkSUV,
+    img: vehicleImgs.security,
     details:
       'Secure your assets with remote engine cut‑off, tamper detection, and 24/7 monitoring backed by reliable hardware (99.9% uptime).',
   },
@@ -246,27 +265,29 @@ const services = [
     key: 'support',
     title: 'Installation & 24/7 Support',
     icon: FiZap,
-    img: vehicleImgs.hero,
+    img: vehicleImgs.support,
     details:
       'Professional on‑site installation, user training, free check‑ups, and around‑the‑clock support with global‑backed warranty.',
   },
 ]
 
 const ServicesSection = () => {
+  const headingColor = useColorModeValue('gray.800', 'white')
+  const textColor = useColorModeValue('gray.600', 'gray.300')
+  
   return (
-    <Box id="services" py={{ base: 16, lg: 24 }} bg="white" _dark={{ bg: 'gray.800' }}>
+    <Box id="services" py={{ base: 16, lg: 24 }} bg={useColorModeValue('white', 'gray.800')}>
       <Container maxW="container.xl">
-        <Heading textAlign="left" size="2xl" mb={3}>Services</Heading>
-        <Text color="muted" mb={10} fontSize="lg">
+        <Heading textAlign="left" size="2xl" mb={3} color={headingColor}>Services</Heading>
+        <Text color={textColor} mb={10} fontSize="lg">
           Smart, seamless and dependable solutions for individuals and fleets.
         </Text>
 
         <SimpleGrid columns={{ base: 1, md: 2, xl: 3 }} spacing={8}>
-  {services.map(({ key, ...rest }) => (
-    <ServiceCard key={key} {...rest} />
-  ))}
-</SimpleGrid>
-
+          {services.map(({ key, ...rest }) => (
+            <ServiceCard key={key} {...rest} />
+          ))}
+        </SimpleGrid>
       </Container>
     </Box>
   )
@@ -274,17 +295,32 @@ const ServicesSection = () => {
 
 const ServiceCard = ({ title, icon, img, details }: any) => {
   const { isOpen, onOpen, onClose } = useDisclosure()
+  const cardBg = useColorModeValue('white', 'gray.800')
+  const textColor = useColorModeValue('gray.600', 'gray.300')
+  const borderColor = useColorModeValue('gray.200', 'gray.700')
+  
   return (
-    <Box rounded="2xl" overflow="hidden" borderWidth="1px" _dark={{ borderColor: 'gray.700' }}>
+    <Box 
+      rounded="2xl" 
+      overflow="hidden" 
+      borderWidth="1px" 
+      borderColor={borderColor}
+      bg={cardBg}
+      transition="transform 0.2s, box-shadow 0.2s"
+      _hover={{
+        transform: 'translateY(-4px)',
+        boxShadow: 'xl',
+      }}
+    >
       <Box position="relative" h={{ base: 48, md: 56 }}>
         <Image src={img} alt={title} fill style={{ objectFit: 'cover' }} />
       </Box>
       <Stack p={6} spacing={4}>
         <HStack>
           <Icon as={icon} fontSize="xl" color={brand.red} />
-          <Heading size="md">{title}</Heading>
+          <Heading size="md" color={useColorModeValue('gray.800', 'white')}>{title}</Heading>
         </HStack>
-        <Text noOfLines={3} color="muted">{details}</Text>
+        <Text noOfLines={3} color={textColor}>{details}</Text>
         <HStack>
           <Badge colorScheme="red" variant="subtle">Premium</Badge>
           <Badge variant="outline">HD/4K Imagery</Badge>
@@ -296,11 +332,11 @@ const ServiceCard = ({ title, icon, img, details }: any) => {
 
       <Modal isOpen={isOpen} onClose={onClose} size="xl" motionPreset="slideInBottom">
         <ModalOverlay />
-        <ModalContent>
-          <ModalHeader>{title}</ModalHeader>
+        <ModalContent bg={useColorModeValue('white', 'gray.800')}>
+          <ModalHeader color={useColorModeValue('gray.800', 'white')}>{title}</ModalHeader>
           <ModalCloseButton />
           <ModalBody>
-            <Text mb={4}>{details}</Text>
+            <Text mb={4} color={useColorModeValue('gray.600', 'gray.300')}>{details}</Text>
             <Box rounded="xl" overflow="hidden">
               <Image src={img} alt={`${title} image`} width={1200} height={700} />
             </Box>
@@ -325,16 +361,29 @@ const USPsSection = () => {
     { label: 'Guaranteed value & satisfaction', icon: FiSliders },
     { label: 'Global‑backed warranty', icon: FiShield },
   ]
+  
+  const headingColor = useColorModeValue('gray.800', 'white')
+  const bulletBg = useColorModeValue('gray.50', 'gray.700')
+  const bulletBorder = useColorModeValue('gray.200', 'gray.600')
+  
   return (
     <Container maxW="container.xl" py={{ base: 16, lg: 24 }}>
       <SimpleGrid columns={{ base: 1, lg: 2 }} spacing={10}>
         <VStack align="start" spacing={6}>
-          <Heading size="2xl">Why choose us</Heading>
+          <Heading size="2xl" color={headingColor}>Why choose us</Heading>
           <Wrap>
             {bullets.map((b) => (
-              <HStack key={b.label} p={3} borderWidth="1px" rounded="full" spacing={2} _dark={{ borderColor: 'gray.700' }}>
-                <Icon as={b.icon} />
-                <Text>{b.label}</Text>
+              <HStack 
+                key={b.label} 
+                p={3} 
+                borderWidth="1px" 
+                rounded="full" 
+                spacing={2} 
+                bg={bulletBg}
+                borderColor={bulletBorder}
+              >
+                <Icon as={b.icon} color={brand.red} />
+                <Text color={useColorModeValue('gray.700', 'gray.200')}>{b.label}</Text>
               </HStack>
             ))}
           </Wrap>
@@ -348,15 +397,19 @@ const USPsSection = () => {
 }
 
 const CTASection = () => {
+  const headingColor = useColorModeValue('gray.800', 'white')
+  const textColor = useColorModeValue('gray.600', 'gray.300')
+  const bgColor = useColorModeValue('gray.50', 'gray.900')
+  
   return (
-    <Box py={20} bg="gray.50" _dark={{ bg: 'gray.900' }}>
+    <Box py={20} bg={bgColor}>
       <Container maxW="container.xl">
         <Stack align="center" spacing={6} textAlign="center">
-          <Heading>Vision & Mission</Heading>
-          <Text maxW="3xl" color="muted">
+          <Heading color={headingColor}>Vision & Mission</Heading>
+          <Text maxW="3xl" color={textColor}>
             Vision: To be the leading provider of innovative telematics and auto security solutions.
           </Text>
-          <Text maxW="3xl" color="muted">
+          <Text maxW="3xl" color={textColor}>
             Mission: Delivering smart, seamless, and dependable solutions that empower businesses every day.
           </Text>
           <ButtonGroup>
@@ -390,26 +443,31 @@ const FaqSection = () => {
     },
   ]
 
+  const headingColor = useColorModeValue('gray.800', 'white')
+  const bgColor = useColorModeValue('white', 'gray.800')
+  const borderColor = useColorModeValue('gray.200', 'gray.700')
+  const textColor = useColorModeValue('gray.600', 'gray.300')
+  
   return (
     <Box py={{ base: 16, lg: 24 }} position="relative" overflow="hidden">
       {/* subtle background image */}
       <Box position="absolute" inset={0} opacity={0.08} backgroundImage={`url(${vehicleImgs.fleet})`} backgroundSize="cover" backgroundPosition="center" />
 
       <Container maxW="container.xl" position="relative">
-        <Heading size="2xl" mb={8}>Frequently asked questions</Heading>
+        <Heading size="2xl" mb={8} color={headingColor}>Frequently asked questions</Heading>
         <SimpleGrid columns={{ base: 1, md: 2 }} spacing={6}>
           {faqs.map((f) => (
             <Box
-  key={f.q}
-  p={6}
-  rounded="2xl"
-  borderWidth="1px"
-  _dark={{ borderColor: 'gray.700', bg: 'gray.800' }}
-  boxShadow="sm"
-  bg="white"
->
- <HStack justify="space-between" align="start">
-                <Heading size="md">{f.q}</Heading>
+              key={f.q}
+              p={6}
+              rounded="2xl"
+              borderWidth="1px"
+              borderColor={borderColor}
+              boxShadow="sm"
+              bg={bgColor}
+            >
+              <HStack justify="space-between" align="start">
+                <Heading size="md" color={headingColor}>{f.q}</Heading>
                 <IconButton
                   aria-label="Copy"
                   size="sm"
@@ -418,7 +476,7 @@ const FaqSection = () => {
                   icon={hasCopied ? <FiCheck /> : <FiCopy />}
                 />
               </HStack>
-              <Text mt={3} color="muted">{f.a}</Text>
+              <Text mt={3} color={textColor}>{f.a}</Text>
               <Divider my={4} />
               <HStack spacing={3}>
                 <Tag colorScheme="red" variant="subtle">Auto</Tag>
@@ -433,26 +491,181 @@ const FaqSection = () => {
   )
 }
 
-const ContactBar = () => (
-  <Box py={10} bg="black" _dark={{ bg: 'gray.950' }} color="white">
-    <Container maxW="container.xl">
-      <Flex direction={{ base: 'column', md: 'row' }} align={{ base: 'start', md: 'center' }} justify="space-between" gap={4}>
-        <HStack spacing={4}>
-          <Icon as={FiPhone} />
-          <Text>Mobile / WhatsApp: (+254) 715 643457</Text>
-        </HStack>
-        <HStack spacing={4}>
-          <Icon as={FiSmartphone} />
-          <Text>Email: cytechsystems254@gmail.com</Text>
-        </HStack>
-        <HStack spacing={4}>
-          <Icon as={FiMapPin} />
-          <Text>CyTech Systems, Westlands, Nairobi, Kenya</Text>
-        </HStack>
-      </Flex>
-      <Text mt={3} fontSize="sm" opacity={0.8}>Anthony Kalu — Operations Manager</Text>
-    </Container>
-  </Box>
-)
+const ContactBar = () => {
+  const bgColor = useColorModeValue('black', 'gray.950')
+  
+  return (
+    <Box py={10} bg={bgColor} color="white">
+      <Container maxW="container.xl">
+        <Flex direction={{ base: 'column', md: 'row' }} align={{ base: 'start', md: 'center' }} justify="space-between" gap={4}>
+          <HStack spacing={4}>
+            <Icon as={FiPhone} />
+            <Text>Mobile / WhatsApp: (+254) 715 643457</Text>
+          </HStack>
+          <HStack spacing={4}>
+            <Icon as={FiSmartphone} />
+            <Text>Email: cytechsystems254@gmail.com</Text>
+          </HStack>
+          <HStack spacing={4}>
+            <Icon as={FiMapPin} />
+            <Text>CyTech Systems, Westlands, Nairobi, Kenya</Text>
+          </HStack>
+        </Flex>
+        <Text mt={3} fontSize="sm" opacity={0.8}>Anthony Kalu — Operations Manager</Text>
+      </Container>
+    </Box>
+  )
+}
+
+// WhatsApp Floating Button Component
+const WhatsAppButton = () => {
+  return (
+    <Box
+      position="fixed"
+      bottom="6"
+      left="6"
+      zIndex="1000"
+    >
+      <IconButton
+        as="a"
+        href="https://wa.me/254715643457?text=Hello%20CY-TECH%20SYSTEMS,%20I%20would%20like%20more%20information%20about%20your%20services"
+        target="_blank"
+        rel="noopener noreferrer"
+        aria-label="Contact us on WhatsApp"
+        icon={<FaWhatsapp />}
+        colorScheme="whatsapp"
+        size="lg"
+        isRound
+        boxShadow="lg"
+        _hover={{
+          transform: 'scale(1.1)',
+          boxShadow: 'xl',
+        }}
+        transition="all 0.2s"
+      />
+    </Box>
+  )
+}
+
+// Simple ChatBot Component
+const ChatBot = () => {
+  const { isOpen, onToggle, onClose } = useDisclosure()
+  const bgColor = useColorModeValue('white', 'gray.800')
+  const borderColor = useColorModeValue('gray.200', 'gray.600')
+  
+  return (
+    <Box
+      position="fixed"
+      bottom="6"
+      right="6"
+      zIndex="1000"
+    >
+      {!isOpen ? (
+        <IconButton
+          aria-label="Open chat"
+          icon={<FiMessageCircle />}
+          colorScheme="blue"
+          size="lg"
+          isRound
+          onClick={onToggle}
+          boxShadow="lg"
+          _hover={{
+            transform: 'scale(1.1)',
+            boxShadow: 'xl',
+          }}
+          transition="all 0.2s"
+        />
+      ) : (
+        <Box
+          w="300px"
+          h="400px"
+          bg={bgColor}
+          borderWidth="1px"
+          borderColor={borderColor}
+          rounded="xl"
+          overflow="hidden"
+          boxShadow="xl"
+          display="flex"
+          flexDirection="column"
+        >
+          <Box
+            bg="blue.500"
+            color="white"
+            p={3}
+            display="flex"
+            justifyContent="space-between"
+            alignItems="center"
+          >
+            <Text fontWeight="bold">CY-TECH Assistant</Text>
+            <IconButton
+              aria-label="Close chat"
+              icon={<FiX />}
+              size="sm"
+              variant="ghost"
+              color="white"
+              onClick={onClose}
+            />
+          </Box>
+          
+          <Box flex="1" p={4} overflowY="auto">
+            <VStack align="start" spacing={4}>
+              <Box
+                bg="gray.100"
+                color="gray.800"
+                p={3}
+                rounded="lg"
+                maxW="80%"
+                _dark={{ bg: 'gray.700', color: 'white' }}
+              >
+                <Text>Hello! How can I help you today?</Text>
+              </Box>
+              
+              <Box
+                bg="blue.100"
+                color="gray.800"
+                p={3}
+                rounded="lg"
+                maxW="80%"
+                alignSelf="flex-end"
+                _dark={{ bg: 'blue.700', color: 'white' }}
+              >
+                <Text>I need information about GPS tracking</Text>
+              </Box>
+              
+              <Box
+                bg="gray.100"
+                color="gray.800"
+                p={3}
+                rounded="lg"
+                maxW="80%"
+                _dark={{ bg: 'gray.700', color: 'white' }}
+              >
+                <Text>We offer premium GPS tracking with real-time location, geofencing, and alerts. Would you like to know more?</Text>
+              </Box>
+            </VStack>
+          </Box>
+          
+          <Box p={3} borderTopWidth="1px" borderColor={borderColor}>
+            <HStack>
+              <input 
+                placeholder="Type your message..." 
+                style={{
+                  flex: 1,
+                  padding: '8px 12px',
+                  border: '1px solid #E2E8F0',
+                  borderRadius: '8px',
+                  fontSize: '14px',
+                  backgroundColor: useColorModeValue('white', 'gray.700'),
+                  color: useColorModeValue('gray.800', 'white')
+                }}
+              />
+              <Button colorScheme="blue" size="sm">Send</Button>
+            </HStack>
+          </Box>
+        </Box>
+      )}
+    </Box>
+  )
+}
 
 export default Home
