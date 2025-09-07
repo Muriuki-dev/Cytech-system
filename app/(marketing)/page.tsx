@@ -260,7 +260,7 @@ const HighlightsSection = () => {
       <HighlightsTestimonialItem
         name="Renata Alink"
         description="Founder"
-        avatar="/static/images/avatar.jpg"
+        image="/static/images/avatar.jpg"   // ✅ try "image" instead of avatar
         gradient={['pink.200', 'purple.500']}
       >
         “Saas UI helped us set up a beautiful modern UI in no time. It saved us
