@@ -1,4 +1,4 @@
-import {
+import { 
   Box,
   BoxProps,
   Container,
@@ -75,31 +75,31 @@ export const Footer: React.FC<FooterProps> = (props) => {
                 <Box as={siteConfig.logo} w="full" h="80px" />
               </Flex>
               <Text fontSize="md" color="muted">
-                {siteConfig.seo.description}
+                Premium vehicle solutions, fleet management, GPS tracking, and top-notch automotive services by CyTech Systems.
               </Text>
               <Stack spacing={3}>
                 <HStack>
                   <Icon as={FaMapMarkerAlt} color={themeColors.purple} boxSize="4" />
                   <Text fontSize="sm" color="muted">
-                    Nairobi, Kenya
+                    Westlands, Nairobi, Kenya
                   </Text>
                 </HStack>
                 <HStack>
                   <Icon as={FaPhone} color={themeColors.blue} boxSize="4" />
                   <Text fontSize="sm" color="muted">
-                    0741953190
+                    (+254) 715 643457
                   </Text>
                 </HStack>
                 <HStack>
                   <Icon as={FaEnvelope} color={themeColors.orange} boxSize="4" />
                   <Text fontSize="sm" color="muted">
-                    labanmwangi444@gmail.com
+                    cytechsystems254@gmail.com
                   </Text>
                 </HStack>
                 <HStack>
                   <Icon as={FiClock} color={themeColors.green} boxSize="4" />
                   <Text fontSize="sm" color="muted">
-                    Mon-Fri: 9am-5pm
+                    Mon–Fri: 9am – 6pm
                   </Text>
                 </HStack>
               </Stack>
@@ -113,13 +113,11 @@ export const Footer: React.FC<FooterProps> = (props) => {
                 Quick Links
               </Text>
               <VStack align="flex-start" spacing={3}>
-                <FooterLink href="/" color="muted" _hover={{ color: hoverColor }}>
+                <FooterLink href="/about" color="muted" _hover={{ color: hoverColor }}>
                   About Us
                 </FooterLink>
-               
-               
-                <FooterLink href="/" color="muted" _hover={{ color: hoverColor }}>
-                   Stratile Blog
+                <FooterLink href="/services" color="muted" _hover={{ color: hoverColor }}>
+                  Services
                 </FooterLink>
                 <FooterLink href="/contact" color="muted" _hover={{ color: hoverColor }}>
                   Contact Us
@@ -132,26 +130,23 @@ export const Footer: React.FC<FooterProps> = (props) => {
           <GridItem>
             <VStack align="flex-start" spacing={4}>
               <Text fontWeight="bold" fontSize="lg" color={headingColor}>
-                Stratile Services
+                Our Services
               </Text>
               <VStack align="flex-start" spacing={3}>
-                <FooterLink href="/" color="muted" _hover={{ color: hoverColor }}>
-                  Marketing Activations
+                <FooterLink href="/services#fleet" color="muted" _hover={{ color: hoverColor }}>
+                  Fleet Management
                 </FooterLink>
-                <FooterLink href="/" color="muted" _hover={{ color: hoverColor }}>
-                 Creative Solutions
+                <FooterLink href="/services#gps" color="muted" _hover={{ color: hoverColor }}>
+                  GPS Vehicle Tracking
                 </FooterLink>
-                <FooterLink href="/" color="muted" _hover={{ color: hoverColor }}>
-                  Advertising Solutions
+                <FooterLink href="/services#leasing" color="muted" _hover={{ color: hoverColor }}>
+                  Vehicle Leasing
                 </FooterLink>
-                <FooterLink href="/" color="muted" _hover={{ color: hoverColor }}>
-                 Social Media Marketing
+                <FooterLink href="/services#security" color="muted" _hover={{ color: hoverColor }}>
+                  Vehicle Security Solutions
                 </FooterLink>
-                <FooterLink href="/" color="muted" _hover={{ color: hoverColor }}>
-                  Community & Sports Engagement
-                </FooterLink>
-                <FooterLink href="/" color="muted" _hover={{ color: hoverColor }}>
-                  Project Conceptualization
+                <FooterLink href="/services#support" color="muted" _hover={{ color: hoverColor }}>
+                  24/7 Customer Support
                 </FooterLink>
               </VStack>
             </VStack>
@@ -161,10 +156,10 @@ export const Footer: React.FC<FooterProps> = (props) => {
           <GridItem>
             <VStack align="flex-start" spacing={4}>
               <Text fontWeight="bold" fontSize="lg" color={headingColor}>
-                Stratile Newsletter
+                Newsletter
               </Text>
               <Text fontSize="sm" color="muted">
-                Subscribe to our newsletter for the latest updates.
+                Subscribe to receive the latest updates from CyTech Systems.
               </Text>
               <Box as="form" w="full">
                 <Flex direction={{ base: 'column', sm: 'row' }} gap={2}>
@@ -201,9 +196,6 @@ export const Footer: React.FC<FooterProps> = (props) => {
                   </Box>
                 </Flex>
               </Box>
-              
-             
-             
             </VStack>
           </GridItem>
         </Grid>
@@ -217,14 +209,24 @@ export const Footer: React.FC<FooterProps> = (props) => {
           borderTopWidth="1px"
           borderTopColor={borderColor}
         >
-          <Copyright>{siteConfig.footer.copyright}</Copyright>
+          <Copyright>© {new Date().getFullYear()} CyTech Systems. All rights reserved.</Copyright>
           
           <HStack spacing={6} mt={{ base: 4, md: 0 }}>
-            {siteConfig.footer?.links?.map(({ href, label }) => (
-              <FooterLink key={href} href={href} _hover={{ color: hoverColor }}>
-                {label}
-              </FooterLink>
-            ))}
+            <FooterLink href="https://facebook.com" _hover={{ color: hoverColor }}>
+              <Icon as={FaFacebook} boxSize="5" />
+            </FooterLink>
+            <FooterLink href="https://twitter.com" _hover={{ color: hoverColor }}>
+              <Icon as={FaTwitter} boxSize="5" />
+            </FooterLink>
+            <FooterLink href="https://linkedin.com" _hover={{ color: hoverColor }}>
+              <Icon as={FaLinkedin} boxSize="5" />
+            </FooterLink>
+            <FooterLink href="https://instagram.com" _hover={{ color: hoverColor }}>
+              <Icon as={FaInstagram} boxSize="5" />
+            </FooterLink>
+            <FooterLink href="https://youtube.com" _hover={{ color: hoverColor }}>
+              <Icon as={FaYoutube} boxSize="5" />
+            </FooterLink>
           </HStack>
         </Flex>
       </Container>
@@ -259,7 +261,7 @@ export const Copyright: React.FC<CopyrightProps> = ({
 }: CopyrightProps) => {
   let content
   if (title && !children) {
-    content = `&copy; ${new Date().getFullYear()} - ${title}`
+    content = `© ${new Date().getFullYear()} - ${title}`
   }
   return (
     <Text color="muted" fontSize="sm">
@@ -267,4 +269,3 @@ export const Copyright: React.FC<CopyrightProps> = ({
     </Text>
   )
 }
-
