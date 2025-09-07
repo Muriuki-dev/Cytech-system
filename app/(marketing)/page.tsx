@@ -65,9 +65,8 @@ import {
   FiTool,
   FiSettings,
   FiEye,
-  FiCar, // Fixed: FiCar should be available in react-icons/fi
 } from 'react-icons/fi'
-import { FaWhatsapp, FaRobot } from 'react-icons/fa'
+import { FaWhatsapp, FiCar, FaRobot } from 'react-icons/fa'
 
 import * as React from 'react'
 import { useEffect, useState } from 'react'
