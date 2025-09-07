@@ -28,11 +28,14 @@ import {
   Divider,
   Badge,
   chakra,
+  shouldForwardProp,
   useColorMode,
   useColorModeValue,
 } from '@chakra-ui/react'
+
+import { motion, isValidMotionProp } from 'framer-motion'
 import { Br, Link } from '@saas-ui/react'
-import { motion } from 'framer-motion'
+
 import type { NextPage } from 'next'
 import Image from 'next/image'
 import {
@@ -70,11 +73,34 @@ import { FallInPlace } from '#components/motion/fall-in-place'
  *  - Dark navy/charcoal: leverage _dark and gray.900 backgrounds
  * The page respects both light & dark modes by using Chakra tokens and _dark overrides.
  */
-const MotionBox = motion(Box)
-const MotionVStack = motion(VStack)
-const MotionHeading = motion(Heading)
-const MotionText = motion(Text)
-const MotionTag = motion(Tag)
+
+
+// Create a motion-enabled Chakra factory
+const MotionBox = chakra(motion.div, {
+  shouldForwardProp: (prop) =>
+    isValidMotionProp(prop) || shouldForwardProp(prop),
+})
+
+const MotionVStack = chakra(motion.div, {
+  shouldForwardProp: (prop) =>
+    isValidMotionProp(prop) || shouldForwardProp(prop),
+})
+
+const MotionHeading = chakra(motion.h2, {
+  shouldForwardProp: (prop) =>
+    isValidMotionProp(prop) || shouldForwardProp(prop),
+})
+
+const MotionText = chakra(motion.p, {
+  shouldForwardProp: (prop) =>
+    isValidMotionProp(prop) || shouldForwardProp(prop),
+})
+
+const MotionTag = chakra(motion.span, {
+  shouldForwardProp: (prop) =>
+    isValidMotionProp(prop) || shouldForwardProp(prop),
+})
+
 
 const brand = {
   red: 'red.600', // primary accent similar to the logo
