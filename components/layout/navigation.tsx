@@ -1,4 +1,4 @@
-import { HStack, Flex, useColorModeValue } from '@chakra-ui/react'
+import { HStack, Flex, useColorModeValue, Box } from '@chakra-ui/react'
 import { useDisclosure, useUpdateEffect } from '@chakra-ui/react'
 import { useScrollSpy } from 'hooks/use-scrollspy'
 import { usePathname, useRouter } from 'next/navigation'
@@ -37,11 +37,22 @@ const Navigation: React.FC = () => {
 
   return (
     <Flex
-      flex="1"
-      justify={{ base: 'flex-start', lg: 'center' }} // 👈 Center nav on lg+
+      w="100%"
       align="center"
+      justify="space-between"
     >
-      <HStack spacing="6" flexShrink={0}>
+      {/* Left: Logo */}
+      <Box>
+        <Box as={siteConfig.logo} h="40px" />
+      </Box>
+
+      {/* Center: Nav links (only visible on lg and up, centered) */}
+      <HStack
+        spacing="6"
+        display={{ base: 'none', lg: 'flex' }}
+        justify="center"
+        flex="1"
+      >
         {siteConfig.header.links.map(({ href, id, ...props }, i) => {
           const isActive =
             (id && activeId === id) ||
@@ -49,10 +60,9 @@ const Navigation: React.FC = () => {
 
           return (
             <NavLink
-              display={['none', null, 'block']}
               href={href || `/#${id}`}
               key={i}
-              color={isActive ? activeColor : linkColor} // 👈 dynamic color
+              color={isActive ? activeColor : linkColor}
               fontWeight={isActive ? 'bold' : 'medium'}
               {...props}
             >
@@ -60,8 +70,10 @@ const Navigation: React.FC = () => {
             </NavLink>
           )
         })}
+      </HStack>
 
-        {/* Theme toggle adapts automatically */}
+      {/* Right: Theme toggle + mobile menu */}
+      <HStack spacing="4">
         <ThemeToggle />
 
         {/* Mobile nav only visible on small screens */}
@@ -69,10 +81,12 @@ const Navigation: React.FC = () => {
           ref={mobileNavBtnRef}
           aria-label="Open Menu"
           onClick={mobileNav.onOpen}
+          display={{ base: 'flex', lg: 'none' }} // hide on lg+
         />
-
-        <MobileNavContent isOpen={mobileNav.isOpen} onClose={mobileNav.onClose} />
       </HStack>
+
+      {/* Mobile nav drawer */}
+      <MobileNavContent isOpen={mobileNav.isOpen} onClose={mobileNav.onClose} />
     </Flex>
   )
 }
