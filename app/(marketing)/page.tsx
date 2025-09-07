@@ -71,7 +71,7 @@ import { FaWhatsapp, FaCar, FaRobot } from "react-icons/fa"
 import * as React from 'react'
 import { useEffect, useState } from 'react'
 
-const MotionVStack = motion(VStack)
+
 
 // Create motion-enabled Chakra components
 const MotionBox = chakra(motion.div, {
@@ -220,7 +220,7 @@ const HeroSection: React.FC = () => {
         <Stack direction={{ base: 'column', lg: 'row' }} alignItems="center" spacing={12}>
           <MotionVStack
             alignItems={{ base: 'center', lg: 'start' }}
-            spacing={8}
+            
             zIndex={1}
             color={textColor}
             initial={{ opacity: 0, x: -100 }}
