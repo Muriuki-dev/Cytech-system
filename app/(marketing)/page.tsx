@@ -60,6 +60,7 @@ import * as React from 'react'
 import { ButtonLink } from '#components/button-link/button-link'
 import { BackgroundGradient } from '#components/gradients/background-gradient'
 import { FallInPlace } from '#components/motion/fall-in-place'
+import confetti from 'canvas-confetti'
 
 /**
  * THEME NOTES
@@ -68,6 +69,11 @@ import { FallInPlace } from '#components/motion/fall-in-place'
  *  - Dark navy/charcoal: leverage _dark and gray.900 backgrounds
  * The page respects both light & dark modes by using Chakra tokens and _dark overrides.
  */
+const MotionBox = motion(Box)
+const MotionVStack = motion(VStack)
+const MotionHeading = motion(Heading)
+const MotionText = motion(Text)
+const MotionTag = motion(Tag)
 
 const brand = {
   red: 'red.600', // primary accent similar to the logo
@@ -186,34 +192,111 @@ const HeroSection: React.FC = () => {
 const WhoWeAreSection = () => {
   const headingColor = useColorModeValue('gray.800', 'white')
   const textColor = useColorModeValue('gray.600', 'gray.300')
-  
+
+  // 🎉 Confetti burst when component mounts
+  useEffect(() => {
+    const duration = 2 * 1000
+    const animationEnd = Date.now() + duration
+    const defaults = { startVelocity: 30, spread: 360, ticks: 60, zIndex: 0 }
+
+    function randomInRange(min: number, max: number) {
+      return Math.random() * (max - min) + min
+    }
+
+    const interval: any = setInterval(() => {
+      const timeLeft = animationEnd - Date.now()
+
+      if (timeLeft <= 0) {
+        return clearInterval(interval)
+      }
+
+      const particleCount = 50 * (timeLeft / duration)
+      confetti({
+        ...defaults,
+        particleCount,
+        origin: { x: randomInRange(0.1, 0.9), y: Math.random() - 0.2 },
+      })
+    }, 250)
+
+    return () => clearInterval(interval)
+  }, [])
+
   return (
     <Container maxW="container.xl" py={{ base: 16, lg: 24 }}>
       <SimpleGrid columns={{ base: 1, md: 2 }} spacing={12} alignItems="center">
-        <VStack align="start" spacing={6}>
-          <Heading size="2xl" color={headingColor}>Who we are</Heading>
-          <Text fontSize="lg" color={textColor}>
-            Cy‑Tech Systems is a leading provider of advanced telematics and security
-            solutions for residential, commercial, and automotive sectors. We leverage
-            state‑of‑the‑art technology and intelligent monitoring platforms to deliver
-            real‑time tracking and security systems that consistently meet and exceed market expectations.
-          </Text>
+        <MotionVStack
+          align="start"
+          spacing={6}
+          initial={{ opacity: 0, x: -60 }}
+          whileInView={{ opacity: 1, x: 0 }}
+          viewport={{ once: true, amount: 0.4 }}
+          transition={{ duration: 0.8 }}
+        >
+          <MotionHeading
+            size="2xl"
+            color={headingColor}
+            bgGradient="linear(to-r, purple.400, pink.400)"
+            bgClip="text"
+            initial={{ scale: 0.9, opacity: 0 }}
+            animate={{ scale: 1, opacity: 1 }}
+            transition={{ duration: 0.6 }}
+          >
+            Who we are
+          </MotionHeading>
+
+          <MotionText
+            fontSize="lg"
+            color={textColor}
+            initial={{ opacity: 0, y: 30 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+            transition={{ duration: 0.8, delay: 0.2 }}
+          >
+            Cy-Tech Systems is a leading provider of advanced telematics and
+            security solutions for residential, commercial, and automotive
+            sectors. We leverage state-of-the-art technology and intelligent
+            monitoring platforms to deliver real-time tracking and security
+            systems that consistently meet and exceed market expectations.
+          </MotionText>
+
           <Wrap>
-            {['Precision', 'Cost‑effective', 'Professional', 'Real‑time', 'Reliable'].map((v) => (
-              <Tag key={v} colorScheme="red" variant="subtle" rounded="full" px={3}>{v}</Tag>
+            {['Precision', 'Cost-effective', 'Professional', 'Real-time', 'Reliable'].map((v, i) => (
+              <MotionTag
+                key={v}
+                colorScheme="purple"
+                variant="subtle"
+                rounded="full"
+                px={3}
+                initial={{ opacity: 0, y: 20 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true }}
+                transition={{ duration: 0.5, delay: 0.3 + i * 0.15 }}
+              >
+                {v}
+              </MotionTag>
             ))}
           </Wrap>
-        </VStack>
+        </MotionVStack>
 
-        <Box rounded="2xl" overflow="hidden" boxShadow="xl">
+        <MotionBox
+          rounded="2xl"
+          overflow="hidden"
+          boxShadow="2xl"
+          initial={{ opacity: 0, scale: 0.9 }}
+          whileInView={{ opacity: 1, scale: 1 }}
+          viewport={{ once: true }}
+          transition={{ duration: 0.8, delay: 0.4 }}
+          whileHover={{ scale: 1.05 }}
+        >
           <Image
             src={vehicleImgs.citySUV}
             alt="SUV in city at night"
             width={1200}
             height={800}
             quality={90}
+            style={{ objectFit: 'cover' }}
           />
-        </Box>
+        </MotionBox>
       </SimpleGrid>
     </Container>
   )
