@@ -60,7 +60,7 @@ import * as React from 'react'
 import { ButtonLink } from '#components/button-link/button-link'
 import { BackgroundGradient } from '#components/gradients/background-gradient'
 import { FallInPlace } from '#components/motion/fall-in-place'
-import confetti from 'canvas-confetti'
+
 
 /**
  * THEME NOTES
@@ -193,32 +193,42 @@ const WhoWeAreSection = () => {
   const headingColor = useColorModeValue('gray.800', 'white')
   const textColor = useColorModeValue('gray.600', 'gray.300')
 
-  // 🎉 Confetti burst when component mounts
   useEffect(() => {
-    const duration = 2 * 1000
-    const animationEnd = Date.now() + duration
-    const defaults = { startVelocity: 30, spread: 360, ticks: 60, zIndex: 0 }
+    // Load canvas-confetti via CDN
+    const script = document.createElement('script')
+    script.src = 'https://cdn.jsdelivr.net/npm/canvas-confetti@1.9.3/dist/confetti.browser.min.js'
+    script.async = true
+    document.body.appendChild(script)
 
-    function randomInRange(min: number, max: number) {
-      return Math.random() * (max - min) + min
-    }
+    script.onload = () => {
+      // @ts-ignore – window.confetti comes from CDN
+      if (window.confetti) {
+        const duration = 2 * 1000
+        const animationEnd = Date.now() + duration
+        const defaults = { startVelocity: 30, spread: 360, ticks: 60, zIndex: 0 }
 
-    const interval: any = setInterval(() => {
-      const timeLeft = animationEnd - Date.now()
+        function randomInRange(min: number, max: number) {
+          return Math.random() * (max - min) + min
+        }
 
-      if (timeLeft <= 0) {
-        return clearInterval(interval)
+        const interval = setInterval(() => {
+          const timeLeft = animationEnd - Date.now()
+          if (timeLeft <= 0) {
+            return clearInterval(interval)
+          }
+
+          const particleCount = 50 * (timeLeft / duration)
+          // @ts-ignore
+          window.confetti({
+            ...defaults,
+            particleCount,
+            origin: { x: randomInRange(0.1, 0.9), y: Math.random() - 0.2 },
+          })
+        }, 250)
+
+        return () => clearInterval(interval)
       }
-
-      const particleCount = 50 * (timeLeft / duration)
-      confetti({
-        ...defaults,
-        particleCount,
-        origin: { x: randomInRange(0.1, 0.9), y: Math.random() - 0.2 },
-      })
-    }, 250)
-
-    return () => clearInterval(interval)
+    }
   }, [])
 
   return (
@@ -238,7 +248,8 @@ const WhoWeAreSection = () => {
             bgGradient="linear(to-r, purple.400, pink.400)"
             bgClip="text"
             initial={{ scale: 0.9, opacity: 0 }}
-            animate={{ scale: 1, opacity: 1 }}
+            whileInView={{ scale: 1, opacity: 1 }}
+            viewport={{ once: true }}
             transition={{ duration: 0.6 }}
           >
             Who we are
