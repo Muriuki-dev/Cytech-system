@@ -1,4 +1,4 @@
-import { HStack, Flex, useColorModeValue, Box } from '@chakra-ui/react'
+import { HStack, Flex, useColorModeValue } from '@chakra-ui/react'
 import { useDisclosure, useUpdateEffect } from '@chakra-ui/react'
 import { useScrollSpy } from 'hooks/use-scrollspy'
 import { usePathname, useRouter } from 'next/navigation'
@@ -36,17 +36,8 @@ const Navigation: React.FC = () => {
   const linkColor = useColorModeValue('gray.700', 'gray.200')
 
   return (
-    <Flex
-      w="100%"
-      align="center"
-      justify="space-between"
-    >
-      {/* Left: Logo */}
-      <Box>
-        <Box as={siteConfig.logo} h="40px" />
-      </Box>
-
-      {/* Center: Nav links (only visible on lg and up, centered) */}
+    <Flex w="100%" align="center" justify="space-between">
+      {/* Center: Nav links (visible on lg and up, centered) */}
       <HStack
         spacing="6"
         display={{ base: 'none', lg: 'flex' }}
@@ -81,7 +72,7 @@ const Navigation: React.FC = () => {
           ref={mobileNavBtnRef}
           aria-label="Open Menu"
           onClick={mobileNav.onOpen}
-          display={{ base: 'flex', lg: 'none' }} // hide on lg+
+          display={{ base: 'flex', lg: 'none' }}
         />
       </HStack>
 
