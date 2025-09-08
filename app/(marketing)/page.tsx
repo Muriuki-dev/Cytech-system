@@ -134,7 +134,7 @@ const vehicleImgs = {
   video: 'https://images.unsplash.com/photo-1586953208448-b95a79798f07?auto=format&fit=crop&w=1920&q=90',
   surveillance: '/static/images/track.jpg',
   autocare: 'https://images.unsplash.com/photo-1492144534655-ae79c964c9d7?auto=format&fit=crop&w=1920&q=90',
-  luxury: 'https://images.unsplash.com/photo-1617195920950-1145bf9a9c72?auto=format&fit=crop&w=2400&q=90',
+  luxury: '/static/images/vtrack.jpg',
   modern: '/static/images/car-tracking.jpg',
 }
 
