@@ -71,6 +71,8 @@ import { FaWhatsapp, FaCar, FaUser, FaRobot } from "react-icons/fa"
 import * as React from 'react'
 import { useEffect, useState } from 'react'
 
+
+
 // Create motion-enabled Chakra components with proper typing
 const MotionBox = chakra(motion.div, {
   shouldForwardProp: (prop) => isValidMotionProp(prop) || shouldForwardProp(prop),
@@ -684,7 +686,7 @@ const ServiceCard = ({ title, icon, img, shortDesc, details }: any) => {
   const cardBg = useColorModeValue('white', 'gray.800')
   const textColor = useColorModeValue('gray.600', 'gray.300')
   const borderColor = useColorModeValue('gray.200', 'gray.700')
-  
+
   return (
     <>
       <Box 
@@ -701,31 +703,6 @@ const ServiceCard = ({ title, icon, img, shortDesc, details }: any) => {
         }}
         cursor="pointer"
         position="relative"
-        _before={{
-          content: '""',
-          position: 'absolute',
-          top: 0,
-          left: 0,
-          right: 0,
-          height: '4px',
-          bgGradient: 'linear(to-r, red.500, purple.500, blue.500)',
-          opacity: 0,
-          transition: 'opacity 0.3s',
-        }}
-        _after={{
-          content: '""',
-          position: 'absolute',
-          inset: 0,
-          background: 'linear-gradient(45deg, transparent 30%, rgba(255,255,255,0.1) 50%, transparent 70%)',
-          backgroundSize: '200% 200%',
-          animation: `${shimmer} 3s ease infinite`,
-          opacity: 0,
-          transition: 'opacity 0.3s',
-        }}
-        _groupHover={{
-          _before: { opacity: 1 },
-          _after: { opacity: 1 },
-        }}
         role="group"
       >
         <Box position="relative" h={{ base: 56, md: 64 }} overflow="hidden">
@@ -799,12 +776,10 @@ const ServiceCard = ({ title, icon, img, shortDesc, details }: any) => {
         </Stack>
       </Box>
 
+      {/* Modal Section */}
       <Modal isOpen={isOpen} onClose={onClose} size="4xl" motionPreset="slideInBottom" scrollBehavior="inside">
         <ModalOverlay backdropFilter="blur(10px)" />
-        <ModalContent
-          bg={useColorModeValue('white', 'gray.800')}
-          maxH="90vh"
-        >
+        <ModalContent bg={useColorModeValue('white', 'gray.800')} maxH="90vh">
           <ModalHeader 
             color={useColorModeValue('gray.800', 'white')} 
             fontSize="2xl"
@@ -875,6 +850,7 @@ const ServiceCard = ({ title, icon, img, shortDesc, details }: any) => {
     </>
   )
 }
+
 
 const USPsSection = () => {
   const bullets = [
@@ -1301,7 +1277,7 @@ const WhatsAppButton = () => {
               rel="noopener noreferrer"
               aria-label="Contact us on WhatsApp"
               // Bigger green WhatsApp icon
-              icon={<FaWhatsapp size="2.5em" color="white" />} 
+              icon={<FaWhatsapp size="2.5em" color="green" />} 
               colorScheme="whatsapp"
               size="lg"
               isRound
@@ -1355,85 +1331,86 @@ const WhatsAppButton = () => {
 }
 
 
-// AI-Smart ChatBot with Context Memory
+// Enhanced ChatBot Component 
 const ChatBot = () => {
   const { isOpen, onToggle, onClose } = useDisclosure()
   const [messages, setMessages] = useState([
-    { id: 1, text: "👋 Hello! I'm CY-TECH Assistant. I can help you with vehicle tracking, fuel monitoring, telematics, surveillance, and auto care. What would you like to know?", sender: 'bot' },
+    { id: 1, text: "👋 Hello! I'm CY-TECH Assistant. How can I help you with our vehicle tracking and security services today?", sender: 'bot' },
   ])
   const [inputValue, setInputValue] = useState('')
   const [isTyping, setIsTyping] = useState(false)
-  const [lastTopic, setLastTopic] = useState<string | null>(null) // ✅ memory
+
+  const bgColor = useColorModeValue('white', 'gray.800')
+  const borderColor = useColorModeValue('gray.200', 'gray.600')
+
+  const quickReplies = [
+    'GPS Tracking Info',
+    'Fleet Management',
+    'Pricing',
+    'Installation Time',
+    'Support Hours'
+  ]
 
   const handleSendMessage = () => {
     if (!inputValue.trim()) return
 
-    const newMessage = { id: messages.length + 1, text: inputValue, sender: 'user' }
+    const newMessage = {
+      id: messages.length + 1,
+      text: inputValue,
+      sender: 'user'
+    }
+
     setMessages(prev => [...prev, newMessage])
     setInputValue('')
     setIsTyping(true)
 
+    // Simulate bot response
     setTimeout(() => {
-      const response = getSmartResponse(inputValue)
-      const botResponse = { id: messages.length + 2, text: response, sender: 'bot' }
+      const botResponse = {
+        id: messages.length + 2,
+        text: getBotResponse(inputValue),
+        sender: 'bot'
+      }
       setMessages(prev => [...prev, botResponse])
       setIsTyping(false)
-    }, 1200)
+    }, 1500)
   }
 
-  // ✅ Smart Response System
-  const getSmartResponse = (userInput: string) => {
+  // Improved AI-like responses
+  const getBotResponse = (userInput: string) => {
     const input = userInput.toLowerCase().trim()
-    const normalize = (t: string) => t.replace(/[^a-zA-Z0-9 ]/g, '')
+
+    // Normalize text to catch broken language
+    const normalize = (text: string) => text.replace(/[^a-zA-Z0-9 ]/g, '')
+
     const cleaned = normalize(input)
 
-    // 🚗 Tracking
-    if (cleaned.match(/track|gps|fleet|location|vehicle|monitor/)) {
-      setLastTopic("tracking")
-      return "🚗 Our GPS Vehicle Tracking gives **real-time location, driver monitoring, trip reports, and remote immobilization**. Would you like a quick demo or pricing details?"
+    if (cleaned.match(/gps|track|location|map/)) {
+      return "📍 Our GPS tracking provides real-time location, geofencing alerts, and detailed trip reports. Installation takes 24–48 hours with 99.9% reliability. Would you like me to prepare a quick quote?"
     }
 
-    // ⛽ Fuel Monitoring
-    if (cleaned.match(/fuel|petrol|diesel|consume|tank|theft fuel/)) {
-      setLastTopic("fuel")
-      return "⛽ Our Fuel Monitoring detects even **1% fuel changes**, prevents theft, supports multi-tanks, and improves cost efficiency. Do you want details on installation or pricing?"
+    if (cleaned.match(/fleet|cars|vehicles|drivers/)) {
+      return "🚚 Our fleet management solution includes driver monitoring, fuel tracking, maintenance alerts, and business-grade analytics. It’s ideal for companies of all sizes."
     }
 
-    // 🎥 Video Telematics
-    if (cleaned.match(/video|camera|dashcam|telematics|record/)) {
-      setLastTopic("video")
-      return "🎥 Our Video Telematics provides **AI-powered driver monitoring, accident footage, cloud storage, and live streaming**. Perfect for compliance and safety. Would you like a brochure?"
+    if (cleaned.match(/price|cost|fee|rate|how much/)) {
+      return "💰 Pricing depends on your specific needs. For a customized quote, you can reach us at (+254) 715 643457 or email cytechsystems254@gmail.com."
     }
 
-    // 🕵️ Surveillance
-    if (cleaned.match(/nanny|spy|cctv|surveillance|farm|camera|monitor/)) {
-      setLastTopic("surveillance")
-      return "🕵️ We offer **nanny, spy & farm surveillance cameras** with HD recording, motion alerts, two-way audio, and remote access. Ideal for home, office, or farm security. Interested in pricing or installation?"
+    if (cleaned.match(/install|setup|fit/)) {
+      return "🔧 Installation usually takes 24–48 hours in Nairobi. Our certified technicians handle everything with minimal disruption to your schedule."
     }
 
-    // 🛠️ Auto Care
-    if (cleaned.match(/alarm|tint|etch|riveting|audio|ac|security|car/)) {
-      setLastTopic("auto")
-      return "🛠️ We provide **Car Tinting, Alarms, VIN Etching, Riveting, Premium Audio/Visual installs, and AC maintenance**. Would you like to know our service packages?"
+    if (cleaned.match(/support|help|service|assist/)) {
+      return "📞 We provide 24/7 technical support, free check-ups, and comprehensive training. Our response time is usually under 5 minutes!"
     }
 
-    // 💰 Pricing (context-aware)
-    if (cleaned.match(/price|cost|rate|quote|how much/)) {
-      if (lastTopic === "tracking") return "💰 GPS Tracking packages vary by fleet size. Small fleets start at budget-friendly rates. Call (+254) 715 643457 for exact pricing."
-      if (lastTopic === "fuel") return "💰 Fuel Monitoring pricing depends on sensor type & installation. We’ll customize based on your vehicles/tanks."
-      if (lastTopic === "video") return "💰 Video Telematics solutions vary depending on number of cameras & storage. We can provide a tailored quotation."
-      if (lastTopic === "surveillance") return "💰 Surveillance system pricing depends on camera type & coverage area. Packages available for homes, offices, and farms."
-      if (lastTopic === "auto") return "💰 Auto Care pricing depends on the service (tinting, alarms, audio, AC, etc.). We can give you exact figures per service."
-      return "💰 Pricing depends on the service. Could you specify which service (tracking, fuel, video, surveillance, auto care)?"
-    }
+    return "🤖 Thank you for your question! Could you please clarify so I can assist you better? Meanwhile, you can always call us at (+254) 715 643457 or email cytechsystems254@gmail.com."
+  }
 
-    // 📞 Support
-    if (cleaned.match(/support|help|assist|service/)) {
-      return "📞 We provide **24/7 support, free check-ups, training, and 5-minute response time**. How can we assist you right now?"
-    }
-
-    // Default Fallback
-    return "🤖 That’s a great question! I can help with **Tracking, Fuel Monitoring, Video Telematics, Surveillance, and Auto Care**. Could you tell me which one interests you most?"
+  const handleQuickReply = (reply: string) => {
+    setInputValue(reply)
+    handleSendMessage()
   }
 
   return (
