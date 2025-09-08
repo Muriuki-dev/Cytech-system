@@ -180,12 +180,12 @@ const Home: NextPage = () => {
     </Box>
   )
 }
-// Premium SaaS Circular Loader
+// Ultra Premium SaaS Circular Loader
 const SiteLoader: React.FC = () => {
   const [loading, setLoading] = useState(true)
 
   useEffect(() => {
-    const timer = setTimeout(() => setLoading(false), 2800) // ~2.8s load
+    const timer = setTimeout(() => setLoading(false), 2800) // ~2.8s loader
     return () => clearTimeout(timer)
   }, [])
 
@@ -217,7 +217,7 @@ const SiteLoader: React.FC = () => {
             textAlign="center"
             bgGradient="linear(to-r, red.500, purple.500)"
             bgClip="text"
-            mb={10}
+            mb={12}
             initial={{ y: 20, opacity: 0 }}
             animate={{ y: 0, opacity: 1 }}
             transition={{ duration: 1, ease: 'easeOut' }}
@@ -225,32 +225,35 @@ const SiteLoader: React.FC = () => {
             Welcome to CYTECHSYSTEMS
           </MotionHeading>
 
-          {/* Stylish circular loader */}
+          {/* Premium Circular Spinner */}
           <MotionBox
             as="svg"
-            width="80px"
-            height="80px"
+            width="100px"
+            height="100px"
             viewBox="0 0 50 50"
             animate={{ rotate: 360 }}
             transition={{
               repeat: Infinity,
-              duration: 1.5,
+              duration: 1.2, // faster = smoother
               ease: 'linear',
             }}
+            filter="drop-shadow(0px 0px 8px rgba(128,90,213,0.4))"
           >
             <circle
               cx="25"
               cy="25"
               r="20"
-              stroke="url(#gradient)"
+              stroke="url(#premiumGradient)"
               strokeWidth="4"
               fill="none"
               strokeLinecap="round"
-              strokeDasharray="90 150"
+              strokeDasharray="85 150"
+              strokeDashoffset="0"
             />
             <defs>
-              <linearGradient id="gradient" x1="0%" y1="0%" x2="100%" y2="0%">
+              <linearGradient id="premiumGradient" x1="0%" y1="0%" x2="100%" y2="0%">
                 <stop offset="0%" stopColor="#E53E3E" /> {/* red.500 */}
+                <stop offset="50%" stopColor="#D53F8C" /> {/* pink.500 */}
                 <stop offset="100%" stopColor="#805AD5" /> {/* purple.500 */}
               </linearGradient>
             </defs>
@@ -260,6 +263,7 @@ const SiteLoader: React.FC = () => {
     </AnimatePresence>
   )
 }
+
 
 
 
