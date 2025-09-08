@@ -18,24 +18,22 @@ export const Header = (props: HeaderProps) => {
   const [y, setY] = React.useState(0)
   const { scrollY } = useScroll()
 
-  // Height of hero section (adjust selector to your actual hero element)
   const [heroHeight, setHeroHeight] = React.useState(0)
 
   React.useEffect(() => {
-    const hero = document.getElementById('hero') // <-- give your hero section id="hero"
+    const hero = document.getElementById('hero') // your hero section must have id="hero"
     if (hero) {
       setHeroHeight(hero.offsetHeight)
     }
-
     return scrollY.on('change', () => setY(scrollY.get()))
   }, [scrollY])
 
-  // Colors that adapt to light/dark mode
-  const bgColor = useColorModeValue('white', 'gray.900')
+  // Frosted glass backgrounds for light/dark
+  const frostedBg = useColorModeValue('rgba(255, 255, 255, 0.7)', 'rgba(26, 32, 44, 0.7)')
   const borderColor = useColorModeValue('gray.200', 'gray.700')
   const shadow = useColorModeValue('md', 'dark-lg')
 
-  const showSolid = y > heroHeight - 80 // start solid when passing hero section (minus some offset for smoothness)
+  const showSolid = y > heroHeight - 80
 
   return (
     <Box
@@ -44,10 +42,10 @@ export const Header = (props: HeaderProps) => {
       top="0"
       w="full"
       position="fixed"
-      backdropFilter="blur(8px)"
+      backdropFilter="blur(12px)" // <- stronger blur for glass effect
       zIndex="sticky"
       transition="all 0.3s ease"
-      bg={showSolid ? bgColor : 'transparent'}
+      bg={showSolid ? frostedBg : 'transparent'} // blur white instead of solid
       boxShadow={showSolid ? shadow : 'none'}
       borderBottomWidth={showSolid ? '1px' : '0'}
       borderColor={showSolid ? borderColor : 'transparent'}
