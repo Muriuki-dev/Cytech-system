@@ -133,9 +133,9 @@ const vehicleImgs = {
   security: 'https://images.unsplash.com/photo-1484136540910-d66bb475348d?auto=format&fit=crop&w=1920&q=90',
   support: '/static/images/new2.jpg',
   fuel: '/static/images/fuel.jpg',
-  video: '/static/images/bgr3.png',
+  video: '/static/images/brg3.png',
   surveillance: '/static/images/track.jpg',
-  autocare: '/static/images/bgr6.png',
+  autocare: '/static/images/brg6.png',
   luxury: '/static/images/bgr1.png',
   modern: '/static/images/new.jpg',
 }
@@ -167,6 +167,7 @@ const BackgroundGradient = ({ height = "100vh", zIndex = -1 }: { height?: string
 const Home: NextPage = () => {
   return (
     <Box>
+      <SiteLoader /> {/* 👈 Add loader here */}
       <HeroSection />
       <WhoWeAreSection />
       <ServicesSection />
@@ -177,6 +178,49 @@ const Home: NextPage = () => {
       <WhatsAppButton />
       <ChatBot />
     </Box>
+  )
+}
+// Loader Component
+const SiteLoader: React.FC = () => {
+  const [loading, setLoading] = useState(true)
+
+  useEffect(() => {
+    const timer = setTimeout(() => setLoading(false), 3000) // 3s loader
+    return () => clearTimeout(timer)
+  }, [])
+
+  if (!loading) return null
+
+  return (
+    <MotionBox
+      position="fixed"
+      top={0}
+      left={0}
+      w="100vw"
+      h="100vh"
+      display="flex"
+      alignItems="center"
+      justifyContent="center"
+      bgGradient="linear(to-br, red.600, purple.600, blue.600)"
+      zIndex={9999}
+      initial={{ opacity: 1 }}
+      animate={{ opacity: 1 }}
+      exit={{ opacity: 0 }}
+    >
+      <MotionHeading
+        fontSize={{ base: '2xl', sm: '3xl', md: '4xl', lg: '5xl' }}
+        fontWeight="extrabold"
+        color="white"
+        textAlign="center"
+        bgGradient="linear(to-r, white, gray.300)"
+        bgClip="text"
+        initial={{ scale: 0.8, opacity: 0 }}
+        animate={{ scale: 1, opacity: 1 }}
+        transition={{ duration: 1 }}
+      >
+        Welcome to CYTECHSYSTEMS
+      </MotionHeading>
+    </MotionBox>
   )
 }
 
@@ -984,18 +1028,20 @@ const USPsSection = () => {
             viewport={{ once: true }}
             transition={{ duration: 0.8 }}
           >
-            <MotionHeading 
-              size="3xl" 
-              color={headingColor}
-              bgGradient="linear(to-r, red.500, purple.500)"
-              bgClip="text"
-              initial={{ scale: 0.8, opacity: 0 }}
-              whileInView={{ scale: 1, opacity: 1 }}
-              viewport={{ once: true }}
-              transition={{ duration: 0.8, delay: 0.2 }}
-            >
-              Why Choose CY-TECH?
-            </MotionHeading>
+            <MotionHeading
+  fontSize={{ base: '2xl', sm: '3xl', md: '4xl', lg: '5xl', xl: '6xl' }}
+  color={headingColor}
+  bgGradient="linear(to-r, red.500, purple.500)"
+  bgClip="text"
+  initial={{ scale: 0.8, opacity: 0 }}
+  whileInView={{ scale: 1, opacity: 1 }}
+  viewport={{ once: true }}
+  transition={{ duration: 0.8, delay: 0.2 }}
+  textAlign="center"
+>
+  Why Choose CY-TECH SYSTEMS?
+</MotionHeading>
+
             
             <SimpleGrid columns={{ base: 1, md: 2 }} spacing={4} w="full">
               {bullets.map((b, index) => (
