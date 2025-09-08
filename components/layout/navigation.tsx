@@ -1,6 +1,17 @@
 'use client'
 
-import { Flex, HStack, useColorModeValue } from '@chakra-ui/react'
+import {
+  Flex,
+  HStack,
+  useColorModeValue,
+  Menu,
+  MenuButton,
+  MenuList,
+  MenuItem,
+  Button,
+} from '@chakra-ui/react'
+import { motion, AnimatePresence } from 'framer-motion'
+import { ChevronDownIcon } from '@chakra-ui/icons'
 import { useDisclosure, useUpdateEffect } from '@chakra-ui/react'
 import { useScrollSpy } from 'hooks/use-scrollspy'
 import { usePathname } from 'next/navigation'
@@ -12,14 +23,16 @@ import { NavLink } from '#components/nav-link'
 import siteConfig from '#data/config'
 import ThemeToggle from './theme-toggle'
 
+const MotionMenuList = motion(MenuList)
+
 const Navigation: React.FC = () => {
   const mobileNav = useDisclosure()
   const path = usePathname()
 
   const activeId = useScrollSpy(
     siteConfig.header.links
-      .filter(({ id }) => id)
-      .map(({ id }) => `[id="${id}"]`),
+      .filter(({ href, children }) => href || children)
+      .map(({ href, children }) => (href ? `[href="${href}"]` : '')),
     { threshold: 0.75 },
   )
 
@@ -32,36 +45,75 @@ const Navigation: React.FC = () => {
   // Light/Dark adaptive link colors
   const activeColor = useColorModeValue('purple.600', 'purple.300')
   const linkColor = useColorModeValue('gray.700', 'gray.200')
+  const menuBg = useColorModeValue('white', 'gray.800')
 
   return (
     <Flex w="100%" align="center">
-      {/* Centered nav on lg+; hidden on mobile */}
+      {/* Desktop Nav */}
       <HStack
         spacing="6"
         display={{ base: 'none', lg: 'flex' }}
         flex="1"
         justify="center"
       >
-        {siteConfig.header.links.map(({ href, id, ...props }, i) => {
-          const isActive =
-            (id && activeId === id) ||
-            (href && !!path?.match(new RegExp(href)))
+        {siteConfig.header.links.map((link, i) => {
+          const isActive = link.href
+            ? !!path?.match(new RegExp(link.href))
+            : false
+
+          if (link.children) {
+            return (
+              <Menu key={i} isLazy>
+                {({ isOpen }) => (
+                  <>
+                    <MenuButton
+                      as={Button}
+                      variant="ghost"
+                      fontWeight={isActive ? 'bold' : 'medium'}
+                      color={isActive ? activeColor : linkColor}
+                      rightIcon={<ChevronDownIcon />}
+                    >
+                      {link.label}
+                    </MenuButton>
+                    <AnimatePresence>
+                      {isOpen && (
+                        <MotionMenuList
+                          bg={menuBg}
+                          borderRadius="lg"
+                          boxShadow="xl"
+                          initial={{ opacity: 0, y: -10 }}
+                          animate={{ opacity: 1, y: 0 }}
+                          exit={{ opacity: 0, y: -10 }}
+                          transition={{ duration: 0.2 }}
+                        >
+                          {link.children.map((child, idx) => (
+                            <MenuItem key={idx} as="a" href={child.href}>
+                              {child.label}
+                            </MenuItem>
+                          ))}
+                        </MotionMenuList>
+                      )}
+                    </AnimatePresence>
+                  </>
+                )}
+              </Menu>
+            )
+          }
 
           return (
             <NavLink
               key={i}
-              href={href || `/#${id}`}
+              href={link.href || '#'}
               color={isActive ? activeColor : linkColor}
               fontWeight={isActive ? 'bold' : 'medium'}
-              {...props}
             >
-              {props.label}
+              {link.label}
             </NavLink>
           )
         })}
       </HStack>
 
-      {/* Right side: Theme toggle + Hamburger (hamburger only on mobile) */}
+      {/* Right side: Theme toggle + Hamburger (mobile only) */}
       <HStack spacing="4" ml="auto">
         <ThemeToggle />
 
@@ -69,11 +121,11 @@ const Navigation: React.FC = () => {
           ref={mobileNavBtnRef}
           aria-label="Open Menu"
           onClick={mobileNav.onOpen}
-          display={{ base: 'flex', lg: 'none' }} // right-aligned on mobile
+          display={{ base: 'flex', lg: 'none' }}
         />
       </HStack>
 
-      {/* Mobile drawer */}
+      {/* Mobile Drawer */}
       <MobileNavContent isOpen={mobileNav.isOpen} onClose={mobileNav.onClose} />
     </Flex>
   )
