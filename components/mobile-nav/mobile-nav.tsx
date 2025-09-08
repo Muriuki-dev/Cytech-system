@@ -1,6 +1,7 @@
 import {
   Box,
   CloseButton,
+  Collapse,
   Flex,
   HStack,
   IconButton,
@@ -9,14 +10,16 @@ import {
   Stack,
   useBreakpointValue,
   useColorModeValue,
+  useDisclosure,
   useUpdateEffect,
+  Button,
 } from '@chakra-ui/react'
 import { Link } from '@saas-ui/react'
 import useRouteChanged from 'hooks/use-route-changed'
 import { usePathname } from 'next/navigation'
 import { AiOutlineMenu } from 'react-icons/ai'
+import { FiChevronDown } from 'react-icons/fi'
 import { RemoveScroll } from 'react-remove-scroll'
-
 import * as React from 'react'
 
 import { Logo } from '#components/layout/logo'
@@ -66,17 +69,11 @@ interface MobileNavContentProps {
 export function MobileNavContent(props: MobileNavContentProps) {
   const { isOpen, onClose = () => {} } = props
   const closeBtnRef = React.useRef<HTMLButtonElement>(null)
-  const pathname = usePathname()
   const bgColor = useColorModeValue('whiteAlpha.900', 'blackAlpha.900')
 
   useRouteChanged(onClose)
-  console.log({ isOpen })
-  /**
-   * Scenario: Menu is open on mobile, and user resizes to desktop/tablet viewport.
-   * Result: We'll close the menu
-   */
-  const showOnBreakpoint = useBreakpointValue({ base: true, lg: false })
 
+  const showOnBreakpoint = useBreakpointValue({ base: true, lg: false })
   React.useEffect(() => {
     if (showOnBreakpoint == false) {
       onClose()
@@ -114,20 +111,54 @@ export function MobileNavContent(props: MobileNavContentProps) {
                   <CloseButton ref={closeBtnRef} onClick={onClose} />
                 </HStack>
               </Flex>
+
               <Stack alignItems="stretch" spacing="0">
-                {siteConfig.header.links.map(
-                  ({ href, id, label, ...props }, i) => {
+                {siteConfig.header.links.map((link, i) => {
+                  // 🔽 If it has children, render collapsible section
+                  if (link.children) {
+                    const { isOpen, onToggle } = useDisclosure()
                     return (
-                      <NavLink
-                        href={href || `/#${id}`}
-                        key={i}
-                        {...(props as any)}
-                      >
-                        {label}
-                      </NavLink>
+                      <Box key={i}>
+                        <Button
+                          onClick={onToggle}
+                          justifyContent="space-between"
+                          w="100%"
+                          px="8"
+                          py="3"
+                          fontWeight="medium"
+                          rightIcon={<FiChevronDown />}
+                          variant="ghost"
+                        >
+                          {link.label}
+                        </Button>
+                        <Collapse in={isOpen} animateOpacity>
+                          <Stack pl="6" spacing="0">
+                            {link.children.map((child, idx) => (
+                              <NavLink
+                                key={idx}
+                                href={child.href}
+                                onClick={onClose}
+                              >
+                                {child.label}
+                              </NavLink>
+                            ))}
+                          </Stack>
+                        </Collapse>
+                      </Box>
                     )
-                  },
-                )}
+                  }
+
+                  // 🔗 Normal link
+                  return (
+                    <NavLink
+                      href={link.href || `/#${link.id}`}
+                      key={i}
+                      onClick={onClose}
+                    >
+                      {link.label}
+                    </NavLink>
+                  )
+                })}
               </Stack>
             </Box>
           </Flex>
