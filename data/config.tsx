@@ -1,5 +1,3 @@
-import { Button } from '@chakra-ui/react'
-import { Link } from '@saas-ui/react'
 import { FaTwitter, FaFacebook, FaWhatsapp, FaYoutube, FaInstagram } from 'react-icons/fa'
 import { FiCheck } from 'react-icons/fi'
 import { Logo } from './logo'
@@ -7,88 +5,71 @@ import { Logo } from './logo'
 const siteConfig = {
   logo: Logo,
   seo: {
-    title: 'Stratile',
-    description: 'Projecting success, building communities',
+    title: 'Cytech Systems',
+    description: 'Empowering businesses with technology solutions',
   },
   termsUrl: '#',
   privacyUrl: '#',
   header: {
     links: [
+      { label: 'Home', href: '/' },
       {
-        id: 'features',
-        label: 'Our Services',
+        label: 'About',
+        children: [
+          { label: 'Company Overview', href: '/about#overview' },
+          { label: 'Our Team', href: '/about#team' },
+          { label: 'Careers', href: '/about#careers' },
+        ],
       },
       {
-        id: 'pricing',
-        label: 'Pricing',
+        label: 'Services',
+        children: [
+          { label: 'IT Consulting', href: '/services/consulting' },
+          { label: 'Cloud Solutions', href: '/services/cloud' },
+          { label: 'Cybersecurity', href: '/services/cybersecurity' },
+          { label: 'Software Development', href: '/services/software' },
+        ],
       },
-      
-      {
-        id: 'faq',
-        label: 'FAQ',
-      },
-      {
-        label: 'Login',
-        href: '/login',
-      },
-     
+      { label: 'Products', href: '/products' },
+      { label: 'Client Login', href: '/login' },
     ],
   },
   footer: {
     copyright: (
       <>
-       &copy; ACME 2022 
+        &copy; {new Date().getFullYear()} Cytech Systems. All rights reserved.
       </>
     ),
     links: [
- 
-  {
-    href: '/', // Replace with your Twitter URL
-    label: <FaTwitter size="14" />,
-  },
-  {
-    href: '/', // Replace with your Facebook URL
-    label: <FaFacebook size="14" />,
-  },
-  {
-    href: '/', // Replace with your WhatsApp number
-    label: <FaWhatsapp size="14" />,
-  },
-  {
-    href: '/', // Replace with your YouTube URL
-    label: <FaYoutube size="14" />,
-  },
-  {
-    href: '/', // Replace with your Instagram URL
-    label: <FaInstagram size="14" />,
-  }
-]
+      { href: '/', label: <FaTwitter size="14" /> },
+      { href: '/', label: <FaFacebook size="14" /> },
+      { href: '/', label: <FaWhatsapp size="14" /> },
+      { href: '/', label: <FaYoutube size="14" /> },
+      { href: '/', label: <FaInstagram size="14" /> },
+    ],
   },
   signup: {
-    title: 'Start building with Saas UI',
+    title: 'Work with Cytech Systems',
     features: [
       {
         icon: FiCheck,
-        title: 'Accessible',
-        description: 'All components strictly follow WAI-ARIA standards.',
+        title: 'Innovative',
+        description: 'Delivering modern IT solutions tailored to your needs.',
       },
       {
         icon: FiCheck,
-        title: 'Themable',
-        description:
-          'Fully customize all components to your brand with theme support and style props.',
+        title: 'Secure',
+        description: 'Best practices in cybersecurity and data protection.',
       },
       {
         icon: FiCheck,
-        title: 'Composable',
-        description:
-          'Compose components to fit your needs and mix them together to create new ones.',
+        title: 'Reliable',
+        description: 'Trusted by enterprises for mission-critical systems.',
       },
       {
         icon: FiCheck,
-        title: 'Productive',
-        description:
-          'Designed to reduce boilerplate and fully typed, build your product at speed.',
+        title: 'Scalable',
+        description: 'Grow without limits with scalable cloud solutions.',
       },
     ],
   },
