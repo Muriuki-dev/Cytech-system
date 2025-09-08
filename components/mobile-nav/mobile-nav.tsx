@@ -1,65 +1,32 @@
+'use client'
+
 import {
   Box,
   CloseButton,
-  Collapse,
   Flex,
   HStack,
-  IconButton,
-  IconButtonProps,
-  LinkProps,
   Stack,
   useBreakpointValue,
   useColorModeValue,
-  useDisclosure,
   useUpdateEffect,
+  Menu,
+  MenuButton,
+  MenuList,
+  MenuItem,
   Button,
 } from '@chakra-ui/react'
 import { Link } from '@saas-ui/react'
+import { motion, AnimatePresence } from 'framer-motion'
+import { FiChevronDown } from 'react-icons/fi'
 import useRouteChanged from 'hooks/use-route-changed'
 import { usePathname } from 'next/navigation'
-import { AiOutlineMenu } from 'react-icons/ai'
-import { FiChevronDown } from 'react-icons/fi'
 import { RemoveScroll } from 'react-remove-scroll'
 import * as React from 'react'
 
 import { Logo } from '#components/layout/logo'
 import siteConfig from '#data/config'
 
-interface NavLinkProps extends LinkProps {
-  label: string
-  href?: string
-  isActive?: boolean
-}
-
-function NavLink({ href, children, isActive, ...rest }: NavLinkProps) {
-  const pathname = usePathname()
-  const bgActiveHoverColor = useColorModeValue('gray.100', 'whiteAlpha.100')
-
-  const [, group] = href?.split('/') || []
-  isActive = isActive ?? pathname?.includes(group)
-
-  return (
-    <Link
-      href={href}
-      display="inline-flex"
-      flex="1"
-      minH="40px"
-      px="8"
-      py="3"
-      transition="0.2s all"
-      fontWeight={isActive ? 'semibold' : 'medium'}
-      borderColor={isActive ? 'purple.400' : undefined}
-      borderBottomWidth="1px"
-      color={isActive ? 'white' : undefined}
-      _hover={{
-        bg: isActive ? 'purple.500' : bgActiveHoverColor,
-      }}
-      {...rest}
-    >
-      {children}
-    </Link>
-  )
-}
+const MotionMenuList = motion(MenuList)
 
 interface MobileNavContentProps {
   isOpen?: boolean
@@ -69,7 +36,11 @@ interface MobileNavContentProps {
 export function MobileNavContent(props: MobileNavContentProps) {
   const { isOpen, onClose = () => {} } = props
   const closeBtnRef = React.useRef<HTMLButtonElement>(null)
+  const pathname = usePathname()
   const bgColor = useColorModeValue('whiteAlpha.900', 'blackAlpha.900')
+  const activeColor = useColorModeValue('purple.600', 'purple.300')
+  const linkColor = useColorModeValue('gray.700', 'gray.200')
+  const menuBg = useColorModeValue('white', 'gray.800')
 
   useRouteChanged(onClose)
 
@@ -102,87 +73,90 @@ export function MobileNavContent(props: MobileNavContentProps) {
             inset="0"
             zIndex="modal"
             pb="8"
-            backdropFilter="blur(5px)"
+            backdropFilter="blur(6px)"
           >
-            <Box>
-              <Flex justify="space-between" px="8" pt="4" pb="4">
-                <Logo />
-                <HStack spacing="5">
-                  <CloseButton ref={closeBtnRef} onClick={onClose} />
-                </HStack>
-              </Flex>
+            {/* Header */}
+            <Flex justify="space-between" px="8" pt="4" pb="4">
+              <Logo />
+              <HStack spacing="5">
+                <CloseButton ref={closeBtnRef} onClick={onClose} />
+              </HStack>
+            </Flex>
 
-              <Stack alignItems="stretch" spacing="0">
-                {siteConfig.header.links.map((link, i) => {
-                  // 🔽 If it has children, render collapsible section
-                  if (link.children) {
-                    const { isOpen, onToggle } = useDisclosure()
-                    return (
-                      <Box key={i}>
-                        <Button
-                          onClick={onToggle}
-                          justifyContent="space-between"
-                          w="100%"
-                          px="8"
-                          py="3"
-                          fontWeight="medium"
-                          rightIcon={<FiChevronDown />}
-                          variant="ghost"
-                        >
-                          {link.label}
-                        </Button>
-                        <Collapse in={isOpen} animateOpacity>
-                          <Stack pl="6" spacing="0">
-                            {link.children.map((child, idx) => (
-                              <NavLink
-                                key={idx}
-                                href={child.href}
-                                onClick={onClose}
-                              >
-                                {child.label}
-                              </NavLink>
-                            ))}
-                          </Stack>
-                        </Collapse>
-                      </Box>
-                    )
-                  }
+            {/* Nav links */}
+            <Stack alignItems="stretch" spacing="2" px="4">
+              {siteConfig.header.links.map((link, i) => {
+                const isActive = link.href
+                  ? !!pathname?.match(new RegExp(link.href))
+                  : false
 
-                  // 🔗 Normal link
+                if (link.children) {
                   return (
-                    <NavLink
-                      href={link.href || `/#${link.id}`}
-                      key={i}
-                      onClick={onClose}
-                    >
-                      {link.label}
-                    </NavLink>
+                    <Menu key={i} isLazy>
+                      {({ isOpen }) => (
+                        <>
+                          <MenuButton
+                            as={Button}
+                            variant="ghost"
+                            w="100%"
+                            justifyContent="space-between"
+                            fontWeight={isActive ? 'bold' : 'medium'}
+                            color={isActive ? activeColor : linkColor}
+                            rightIcon={<FiChevronDown />}
+                          >
+                            {link.label}
+                          </MenuButton>
+                          <AnimatePresence>
+                            {isOpen && (
+                              <MotionMenuList
+                                bg={menuBg}
+                                borderRadius="lg"
+                                boxShadow="xl"
+                                mt="2"
+                                initial={{ opacity: 0, y: -10 }}
+                                animate={{ opacity: 1, y: 0 }}
+                                exit={{ opacity: 0, y: -10 }}
+                                transition={{ duration: 0.2 }}
+                                w="100%"
+                              >
+                                {link.children.map((child, idx) => (
+                                  <MenuItem
+                                    key={idx}
+                                    as={Link}
+                                    href={child.href}
+                                    onClick={onClose}
+                                  >
+                                    {child.label}
+                                  </MenuItem>
+                                ))}
+                              </MotionMenuList>
+                            )}
+                          </AnimatePresence>
+                        </>
+                      )}
+                    </Menu>
                   )
-                })}
-              </Stack>
-            </Box>
+                }
+
+                return (
+                  <Button
+                    key={i}
+                    as={Link}
+                    href={link.href || '#'}
+                    onClick={onClose}
+                    variant="ghost"
+                    justifyContent="flex-start"
+                    fontWeight={isActive ? 'bold' : 'medium'}
+                    color={isActive ? activeColor : linkColor}
+                  >
+                    {link.label}
+                  </Button>
+                )
+              })}
+            </Stack>
           </Flex>
         </RemoveScroll>
       )}
     </>
   )
 }
-
-export const MobileNavButton = React.forwardRef(
-  (props: IconButtonProps, ref: React.Ref<any>) => {
-    return (
-      <IconButton
-        ref={ref}
-        display={{ base: 'flex', md: 'none' }}
-        fontSize="20px"
-        color={useColorModeValue('gray.800', 'inherit')}
-        variant="ghost"
-        icon={<AiOutlineMenu />}
-        {...props}
-        aria-label="Open menu"
-      />
-    )
-  },
-)
-
-MobileNavButton.displayName = 'MobileNavButton'
