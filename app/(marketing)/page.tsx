@@ -62,6 +62,7 @@ import {
   FiSend,
   FiDroplet,
   FiCamera,
+  FiCheckCircle,
   FiTool,
   FiSettings,
   FiEye,
@@ -129,11 +130,11 @@ const vehicleImgs = {
   darkSUV: 'https://images.unsplash.com/photo-1605559424843-9e4c228bf1c2?auto=format&fit=crop&w=1920&q=90',
   nav: '/static/images/brg5.png',
   security: 'https://images.unsplash.com/photo-1484136540910-d66bb475348d?auto=format&fit=crop&w=1920&q=90',
-  support: '/static/images/car-tracking.jpg',
+  support: '/static/images/new2.jpg',
   fuel: '/static/images/fuel.jpg',
-  video: 'https://images.unsplash.com/photo-1586953208448-b95a79798f07?auto=format&fit=crop&w=1920&q=90',
+  video: '/static/images/bgr3.png',
   surveillance: '/static/images/track.jpg',
-  autocare: 'https://images.unsplash.com/photo-1492144534655-ae79c964c9d7?auto=format&fit=crop&w=1920&q=90',
+  autocare: '/static/images/bgr6.png',
   luxury: '/static/images/bgr1.png',
   modern: '/static/images/new.jpg',
 }
@@ -181,12 +182,35 @@ const Home: NextPage = () => {
 const HeroSection: React.FC = () => {
   const textColor = useColorModeValue('white', 'white')
   const subTextColor = useColorModeValue('gray.100', 'gray.200')
+  const { isOpen, onOpen, onClose } = useDisclosure()
+  const [formData, setFormData] = React.useState({
+    name: '',
+    phone: '',
+    service: '',
+  })
+
+  const handleChange = (e: any) => {
+    const { name, value } = e.target
+    setFormData((prev) => ({ ...prev, [name]: value }))
+  }
+
+  const handleSubmit = () => {
+    const { name, phone, service } = formData
+    if (!name || !phone || !service) {
+      alert('Please fill all fields')
+      return
+    }
+    const message = `Hello, my name is ${name}. I would like a quote for *${service}*. My phone number is ${phone}.`
+    const whatsappUrl = `https://wa.me/254715643457?text=${encodeURIComponent(message)}`
+    window.open(whatsappUrl, '_blank')
+    onClose()
+  }
 
   return (
     <Box position="relative" overflow="hidden" minH="100vh">
       <BackgroundGradient height="100%" zIndex={-1} />
 
-      {/* Animated background with multiple layers */}
+      {/* Background */}
       <Box
         position="absolute"
         inset={0}
@@ -213,6 +237,7 @@ const HeroSection: React.FC = () => {
 
       <Container maxW="container.xl" pt={{ base: 32, lg: 48 }} pb={24}>
         <Stack direction={{ base: 'column', lg: 'row' }} alignItems="center" spacing={12}>
+          {/* Left Section */}
           <MotionVStack
             alignItems={{ base: 'center', lg: 'start' }}
             zIndex={1}
@@ -279,8 +304,7 @@ const HeroSection: React.FC = () => {
                   Explore Services
                 </Button>
                 <Button
-                  as="a"
-                  href="mailto:cytechsystems254@gmail.com"
+                  onClick={onOpen}
                   size="lg"
                   variant="outline"
                   colorScheme="white"
@@ -293,6 +317,7 @@ const HeroSection: React.FC = () => {
             </MotionBox>
           </MotionVStack>
 
+          {/* Right Section */}
           <MotionBox
             display={{ base: 'none', lg: 'block' }}
             zIndex={1}
@@ -319,9 +344,55 @@ const HeroSection: React.FC = () => {
           </MotionBox>
         </Stack>
       </Container>
+
+      {/* Premium Quote Request Modal */}
+      <Modal isOpen={isOpen} onClose={onClose} isCentered size={{ base: 'xs', md: 'md' }}>
+        <ModalOverlay />
+        <ModalContent borderRadius="2xl" p={4}>
+          <ModalHeader textAlign="center" fontSize="2xl" fontWeight="bold">
+            Request a Quote
+          </ModalHeader>
+          <ModalCloseButton />
+          <ModalBody>
+            <VStack spacing={4}>
+              <Input
+                name="name"
+                placeholder="Your Name"
+                value={formData.name}
+                onChange={handleChange}
+              />
+              <Input
+                name="phone"
+                placeholder="Phone Number"
+                value={formData.phone}
+                onChange={handleChange}
+              />
+              <Select
+                name="service"
+                placeholder="Select Service"
+                value={formData.service}
+                onChange={handleChange}
+              >
+                <option>Fleet & Vehicle Tracking Solutions</option>
+                <option>Fuel Monitoring Solutions</option>
+                <option>Video Telematics Solutions</option>
+                <option>Nanny, Spy & Farm Surveillance</option>
+                <option>Auto Care & Security Services</option>
+                <option>Installation & 24/7 Support</option>
+              </Select>
+            </VStack>
+          </ModalBody>
+          <ModalFooter>
+            <Button colorScheme="red" w="full" onClick={handleSubmit}>
+              Send to WhatsApp
+            </Button>
+          </ModalFooter>
+        </ModalContent>
+      </Modal>
     </Box>
   )
 }
+
 
 const WhoWeAreSection = () => {
   const headingColor = useColorModeValue('gray.800', 'white')
@@ -392,28 +463,33 @@ const WhoWeAreSection = () => {
               systems that consistently meet and exceed market expectations.
             </MotionText>
 
-            <Wrap>
-              {['Precision', 'Cost-effective', 'Professional', 'Real-time', 'Reliable'].map(
-                (v, i) => (
-                  <MotionTag
-                    key={v}
-                    colorScheme="red"
-                    variant="subtle"
-                    rounded="full"
-                    px={4}
-                    py={2}
-                    initial={{ opacity: 0, y: 20 }}
-                    whileInView={{ opacity: 1, y: 0 }}
-                    viewport={{ once: true }}
-                    transition={{ duration: 0.5, delay: 0.3 + i * 0.15 }}
-                    whileHover={{ scale: 1.1, y: -2 }}
-                    cursor="pointer"
-                  >
-                    {v}
-                  </MotionTag>
-                ),
-              )}
-            </Wrap>
+           <Wrap>
+  {['Precision', 'Cost-effective', 'Professional', 'Real-time', 'Reliable'].map(
+    (v, i) => (
+      <MotionTag
+        key={v}
+        colorScheme="red"
+        variant="subtle"
+        rounded="full"
+        px={4}
+        py={2}
+        display="flex"
+        alignItems="center"
+        gap={2}
+        initial={{ opacity: 0, y: 20 }}
+        whileInView={{ opacity: 1, y: 0 }}
+        viewport={{ once: true }}
+        transition={{ duration: 0.5, delay: 0.3 + i * 0.15 }}
+        whileHover={{ scale: 1.1, y: -2 }}
+        cursor="pointer"
+      >
+        <Icon as={FiCheckCircle} boxSize={4} color="red.500" />
+        {v}
+      </MotionTag>
+    ),
+  )}
+</Wrap>
+
           </MotionVStack>
 
           <MotionBox
@@ -763,8 +839,8 @@ const ServiceCard = ({ title, icon, img, shortDesc, details }: any) => {
           
           <HStack justify="space-between" align="center">
             <HStack>
-              <Badge colorScheme="red" variant="subtle" fontSize="xs">24/7 support</Badge>
-              <Badge variant="outline" fontSize="xs">High Quality</Badge>
+              <Badge colorScheme="red" variant="subtle" fontSize="xs">On Offer</Badge>
+              <Badge variant="outline" fontSize="xs">Quality</Badge>
             </HStack>
             <Button 
               onClick={onOpen} 
@@ -778,7 +854,7 @@ const ServiceCard = ({ title, icon, img, shortDesc, details }: any) => {
               }}
               transition="all 0.3s"
             >
-              Details
+             Learn More
             </Button>
           </HStack>
         </Stack>
