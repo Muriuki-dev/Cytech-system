@@ -180,7 +180,7 @@ const Home: NextPage = () => {
     </Box>
   )
 }
-// Ultra Premium SaaS Circular Loader
+// Ultra Premium SaaS Circular Loader (Fixed Spinner)
 const SiteLoader: React.FC = () => {
   const [loading, setLoading] = useState(true)
 
@@ -231,15 +231,8 @@ const SiteLoader: React.FC = () => {
             width="100px"
             height="100px"
             viewBox="0 0 50 50"
-            animate={{ rotate: 360 }}
-            transition={{
-              repeat: Infinity,
-              duration: 1.2, // faster = smoother
-              ease: 'linear',
-            }}
-            filter="drop-shadow(0px 0px 8px rgba(128,90,213,0.4))"
           >
-            <circle
+            <motion.circle
               cx="25"
               cy="25"
               r="20"
@@ -247,8 +240,21 @@ const SiteLoader: React.FC = () => {
               strokeWidth="4"
               fill="none"
               strokeLinecap="round"
-              strokeDasharray="85 150"
+              strokeDasharray="90 150"
               strokeDashoffset="0"
+              animate={{
+                rotate: 360,
+                strokeDashoffset: [0, -240],
+              }}
+              transition={{
+                rotate: { repeat: Infinity, duration: 1.5, ease: 'linear' },
+                strokeDashoffset: {
+                  repeat: Infinity,
+                  duration: 1.5,
+                  ease: 'linear',
+                },
+              }}
+              style={{ transformOrigin: "50% 50%" }}
             />
             <defs>
               <linearGradient id="premiumGradient" x1="0%" y1="0%" x2="100%" y2="0%">
@@ -263,6 +269,7 @@ const SiteLoader: React.FC = () => {
     </AnimatePresence>
   )
 }
+
 
 
 
