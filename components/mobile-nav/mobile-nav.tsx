@@ -14,10 +14,11 @@ import {
   MenuList,
   MenuItem,
   Button,
+  IconButton,
 } from '@chakra-ui/react'
 import { Link } from '@saas-ui/react'
 import { motion, AnimatePresence } from 'framer-motion'
-import { FiChevronDown } from 'react-icons/fi'
+import { FiChevronDown, FiMenu } from 'react-icons/fi'
 import useRouteChanged from 'hooks/use-route-changed'
 import { usePathname } from 'next/navigation'
 import { RemoveScroll } from 'react-remove-scroll'
@@ -31,6 +32,18 @@ const MotionMenuList = motion(MenuList)
 interface MobileNavContentProps {
   isOpen?: boolean
   onClose?: () => void
+}
+
+/* ✅ Add MobileNavButton */
+export function MobileNavButton(props: any) {
+  return (
+    <IconButton
+      variant="ghost"
+      icon={<FiMenu />}
+      aria-label="Open Menu"
+      {...props}
+    />
+  )
 }
 
 export function MobileNavContent(props: MobileNavContentProps) {
