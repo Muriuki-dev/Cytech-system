@@ -127,15 +127,15 @@ const vehicleImgs = {
   fleet: '/static/images/vtrack.jpg',
   citySUV: 'https://images.unsplash.com/photo-1571068316344-75bc76f77890?auto=format&fit=crop&w=1920&q=90',
   darkSUV: 'https://images.unsplash.com/photo-1605559424843-9e4c228bf1c2?auto=format&fit=crop&w=1920&q=90',
-  nav: 'https://images.unsplash.com/photo-1556075798-4825dfaaf498?auto=format&fit=crop&w=1920&q=90',
+  nav: '/static/images/brg5.png',
   security: 'https://images.unsplash.com/photo-1484136540910-d66bb475348d?auto=format&fit=crop&w=1920&q=90',
-  support: 'https://images.unsplash.com/photo-1562141961-744a7d5ae1d4?auto=format&fit=crop&w=1920&q=90',
+  support: '/static/images/car-tracking.jpg',
   fuel: '/static/images/fuel.jpg',
   video: 'https://images.unsplash.com/photo-1586953208448-b95a79798f07?auto=format&fit=crop&w=1920&q=90',
   surveillance: '/static/images/track.jpg',
   autocare: 'https://images.unsplash.com/photo-1492144534655-ae79c964c9d7?auto=format&fit=crop&w=1920&q=90',
   luxury: '/static/images/bgr1.png',
-  modern: '/static/images/car-tracking.jpg',
+  modern: '/static/images/new.jpg',
 }
 
 const BackgroundGradient = ({ height = "100vh", zIndex = -1 }: { height?: string; zIndex?: number }) => {
@@ -647,19 +647,27 @@ const ServicesSection = () => {
           viewport={{ once: true }}
           transition={{ duration: 0.8 }}
         >
-          <MotionHeading 
-            textAlign="center" 
-            size="3xl" 
-            color={headingColor}
-            bgGradient="linear(to-r, red.500, purple.500)"
-            bgClip="text"
-          >
-            Our Premium Services
-          </MotionHeading>
-          <Text color={textColor} fontSize="xl" textAlign="center" maxW="3xl">
-            Smart, seamless and dependable solutions for individuals and fleets across Kenya and beyond.
-          </Text>
-        </MotionVStack>
+<MotionHeading
+    textAlign="center"
+    fontSize={{ base: "2xl", sm: "3xl", md: "4xl", lg: "5xl" }}
+    color={headingColor}
+    bgGradient="linear(to-r, red.500, purple.500)"
+    bgClip="text"
+    lineHeight="short"
+  >
+    Our Premium Services
+  </MotionHeading>
+
+  <Text
+    color={textColor}
+    fontSize={{ base: "md", sm: "lg", md: "xl" }}
+    textAlign="center"
+    maxW={{ base: "90%", md: "3xl" }}
+    px={{ base: 2, md: 0 }}
+  >
+    Smart, seamless and dependable solutions for individuals and fleets across Kenya and beyond.
+  </Text>
+</MotionVStack>
 
         <SimpleGrid columns={{ base: 1, md: 2, xl: 3 }} spacing={8}>
           {services.map(({ key, ...rest }, index) => (
@@ -824,16 +832,23 @@ const ServiceCard = ({ title, icon, img, shortDesc, details }: any) => {
           <ModalFooter borderTopWidth="1px" borderColor={borderColor} pt={4}>
             <HStack spacing={3}>
               <Button
-                as="a"
-                href={`https://wa.me/254715643457?text=Hello%20CY-TECH,%20I'm%20interested%20in%20${encodeURIComponent(title)}%20service.%20Please%20provide%20more%20information.`}
-                target="_blank"
-                rel="noopener noreferrer"
-                leftIcon={<FaWhatsapp />}
-                colorScheme="whatsapp"
-                size="lg"
-              >
-                WhatsApp Quote
-              </Button>
+  as="a"
+  href={`https://wa.me/254715643457?text=Hello%20CY-TECH,%20I'm%20interested%20in%20${encodeURIComponent(
+    title
+  )}%20service.%20Please%20provide%20more%20information.`}
+  target="_blank"
+  rel="noopener noreferrer"
+  leftIcon={<FaWhatsapp />}
+  size="lg"
+  bg="#25D366" // WhatsApp brand green
+  color="white"
+  _hover={{ bg: "#1EBE5D", transform: "scale(1.05)" }}
+  _active={{ bg: "#1AAE52" }}
+  boxShadow="lg"
+  borderRadius="full"
+>
+  WhatsApp Quote
+</Button>
               <Button 
                 as="a" 
                 href="mailto:cytechsystems254@gmail.com" 
