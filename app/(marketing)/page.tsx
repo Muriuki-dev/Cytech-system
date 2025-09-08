@@ -135,7 +135,7 @@ const vehicleImgs = {
   fuel: '/static/images/fuel.jpg',
   video: '/static/images/brg3.png',
   surveillance: '/static/images/track.jpg',
-  autocare: '/static/images/bgr6.png',
+  autocare: '/static/images/brg6.jpg',
   luxury: '/static/images/bgr1.png',
   modern: '/static/images/new.jpg',
 }
@@ -180,12 +180,12 @@ const Home: NextPage = () => {
     </Box>
   )
 }
-// Premium SaaS Loader
+// Premium SaaS Circular Loader
 const SiteLoader: React.FC = () => {
   const [loading, setLoading] = useState(true)
 
   useEffect(() => {
-    const timer = setTimeout(() => setLoading(false), 2800) // ~2.8s feels snappy
+    const timer = setTimeout(() => setLoading(false), 2800) // ~2.8s load
     return () => clearTimeout(timer)
   }, [])
 
@@ -217,6 +217,7 @@ const SiteLoader: React.FC = () => {
             textAlign="center"
             bgGradient="linear(to-r, red.500, purple.500)"
             bgClip="text"
+            mb={10}
             initial={{ y: 20, opacity: 0 }}
             animate={{ y: 0, opacity: 1 }}
             transition={{ duration: 1, ease: 'easeOut' }}
@@ -224,37 +225,42 @@ const SiteLoader: React.FC = () => {
             Welcome to CYTECHSYSTEMS
           </MotionHeading>
 
-          {/* Modern gradient loader bar */}
+          {/* Stylish circular loader */}
           <MotionBox
-            mt={8}
-            w="80px"
-            h="5px"
-            borderRadius="full"
-            bg="gray.100"
-            overflow="hidden"
-            position="relative"
+            as="svg"
+            width="80px"
+            height="80px"
+            viewBox="0 0 50 50"
+            animate={{ rotate: 360 }}
+            transition={{
+              repeat: Infinity,
+              duration: 1.5,
+              ease: 'linear',
+            }}
           >
-            <MotionBox
-              position="absolute"
-              top={0}
-              left={0}
-              h="100%"
-              w="40%"
-              borderRadius="full"
-              bgGradient="linear(to-r, red.500, purple.500)"
-              animate={{ x: ['-50%', '150%'] }}
-              transition={{
-                repeat: Infinity,
-                duration: 1.2,
-                ease: 'easeInOut',
-              }}
+            <circle
+              cx="25"
+              cy="25"
+              r="20"
+              stroke="url(#gradient)"
+              strokeWidth="4"
+              fill="none"
+              strokeLinecap="round"
+              strokeDasharray="90 150"
             />
+            <defs>
+              <linearGradient id="gradient" x1="0%" y1="0%" x2="100%" y2="0%">
+                <stop offset="0%" stopColor="#E53E3E" /> {/* red.500 */}
+                <stop offset="100%" stopColor="#805AD5" /> {/* purple.500 */}
+              </linearGradient>
+            </defs>
           </MotionBox>
         </MotionBox>
       )}
     </AnimatePresence>
   )
 }
+
 
 
 const HeroSection: React.FC = () => {
