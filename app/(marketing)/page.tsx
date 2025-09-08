@@ -169,7 +169,7 @@ const Home: NextPage = () => {
       <USPsSection />
       <CTASection />
       <FaqSection />
-      <ContactBar />
+     
       <WhatsAppButton />
       <ChatBot />
     </Box>
@@ -1255,187 +1255,79 @@ const FaqSection = () => {
   )
 }
 
-const ContactBar = () => {
-  const bgGradient = useColorModeValue(
-    'linear(to-r, gray.900, black)',
-    'linear(to-r, gray.950, black)'
-  )
-  
-  return (
-    <Box py={10} bgGradient={bgGradient} color="white" position="relative" overflow="hidden">
-      {/* Animated background elements */}
-      <Box
-        position="absolute"
-        top="50%"
-        left="20%"
-        w="100px"
-        h="100px"
-        borderRadius="50%"
-        bg="red.500"
-        opacity={0.1}
-        animation={`${pulse} 4s ease-in-out infinite`}
-        transform="translateY(-50%)"
-      />
 
-      <Container maxW="container.xl" position="relative">
-        <SimpleGrid columns={{ base: 1, md: 3 }} spacing={6}>
-          <MotionBox
-            initial={{ opacity: 0, x: -30 }}
-            whileInView={{ opacity: 1, x: 0 }}
-            viewport={{ once: true }}
-            transition={{ duration: 0.6 }}
-          >
-            <HStack spacing={4}>
-              <Box p={3} bg="red.600" rounded="full">
-                <Icon as={FiPhone} fontSize="xl" />
-              </Box>
-              <VStack align="start" spacing={1}>
-                <Text fontSize="sm" opacity={0.8}>Mobile / WhatsApp</Text>
-                <Text fontWeight="bold">(+254) 715 643457</Text>
-              </VStack>
-            </HStack>
-          </MotionBox>
-          
-          <MotionBox
-            initial={{ opacity: 0, y: 30 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true }}
-            transition={{ duration: 0.6, delay: 0.1 }}
-          >
-            <HStack spacing={4}>
-              <Box p={3} bg="purple.600" rounded="full">
-                <Icon as={FiSmartphone} fontSize="xl" />
-              </Box>
-              <VStack align="start" spacing={1}>
-                <Text fontSize="sm" opacity={0.8}>Email Address</Text>
-                <Text fontWeight="bold">cytechsystems254@gmail.com</Text>
-              </VStack>
-            </HStack>
-          </MotionBox>
-          
-          <MotionBox
-            initial={{ opacity: 0, x: 30 }}
-            whileInView={{ opacity: 1, x: 0 }}
-            viewport={{ once: true }}
-            transition={{ duration: 0.6, delay: 0.2 }}
-          >
-            <HStack spacing={4}>
-              <Box p={3} bg="blue.600" rounded="full">
-                <Icon as={FiMapPin} fontSize="xl" />
-              </Box>
-              <VStack align="start" spacing={1}>
-                <Text fontSize="sm" opacity={0.8}>Location</Text>
-                <Text fontWeight="bold">Westlands, Nairobi, Kenya</Text>
-              </VStack>
-            </HStack>
-          </MotionBox>
-        </SimpleGrid>
-        
-        <Divider my={6} borderColor="whiteAlpha.300" />
-        
-        <HStack justify="space-between" flexWrap="wrap">
-          <Text fontSize="sm" opacity={0.8}>Anthony Kalu — Operations Manager</Text>
-          <Text fontSize="sm" opacity={0.8}>© 2024 CY-TECH Systems. All rights reserved.</Text>
-        </HStack>
-      </Container>
-    </Box>
-  )
-}
 
-// Enhanced WhatsApp Floating Button
 const WhatsAppButton = () => {
-  const [isVisible, setIsVisible] = useState(true)
+  const [isVisible, setIsVisible] = useState(true);
 
   return (
-    <AnimatePresence>
+    <div className="fixed bottom-6 left-6 z-50">
       {isVisible && (
-        <MotionBox
-          position="fixed"
-          bottom="6"
-          left="6"
-          zIndex="1000"
-          initial={{ scale: 0, rotate: -180 }}
-          animate={{ scale: 1, rotate: 0 }}
-          exit={{ scale: 0, rotate: 180 }}
-          transition={{ type: "spring", stiffness: 200, damping: 20 }}
-          whileHover={{ scale: 1.1 }}
-          whileTap={{ scale: 0.95 }}
-        >
-          <Box position="relative">
-            {/* Pulsing ring effect */}
-            <Box
-              position="absolute"
-              inset="-4px"
-              rounded="full"
-              bg="whatsapp.500"
-              opacity={0.3}
-              animation={`${pulse} 2s ease-in-out infinite`}
-            />
-            <Box
-              position="absolute"
-              inset="-2px"
-              rounded="full"
-              bg="whatsapp.500"
-              opacity={0.5}
-              animation={`${pulse} 2s ease-in-out infinite 0.5s`}
-            />
-            
-            <IconButton
-              as="a"
+        <div className="relative group">
+          {/* Pulsing ring effects */}
+          <div className="absolute inset-0 -m-4 bg-green-500 rounded-full opacity-30 animate-ping"></div>
+          <div className="absolute inset-0 -m-2 bg-green-500 rounded-full opacity-50 animate-ping animation-delay-500"></div>
+          
+          {/* Main button with premium effects */}
+          <div className="relative">
+            <a
               href="https://wa.me/254715643457?text=Hello%20CY-TECH%20SYSTEMS,%20I%20would%20like%20more%20information%20about%20your%20services"
               target="_blank"
               rel="noopener noreferrer"
+              className="relative flex items-center justify-center w-16 h-16 bg-gradient-to-br from-green-400 via-green-500 to-green-600 hover:from-green-500 hover:via-green-600 hover:to-green-700 rounded-full shadow-2xl transform transition-all duration-300 hover:scale-110 active:scale-95 overflow-hidden group"
               aria-label="Contact us on WhatsApp"
-              icon={<FaWhatsapp />}
-              colorScheme="whatsapp"
-              size="lg"
-              isRound
-              boxShadow="2xl"
-              _hover={{
-                boxShadow: '0 0 30px rgba(37, 211, 102, 0.5)',
-              }}
-              transition="all 0.3s"
-              bg="whatsapp.500"
-              position="relative"
-            />
-            
-            {/* Message bubble */}
-            <Box
-              position="absolute"
-              bottom="full"
-              left="50%"
-              transform="translateX(-50%)"
-              mb={2}
-              py={2}
-              px={3}
-              bg="white"
-              color="gray.800"
-              rounded="lg"
-              fontSize="sm"
-              fontWeight="medium"
-              whiteSpace="nowrap"
-              boxShadow="lg"
-              _after={{
-                content: '""',
-                position: 'absolute',
-                top: 'full',
-                left: '50%',
-                transform: 'translateX(-50%)',
-                borderTop: '6px solid white',
-                borderLeft: '6px solid transparent',
-                borderRight: '6px solid transparent',
-              }}
-              opacity={0}
-              animation={`${float} 3s ease-in-out infinite 2s`}
-              _hover={{ opacity: 1 }}
-              transition="opacity 0.3s"
             >
-              Chat with us!
-            </Box>
-          </Box>
-        </MotionBox>
+              {/* Gleaming shine effect */}
+              <div className="absolute inset-0 bg-gradient-to-r from-transparent via-white to-transparent opacity-0 group-hover:opacity-30 group-hover:animate-shimmer transform -skew-x-12 translate-x-full group-hover:translate-x-[-200%] transition-all duration-1000"></div>
+              
+              {/* Premium border gradient */}
+              <div className="absolute inset-0 rounded-full bg-gradient-to-r from-green-300 via-emerald-400 to-green-300 animate-spin-slow opacity-60"></div>
+              <div className="absolute inset-0.5 rounded-full bg-gradient-to-br from-green-400 via-green-500 to-green-600"></div>
+              
+              {/* WhatsApp icon */}
+              <FaWhatsapp className="relative z-10 text-white text-2xl drop-shadow-lg" />
+              
+              {/* Subtle inner glow */}
+              <div className="absolute inset-2 rounded-full bg-white opacity-10 blur-sm"></div>
+            </a>
+          </div>
+          
+          {/* Message bubble with premium styling */}
+          <div className="absolute bottom-full left-1/2 transform -translate-x-1/2 mb-3 px-4 py-2 bg-white text-gray-800 rounded-lg shadow-xl whitespace-nowrap text-sm font-medium opacity-0 group-hover:opacity-100 transition-all duration-300 transform translate-y-2 group-hover:translate-y-0">
+            <div className="relative">
+              💬 Chat with us!
+              {/* Bubble arrow */}
+              <div className="absolute top-full left-1/2 transform -translate-x-1/2 w-0 h-0 border-l-4 border-r-4 border-t-4 border-l-transparent border-r-transparent border-t-white"></div>
+            </div>
+          </div>
+        </div>
       )}
-    </AnimatePresence>
+      
+      {/* Custom styles for animations */}
+      <style jsx>{`
+        @keyframes shimmer {
+          0% { transform: translateX(100%) skewX(-12deg); }
+          100% { transform: translateX(-200%) skewX(-12deg); }
+        }
+        
+        @keyframes spin-slow {
+          from { transform: rotate(0deg); }
+          to { transform: rotate(360deg); }
+        }
+        
+        .animate-shimmer {
+          animation: shimmer 1s ease-out;
+        }
+        
+        .animate-spin-slow {
+          animation: spin-slow 8s linear infinite;
+        }
+        
+        .animation-delay-500 {
+          animation-delay: 0.5s;
+        }
+      `}</style>
+    </div>
   )
 }
 
