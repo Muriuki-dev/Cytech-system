@@ -135,7 +135,7 @@ const vehicleImgs = {
   fuel: '/static/images/fuel.jpg',
   video: '/static/images/brg3.png',
   surveillance: '/static/images/track.jpg',
-  autocare: '/static/images/brg6.png',
+  autocare: '/static/images/bgr6.png',
   luxury: '/static/images/bgr1.png',
   modern: '/static/images/new.jpg',
 }
@@ -180,49 +180,82 @@ const Home: NextPage = () => {
     </Box>
   )
 }
-// Loader Component
+// Premium SaaS Loader
 const SiteLoader: React.FC = () => {
   const [loading, setLoading] = useState(true)
 
   useEffect(() => {
-    const timer = setTimeout(() => setLoading(false), 3000) // 3s loader
+    const timer = setTimeout(() => setLoading(false), 2800) // ~2.8s feels snappy
     return () => clearTimeout(timer)
   }, [])
 
-  if (!loading) return null
-
   return (
-    <MotionBox
-      position="fixed"
-      top={0}
-      left={0}
-      w="100vw"
-      h="100vh"
-      display="flex"
-      alignItems="center"
-      justifyContent="center"
-      bgGradient="linear(to-br, red.600, purple.600, blue.600)"
-      zIndex={9999}
-      initial={{ opacity: 1 }}
-      animate={{ opacity: 1 }}
-      exit={{ opacity: 0 }}
-    >
-      <MotionHeading
-        fontSize={{ base: '2xl', sm: '3xl', md: '4xl', lg: '5xl' }}
-        fontWeight="extrabold"
-        color="white"
-        textAlign="center"
-        bgGradient="linear(to-r, white, gray.300)"
-        bgClip="text"
-        initial={{ scale: 0.8, opacity: 0 }}
-        animate={{ scale: 1, opacity: 1 }}
-        transition={{ duration: 1 }}
-      >
-        Welcome to CYTECHSYSTEMS
-      </MotionHeading>
-    </MotionBox>
+    <AnimatePresence>
+      {loading && (
+        <MotionBox
+          key="loader"
+          position="fixed"
+          top={0}
+          left={0}
+          w="100vw"
+          h="100vh"
+          display="flex"
+          flexDirection="column"
+          alignItems="center"
+          justifyContent="center"
+          bg="white"
+          zIndex={9999}
+          initial={{ opacity: 1 }}
+          exit={{ opacity: 0 }}
+          transition={{ duration: 0.6, ease: 'easeInOut' }}
+        >
+          {/* Brand Heading */}
+          <MotionHeading
+            fontSize={{ base: '2xl', sm: '3xl', md: '4xl', lg: '5xl' }}
+            fontWeight="extrabold"
+            letterSpacing="tight"
+            textAlign="center"
+            bgGradient="linear(to-r, red.500, purple.500)"
+            bgClip="text"
+            initial={{ y: 20, opacity: 0 }}
+            animate={{ y: 0, opacity: 1 }}
+            transition={{ duration: 1, ease: 'easeOut' }}
+          >
+            Welcome to CYTECHSYSTEMS
+          </MotionHeading>
+
+          {/* Modern gradient loader bar */}
+          <MotionBox
+            mt={8}
+            w="80px"
+            h="5px"
+            borderRadius="full"
+            bg="gray.100"
+            overflow="hidden"
+            position="relative"
+          >
+            <MotionBox
+              position="absolute"
+              top={0}
+              left={0}
+              h="100%"
+              w="40%"
+              borderRadius="full"
+              bgGradient="linear(to-r, red.500, purple.500)"
+              animate={{ x: ['-50%', '150%'] }}
+              transition={{
+                repeat: Infinity,
+                duration: 1.2,
+                ease: 'easeInOut',
+              }}
+            />
+          </MotionBox>
+        </MotionBox>
+      )}
+    </AnimatePresence>
   )
 }
+
 
 const HeroSection: React.FC = () => {
   const textColor = useColorModeValue('white', 'white')
