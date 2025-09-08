@@ -30,6 +30,7 @@ import {
   chakra,
   shouldForwardProp,
   useColorMode,
+   Select,
   useColorModeValue,
   Textarea,
   Input
