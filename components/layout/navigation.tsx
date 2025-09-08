@@ -29,10 +29,11 @@ const Navigation: React.FC = () => {
   const mobileNav = useDisclosure()
   const path = usePathname()
 
+  // ✅ Fix: filter out empty selectors so querySelector never fails
   const activeId = useScrollSpy(
     siteConfig.header.links
-      .filter(({ href, children }) => href || children)
-      .map(({ href, children }) => (href ? `[href="${href}"]` : '')),
+      .map(({ href }) => (href ? `[href="${href}"]` : null))
+      .filter(Boolean) as string[],
     { threshold: 0.75 },
   )
 
