@@ -130,12 +130,12 @@ const vehicleImgs = {
   nav: 'https://images.unsplash.com/photo-1556075798-4825dfaaf498?auto=format&fit=crop&w=1920&q=90',
   security: 'https://images.unsplash.com/photo-1484136540910-d66bb475348d?auto=format&fit=crop&w=1920&q=90',
   support: 'https://images.unsplash.com/photo-1562141961-744a7d5ae1d4?auto=format&fit=crop&w=1920&q=90',
-  fuel: 'https://images.unsplash.com/photo-1545558014-8692077e9b5c?auto=format&fit=crop&w=1920&q=90',
+  fuel: '/static/images/fuel.jpg',
   video: 'https://images.unsplash.com/photo-1586953208448-b95a79798f07?auto=format&fit=crop&w=1920&q=90',
-  surveillance: 'https://images.unsplash.com/photo-1557804506-669a67965ba0?auto=format&fit=crop&w=1920&q=90',
+  surveillance: '/static/images/track.jpg',
   autocare: 'https://images.unsplash.com/photo-1492144534655-ae79c964c9d7?auto=format&fit=crop&w=1920&q=90',
   luxury: 'https://images.unsplash.com/photo-1503376780353-7e6692767b70?auto=format&fit=crop&w=1920&q=90',
-  modern: 'https://images.unsplash.com/photo-1542282088-fe8426682b8f?auto=format&fit=crop&w=1920&q=90',
+  modern: '/static/images/slide.jpg',
 }
 
 const BackgroundGradient = ({ height = "100vh", zIndex = -1 }: { height?: string; zIndex?: number }) => {
