@@ -123,7 +123,7 @@ const brand = {
 // Premium HD vehicle images
 const vehicleImgs = {
   hero: 'https://images.unsplash.com/photo-1617195920950-1145bf9a9c72?auto=format&fit=crop&w=2400&q=90',
-  gps: 'https://images.unsplash.com/photo-1558618047-3c8c76ca7d13?auto=format&fit=crop&w=1920&q=90',
+  gps: '/static/images/dash.jpg',
   fleet: '/static/images/vtrack.jpg',
   citySUV: 'https://images.unsplash.com/photo-1571068316344-75bc76f77890?auto=format&fit=crop&w=1920&q=90',
   darkSUV: 'https://images.unsplash.com/photo-1605559424843-9e4c228bf1c2?auto=format&fit=crop&w=1920&q=90',
@@ -134,7 +134,7 @@ const vehicleImgs = {
   video: 'https://images.unsplash.com/photo-1586953208448-b95a79798f07?auto=format&fit=crop&w=1920&q=90',
   surveillance: '/static/images/track.jpg',
   autocare: 'https://images.unsplash.com/photo-1492144534655-ae79c964c9d7?auto=format&fit=crop&w=1920&q=90',
-  luxury: '/static/images/dash.jpg',
+  luxury: 'https://images.unsplash.com/photo-1617195920950-1145bf9a9c72?auto=format&fit=crop&w=2400&q=90',
   modern: '/static/images/car-tracking.jpg',
 }
 
@@ -283,7 +283,7 @@ const HeroSection: React.FC = () => {
                   href="mailto:cytechsystems254@gmail.com"
                   size="lg"
                   variant="outline"
-                  colorScheme="whiteAlpha"
+                  colorScheme="white"
                   _hover={{ transform: 'translateY(-2px)', bg: 'whiteAlpha.200' }}
                   transition="all 0.3s"
                 >
