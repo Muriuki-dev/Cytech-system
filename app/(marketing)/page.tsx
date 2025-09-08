@@ -32,8 +32,7 @@ import {
   useColorMode,
   useColorModeValue,
   Textarea,
-  Input,
-  Spacer
+  Input
 } from '@chakra-ui/react'
 
 import { keyframes } from '@emotion/react'
@@ -1356,228 +1355,92 @@ const WhatsAppButton = () => {
 }
 
 
-// Enhanced AI response system with natural language processing
-const EnhancedChatBot = () => {
-  const { isOpen, onToggle, onClose } = useDisclosure();
+// AI-Smart ChatBot with Context Memory
+const ChatBot = () => {
+  const { isOpen, onToggle, onClose } = useDisclosure()
   const [messages, setMessages] = useState([
-    { 
-      id: 1, 
-      text: "Hello! I'm CY-TECH Assistant, your intelligent vehicle tracking and security consultant. I understand multiple languages and can help even if your English isn't perfect. How can I assist you today?", 
-      sender: 'bot',
-      timestamp: new Date()
-    },
-  ]);
-  const [inputValue, setInputValue] = useState('');
-  const [isTyping, setIsTyping] = useState(false);
-  const messagesEndRef = useRef(null);
-  
-  const bgColor = useColorModeValue('white', 'gray.800');
-  const borderColor = useColorModeValue('gray.200', 'gray.600');
-  
-  // Enhanced quick replies with more options
-  const quickReplies = [
-    'GPS Tracking Info',
-    'Fleet Management',
-    'Pricing & Quotes',
-    'Installation',
-    'Support & Maintenance',
-    'Demo Request'
-  ];
-
-  // Scroll to bottom when new messages arrive
-  const scrollToBottom = () => {
-    messagesEndRef.current?.scrollIntoView({ behavior: "smooth" });
-  };
-
-  useEffect(() => {
-    scrollToBottom();
-  }, [messages]);
-
-  // Enhanced AI response system with better language understanding
-  const getEnhancedBotResponse = (userInput) => {
-    const input = userInput.toLowerCase().trim();
-    
-    // Normalize common misspellings and broken English patterns
-    const normalizedInput = input
-      .replace(/gps|gos|gsp|tracking|traking|tracing/g, 'gps_tracking')
-      .replace(/fleet|fleat|management|managment/g, 'fleet_management')
-      .replace(/price|cost|money|payment|pay|how much|pricing/g, 'pricing')
-      .replace(/install|instal|setup|set up|fitting/g, 'installation')
-      .replace(/support|help|problem|issue|trouble|assistance/g, 'support')
-      .replace(/demo|test|try|sample|show me/g, 'demo')
-      .replace(/vehicle|car|truck|motorbike|motorcycle|matatu/g, 'vehicle')
-      .replace(/security|safety|protection|theft|stealing/g, 'security')
-      .replace(/business|company|work|office/g, 'business');
-
-    // GPS Tracking responses
-    if (normalizedInput.includes('gps_tracking') || input.includes('location') || input.includes('where')) {
-      return generateContextualResponse('gps', input);
-    }
-    
-    // Fleet Management responses
-    if (normalizedInput.includes('fleet_management') || input.includes('driver') || input.includes('fuel')) {
-      return generateContextualResponse('fleet', input);
-    }
-    
-    // Pricing responses
-    if (normalizedInput.includes('pricing') || input.includes('quote') || input.includes('budget')) {
-      return generateContextualResponse('pricing', input);
-    }
-    
-    // Installation responses
-    if (normalizedInput.includes('installation') || input.includes('time') || input.includes('when')) {
-      return generateContextualResponse('installation', input);
-    }
-    
-    // Support responses
-    if (normalizedInput.includes('support') || input.includes('24/7') || input.includes('emergency')) {
-      return generateContextualResponse('support', input);
-    }
-    
-    // Demo requests
-    if (normalizedInput.includes('demo') || input.includes('demonstration') || input.includes('example')) {
-      return generateContextualResponse('demo', input);
-    }
-
-    // Security related queries
-    if (normalizedInput.includes('security') || input.includes('alarm') || input.includes('theft')) {
-      return generateContextualResponse('security', input);
-    }
-
-    // Business related queries
-    if (normalizedInput.includes('business') || input.includes('commercial') || input.includes('enterprise')) {
-      return generateContextualResponse('business', input);
-    }
-
-    // Greeting responses
-    if (input.includes('hello') || input.includes('hi') || input.includes('hey') || input.includes('good')) {
-      return "Hello! Great to hear from you. I'm here to help you understand how CY-TECH's vehicle tracking solutions can benefit you. What specific aspect interests you most?";
-    }
-
-    // Thank you responses
-    if (input.includes('thank') || input.includes('thanks')) {
-      return "You're very welcome! I'm glad I could help. Is there anything else about our vehicle tracking and security services you'd like to know?";
-    }
-
-    // Default intelligent response
-    return generateIntelligentDefault(input);
-  };
-
-  // Generate contextual responses based on topic
-  const generateContextualResponse = (topic, originalInput) => {
-    const responses = {
-      gps: [
-        "Our GPS tracking system provides real-time location monitoring with 99.9% accuracy. You'll get instant alerts for unauthorized movement, geofencing violations, and route deviations. The system works 24/7 and includes mobile app access. Installation takes just 2-3 hours. Would you like to know about specific features?",
-        "Excellent question about GPS tracking! Our system offers: ✓ Real-time location updates every 30 seconds ✓ Historical route playback ✓ Geofencing with instant alerts ✓ Speed monitoring ✓ Mobile and web dashboard access. Perfect for personal vehicles, commercial fleets, or family car monitoring. What type of vehicle are you looking to track?",
-      ],
-      fleet: [
-        "Our fleet management solution is comprehensive! It includes driver behavior analysis (harsh braking, speeding, rapid acceleration), fuel consumption tracking, maintenance scheduling, route optimization, and detailed reporting. Perfect for businesses wanting to reduce costs and improve efficiency. How many vehicles are in your fleet?",
-        "Great choice asking about fleet management! We help businesses: ✓ Reduce fuel costs by 15-25% ✓ Improve driver safety scores ✓ Automate maintenance schedules ✓ Optimize routes for efficiency ✓ Generate compliance reports. Our system has helped over 500+ Kenyan businesses save money and improve operations.",
-      ],
-      pricing: [
-        "I understand budget is important! Our pricing is very competitive and depends on your specific needs. Basic GPS tracking starts from as low as KES 8,000 for the device plus KES 1,500 monthly. Fleet management packages start from KES 12,000 per vehicle. We offer flexible payment plans and bulk discounts. Can I get your contact to send a detailed quote?",
-        "Smart question about pricing! We believe in transparent, affordable pricing. Individual vehicle tracking: KES 8,000-15,000 (device) + KES 1,500-3,000/month. Fleet packages: Special rates for 3+ vehicles. Installation included in Nairobi area. We also offer lease-to-own options. What's your budget range?",
-      ],
-      installation: [
-        "Installation is quick and professional! In Nairobi, we complete most installations in 2-3 hours at your preferred location (home, office, or our workshop). Our certified technicians ensure zero damage to your vehicle's warranty. We provide same-day service for urgent requests. Installation includes full system testing and user training. When would be convenient for you?",
-        "Great question! Our installation process is designed for your convenience: ✓ 2-3 hours completion time ✓ Certified technicians ✓ Warranty-safe installation ✓ Same-day service available ✓ Free training included ✓ Mobile installation service in Nairobi. We can come to your location. What area are you located in?",
-      ],
-      support: [
-        "We provide exceptional 24/7 support! Our technical team responds within 5 minutes for emergencies. You get: ✓ 24/7 phone support: (+254) 715 643457 ✓ Live chat assistance ✓ Free regular check-ups ✓ Software updates ✓ Replacement guarantee ✓ User training sessions. We're always here when you need us!",
-        "Support is our priority! We offer comprehensive support: Round-the-clock technical assistance, free system health checks every 3 months, immediate replacement for faulty devices, ongoing user training, and software updates. Our average response time is under 5 minutes. You're never alone with CY-TECH!",
-      ],
-      demo: [
-        "I'd love to show you our system in action! We offer: ✓ Free live demo at our office ✓ Virtual demo via video call ✓ Trial installation (2 weeks free) ✓ Mobile demo at your location. You'll see real-time tracking, alerts, reports, and mobile app functionality. When would you prefer to see a demonstration?",
-        "Excellent! Seeing is believing. We can arrange: A live demonstration at our Nairobi office, virtual demo via Zoom/WhatsApp video, or a 2-week free trial installation. You'll experience real-time tracking, instant alerts, and comprehensive reporting. What demo option interests you most?",
-      ],
-      security: [
-        "Vehicle security is our expertise! Our system provides: ✓ Instant theft alerts ✓ Remote engine immobilization ✓ Panic button functionality ✓ Unauthorized movement detection ✓ Recovery assistance with police ✓ Insurance premium discounts. We've helped recover 95% of stolen vehicles with our system. Your vehicle's security is our guarantee!",
-        "Security is paramount! Our advanced anti-theft features include real-time alerts, remote engine cut-off, geofencing, and 24/7 monitoring. We work directly with police for quick recovery. Many insurance companies offer discounts for vehicles with our tracking systems. Complete peace of mind guaranteed!",
-      ],
-      business: [
-        "Perfect for businesses! Our commercial solutions help you: ✓ Monitor employee vehicle use ✓ Reduce fuel theft ✓ Improve customer service with accurate ETAs ✓ Generate compliance reports ✓ Reduce insurance costs ✓ Increase operational efficiency. We serve logistics, transport, delivery, and service companies across Kenya. What's your business type?",
-        "Smart business decision! Companies using our system report: 20-30% reduction in fuel costs, 40% improvement in on-time deliveries, 50% reduction in unauthorized vehicle use, and better customer satisfaction. We provide detailed analytics and ROI reports. Let's discuss how we can help your specific business!",
-      ]
-    };
-
-    const topicResponses = responses[topic];
-    return topicResponses[Math.floor(Math.random() * topicResponses.length)];
-  };
-
-  // Generate intelligent default response
-  const generateIntelligentDefault = (input) => {
-    const intelligentResponses = [
-      "I understand you're interested in vehicle tracking solutions. Let me help you find the right information! CY-TECH specializes in GPS tracking, fleet management, and vehicle security. Which area would you like to explore first?",
-      "Thank you for your question! CY-TECH offers comprehensive vehicle tracking and security solutions for individuals and businesses. We provide real-time GPS tracking, anti-theft systems, and fleet management. What specific challenge are you trying to solve?",
-      "Great to hear from you! I'm here to help with any questions about vehicle tracking, GPS monitoring, fleet management, or security systems. Our solutions are tailored for the Kenyan market. How can I assist you specifically?",
-      "I appreciate your interest in CY-TECH! We're Kenya's leading vehicle tracking and security company. Whether you need personal vehicle monitoring or business fleet management, we have the perfect solution. What would you like to know more about?"
-    ];
-
-    return intelligentResponses[Math.floor(Math.random() * intelligentResponses.length)] + 
-           "\n\n📞 Call: (+254) 715 643457\n📧 Email: cytechsystems254@gmail.com";
-  };
+    { id: 1, text: "👋 Hello! I'm CY-TECH Assistant. I can help you with vehicle tracking, fuel monitoring, telematics, surveillance, and auto care. What would you like to know?", sender: 'bot' },
+  ])
+  const [inputValue, setInputValue] = useState('')
+  const [isTyping, setIsTyping] = useState(false)
+  const [lastTopic, setLastTopic] = useState<string | null>(null) // ✅ memory
 
   const handleSendMessage = () => {
-    if (!inputValue.trim()) return;
+    if (!inputValue.trim()) return
 
-    const newMessage = {
-      id: messages.length + 1,
-      text: inputValue,
-      sender: 'user',
-      timestamp: new Date()
-    };
-
-    setMessages(prev => [...prev, newMessage]);
-    setInputValue('');
-    setIsTyping(true);
-
-    // Simulate AI thinking time
-    setTimeout(() => {
-      const botResponse = {
-        id: messages.length + 2,
-        text: getEnhancedBotResponse(inputValue),
-        sender: 'bot',
-        timestamp: new Date()
-      };
-      setMessages(prev => [...prev, botResponse]);
-      setIsTyping(false);
-    }, 1200 + Math.random() * 800); // Variable response time for realism
-  };
-
-  const handleQuickReply = (reply) => {
-    const newMessage = {
-      id: messages.length + 1,
-      text: reply,
-      sender: 'user',
-      timestamp: new Date()
-    };
-
-    setMessages(prev => [...prev, newMessage]);
-    setIsTyping(true);
+    const newMessage = { id: messages.length + 1, text: inputValue, sender: 'user' }
+    setMessages(prev => [...prev, newMessage])
+    setInputValue('')
+    setIsTyping(true)
 
     setTimeout(() => {
-      const botResponse = {
-        id: messages.length + 2,
-        text: getEnhancedBotResponse(reply),
-        sender: 'bot',
-        timestamp: new Date()
-      };
-      setMessages(prev => [...prev, botResponse]);
-      setIsTyping(false);
-    }, 1000);
-  };
+      const response = getSmartResponse(inputValue)
+      const botResponse = { id: messages.length + 2, text: response, sender: 'bot' }
+      setMessages(prev => [...prev, botResponse])
+      setIsTyping(false)
+    }, 1200)
+  }
 
-  // Responsive dimensions
-  const chatWidth = { base: "90vw", sm: "380px", md: "400px" };
-  const chatHeight = { base: "80vh", sm: "500px", md: "600px" };
-  const bottomOffset = { base: "4", sm: "6" };
-  const rightOffset = { base: "4", sm: "6" };
+  // ✅ Smart Response System
+  const getSmartResponse = (userInput: string) => {
+    const input = userInput.toLowerCase().trim()
+    const normalize = (t: string) => t.replace(/[^a-zA-Z0-9 ]/g, '')
+    const cleaned = normalize(input)
+
+    // 🚗 Tracking
+    if (cleaned.match(/track|gps|fleet|location|vehicle|monitor/)) {
+      setLastTopic("tracking")
+      return "🚗 Our GPS Vehicle Tracking gives **real-time location, driver monitoring, trip reports, and remote immobilization**. Would you like a quick demo or pricing details?"
+    }
+
+    // ⛽ Fuel Monitoring
+    if (cleaned.match(/fuel|petrol|diesel|consume|tank|theft fuel/)) {
+      setLastTopic("fuel")
+      return "⛽ Our Fuel Monitoring detects even **1% fuel changes**, prevents theft, supports multi-tanks, and improves cost efficiency. Do you want details on installation or pricing?"
+    }
+
+    // 🎥 Video Telematics
+    if (cleaned.match(/video|camera|dashcam|telematics|record/)) {
+      setLastTopic("video")
+      return "🎥 Our Video Telematics provides **AI-powered driver monitoring, accident footage, cloud storage, and live streaming**. Perfect for compliance and safety. Would you like a brochure?"
+    }
+
+    // 🕵️ Surveillance
+    if (cleaned.match(/nanny|spy|cctv|surveillance|farm|camera|monitor/)) {
+      setLastTopic("surveillance")
+      return "🕵️ We offer **nanny, spy & farm surveillance cameras** with HD recording, motion alerts, two-way audio, and remote access. Ideal for home, office, or farm security. Interested in pricing or installation?"
+    }
+
+    // 🛠️ Auto Care
+    if (cleaned.match(/alarm|tint|etch|riveting|audio|ac|security|car/)) {
+      setLastTopic("auto")
+      return "🛠️ We provide **Car Tinting, Alarms, VIN Etching, Riveting, Premium Audio/Visual installs, and AC maintenance**. Would you like to know our service packages?"
+    }
+
+    // 💰 Pricing (context-aware)
+    if (cleaned.match(/price|cost|rate|quote|how much/)) {
+      if (lastTopic === "tracking") return "💰 GPS Tracking packages vary by fleet size. Small fleets start at budget-friendly rates. Call (+254) 715 643457 for exact pricing."
+      if (lastTopic === "fuel") return "💰 Fuel Monitoring pricing depends on sensor type & installation. We’ll customize based on your vehicles/tanks."
+      if (lastTopic === "video") return "💰 Video Telematics solutions vary depending on number of cameras & storage. We can provide a tailored quotation."
+      if (lastTopic === "surveillance") return "💰 Surveillance system pricing depends on camera type & coverage area. Packages available for homes, offices, and farms."
+      if (lastTopic === "auto") return "💰 Auto Care pricing depends on the service (tinting, alarms, audio, AC, etc.). We can give you exact figures per service."
+      return "💰 Pricing depends on the service. Could you specify which service (tracking, fuel, video, surveillance, auto care)?"
+    }
+
+    // 📞 Support
+    if (cleaned.match(/support|help|assist|service/)) {
+      return "📞 We provide **24/7 support, free check-ups, training, and 5-minute response time**. How can we assist you right now?"
+    }
+
+    // Default Fallback
+    return "🤖 That’s a great question! I can help with **Tracking, Fuel Monitoring, Video Telematics, Surveillance, and Auto Care**. Could you tell me which one interests you most?"
+  }
 
   return (
     <Box
       position="fixed"
-      bottom={bottomOffset}
-      right={rightOffset}
+      bottom="4"
+      right="4"
       zIndex="1000"
     >
       <AnimatePresence>
@@ -1594,7 +1457,7 @@ const EnhancedChatBot = () => {
               aria-label="Open chat"
               icon={<FaRobot />}
               colorScheme="red"
-              size={{ base: "lg", md: "lg" }}
+              size="lg"
               isRound
               boxShadow="2xl"
               onClick={onToggle}
@@ -1602,14 +1465,6 @@ const EnhancedChatBot = () => {
                 boxShadow: '0 0 30px rgba(239, 68, 68, 0.5)',
               }}
               transition="all 0.3s"
-            />
-            <Badge
-              position="absolute"
-              top="-1"
-              right="-1"
-              colorScheme="green"
-              borderRadius="full"
-              boxSize="3"
             />
           </MotionBox>
         ) : (
@@ -1620,8 +1475,8 @@ const EnhancedChatBot = () => {
             transition={{ type: "spring", stiffness: 200, damping: 25 }}
           >
             <Box
-              w={chatWidth}
-              h={chatHeight}
+              w={{ base: "95vw", md: "sm" }} // ✅ Responsive width
+              h={{ base: "75vh", md: "md" }} // ✅ Responsive height
               bg={bgColor}
               rounded="2xl"
               boxShadow="2xl"
@@ -1633,23 +1488,16 @@ const EnhancedChatBot = () => {
             >
               {/* Chat Header */}
               <Box
-                p={{ base: 3, md: 4 }}
+                p={4}
                 bg="red.600"
                 color="white"
                 display="flex"
                 alignItems="center"
                 justifyContent="space-between"
               >
-                <HStack spacing={3}>
-                  <Icon as={FaRobot} boxSize={{ base: 5, md: 6 }} />
-                  <VStack align="start" spacing={0}>
-                    <Text fontWeight="bold" fontSize={{ base: "sm", md: "md" }}>
-                      CY-TECH Assistant
-                    </Text>
-                    <Text fontSize="xs" opacity={0.8}>
-                      AI-Powered • Always Online
-                    </Text>
-                  </VStack>
+                <HStack>
+                  <Icon as={FaRobot} />
+                  <Text fontWeight="bold">CY-TECH Assistant</Text>
                 </HStack>
                 <IconButton
                   aria-label="Close chat"
@@ -1662,86 +1510,50 @@ const EnhancedChatBot = () => {
               </Box>
 
               {/* Chat Messages */}
-              <Box 
-                flex={1} 
-                p={{ base: 2, md: 4 }} 
-                overflowY="auto"
-                css={{
-                  '&::-webkit-scrollbar': {
-                    width: '4px',
-                  },
-                  '&::-webkit-scrollbar-track': {
-                    width: '6px',
-                  },
-                  '&::-webkit-scrollbar-thumb': {
-                    background: '#CBD5E0',
-                    borderRadius: '24px',
-                  },
-                }}
-              >
-                <VStack align="stretch" spacing={3}>
+              <Box flex={1} p={4} overflowY="auto">
+                <VStack align="stretch" spacing={4}>
                   {messages.map((message) => (
-                    <Flex
+                    <Box
                       key={message.id}
-                      justify={message.sender === 'user' ? 'flex-end' : 'flex-start'}
+                      alignSelf={message.sender === 'user' ? 'flex-end' : 'flex-start'}
+                      maxW="80%"
                     >
                       <Box
-                        maxW="85%"
-                        display="flex"
-                        alignItems="flex-start"
-                        flexDirection={message.sender === 'user' ? 'row-reverse' : 'row'}
-                        gap={2}
+                        p={3}
+                        bg={message.sender === 'user' ? 'red.500' : 'gray.100'}
+                        color={message.sender === 'user' ? 'white' : 'gray.800'}
+                        rounded="xl"
+                        borderBottomRightRadius={message.sender === 'user' ? 'sm' : 'xl'}
+                        borderBottomLeftRadius={message.sender === 'user' ? 'xl' : 'sm'}
                       >
-                        <Icon
-                          as={message.sender === 'user' ? FaUser : FaRobot}
-                          boxSize={4}
-                          color={message.sender === 'user' ? 'red.500' : 'blue.500'}
-                          mt={1}
-                        />
-                        <Box
-                          p={{ base: 2, md: 3 }}
-                          bg={message.sender === 'user' ? 'red.500' : 'gray.100'}
-                          color={message.sender === 'user' ? 'white' : 'gray.800'}
-                          rounded="xl"
-                          borderBottomRightRadius={message.sender === 'user' ? 'sm' : 'xl'}
-                          borderBottomLeftRadius={message.sender === 'user' ? 'xl' : 'sm'}
-                          boxShadow="sm"
-                        >
-                          <Text fontSize={{ base: "xs", md: "sm" }} whiteSpace="pre-wrap">
-                            {message.text}
-                          </Text>
-                        </Box>
+                        <Text fontSize="sm">{message.text}</Text>
                       </Box>
-                    </Flex>
+                    </Box>
                   ))}
-                  
+
                   {isTyping && (
-                    <Flex justify="flex-start">
-                      <Box display="flex" alignItems="flex-start" gap={2}>
-                        <Icon as={FaRobot} boxSize={4} color="blue.500" mt={1} />
-                        <Box
-                          p={3}
-                          bg="gray.100"
-                          color="gray.800"
-                          rounded="xl"
-                          borderBottomLeftRadius="sm"
-                        >
-                          <HStack spacing={1}>
-                            <Box w={2} h={2} bg="gray.400" rounded="full" animation="pulse 1s ease-in-out infinite" />
-                            <Box w={2} h={2} bg="gray.400" rounded="full" animation="pulse 1s ease-in-out infinite 0.2s" />
-                            <Box w={2} h={2} bg="gray.400" rounded="full" animation="pulse 1s ease-in-out infinite 0.4s" />
-                          </HStack>
-                        </Box>
+                    <Box alignSelf="flex-start">
+                      <Box
+                        p={3}
+                        bg="gray.100"
+                        color="gray.800"
+                        rounded="xl"
+                        borderBottomLeftRadius="sm"
+                      >
+                        <HStack spacing={1}>
+                          <Box w={2} h={2} bg="gray.400" rounded="full" animation={`${pulse} 1s ease-in-out infinite`} />
+                          <Box w={2} h={2} bg="gray.400" rounded="full" animation={`${pulse} 1s ease-in-out infinite 0.2s`} />
+                          <Box w={2} h={2} bg="gray.400" rounded="full" animation={`${pulse} 1s ease-in-out infinite 0.4s`} />
+                        </HStack>
                       </Box>
-                    </Flex>
+                    </Box>
                   )}
-                  <div ref={messagesEndRef} />
                 </VStack>
               </Box>
 
               {/* Quick Replies */}
-              <Box p={{ base: 2, md: 3 }} borderTopWidth="1px" borderColor={borderColor}>
-                <Wrap spacing={1} justify="center">
+              <Box p={2} borderTopWidth="1px" borderColor={borderColor}>
+                <Wrap spacing={2} justify="center">
                   {quickReplies.map((reply) => (
                     <Button
                       key={reply}
@@ -1749,8 +1561,6 @@ const EnhancedChatBot = () => {
                       variant="outline"
                       colorScheme="red"
                       onClick={() => handleQuickReply(reply)}
-                      fontSize="xs"
-                      px={2}
                     >
                       {reply}
                     </Button>
@@ -1759,28 +1569,14 @@ const EnhancedChatBot = () => {
               </Box>
 
               {/* Input Area */}
-              <HStack 
-                p={{ base: 2, md: 3 }} 
-                borderTopWidth="1px" 
-                borderColor={borderColor}
-                spacing={2}
-              >
-                <Textarea
-                  placeholder="Type your message... (English, Swahili, or broken English - I understand all!)"
+              <HStack p={3} borderTopWidth="1px" borderColor={borderColor}>
+                <Input
+                  placeholder="Type your message..."
                   value={inputValue}
                   onChange={(e) => setInputValue(e.target.value)}
-                  onKeyPress={(e) => {
-                    if (e.key === 'Enter' && !e.shiftKey) {
-                      e.preventDefault();
-                      handleSendMessage();
-                    }
-                  }}
+                  onKeyPress={(e) => e.key === 'Enter' && handleSendMessage()}
                   size="sm"
-                  rounded="xl"
-                  resize="none"
-                  rows={1}
-                  maxRows={3}
-                  fontSize={{ base: "sm", md: "md" }}
+                  rounded="full"
                 />
                 <IconButton
                   aria-label="Send message"
@@ -1797,8 +1593,8 @@ const EnhancedChatBot = () => {
         )}
       </AnimatePresence>
     </Box>
-  );
-};
+  )
+}
 
 
 export default Home
