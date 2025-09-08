@@ -11,7 +11,7 @@ import {
   Button,
 } from '@chakra-ui/react'
 import { motion, AnimatePresence } from 'framer-motion'
-import { ChevronDownIcon } from '@chakra-ui/icons'
+import { FiChevronDown } from 'react-icons/fi'
 import { useDisclosure, useUpdateEffect } from '@chakra-ui/react'
 import { useScrollSpy } from 'hooks/use-scrollspy'
 import { usePathname } from 'next/navigation'
@@ -71,7 +71,7 @@ const Navigation: React.FC = () => {
                       variant="ghost"
                       fontWeight={isActive ? 'bold' : 'medium'}
                       color={isActive ? activeColor : linkColor}
-                      rightIcon={<ChevronDownIcon />}
+                      rightIcon={<FiChevronDown />}
                     >
                       {link.label}
                     </MenuButton>
