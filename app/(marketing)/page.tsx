@@ -170,7 +170,7 @@ const BackgroundGradient = ({ height = "100vh", zIndex = -1 }: { height?: string
 const Home: NextPage = () => {
   return (
     <Box>
-      <SiteLoader /> {/* 👈 Add loader here */}
+      
       <HeroSection />
       <WhoWeAreSection />
       <ServicesSection />
@@ -184,121 +184,6 @@ const Home: NextPage = () => {
     </Box>
   )
 }
-
-// Ultra Premium SaaS Circular Loader (Fixed Spinner)
-const SiteLoader: React.FC = () => {
-  const [loading, setLoading] = useState(true)
-
-  useEffect(() => {
-    const timer = setTimeout(() => setLoading(false), 2800) // ~2.8s loader
-    return () => clearTimeout(timer)
-  }, [])
-
-  return (
-    <AnimatePresence>
-      {loading && (
-        <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center' }}>
-          {/* Brand Heading */}
-          <MotionHeading
-            fontSize={{ base: '2xl', sm: '3xl', md: '4xl', lg: '5xl' }}
-            fontWeight="extrabold"
-            letterSpacing="tight"
-            textAlign="center"
-            bgGradient="linear(to-r, red.500, purple.500)"
-            bgClip="text"
-            mb={12}
-            initial={{ y: 40, opacity: 0 }}
-            animate={{ y: 0, opacity: 1 }}
-            transition={{ duration: 1, ease: 'easeOut' }}
-          >
-            Welcome to CYTECHSYSTEMS
-          </MotionHeading>
-
-          {/* Premium Multi-Layer Circular Spinner */}
-          <MotionBox as="svg" width="120px" height="120px" viewBox="0 0 100 100">
-            {/* Outer glowing ring */}
-            <motion.circle
-              cx="50"
-              cy="50"
-              r="40"
-              stroke="url(#premiumGradient)"
-              strokeWidth="5"
-              fill="none"
-              strokeLinecap="round"
-              strokeDasharray="120 180"
-              strokeDashoffset="0"
-              animate={{
-                rotate: 360,
-                strokeDashoffset: [0, -300],
-              }}
-              transition={{
-                rotate: { repeat: Infinity, duration: 2.5, ease: 'linear' },
-                strokeDashoffset: {
-                  repeat: Infinity,
-                  duration: 2.5,
-                  ease: 'linear',
-                },
-              }}
-              style={{
-                transformOrigin: '50% 50%',
-                filter: 'drop-shadow(0 0 12px rgba(208, 52, 255, 0.6))',
-              }}
-            />
-
-            {/* Inner reverse ring */}
-            <motion.circle
-              cx="50"
-              cy="50"
-              r="28"
-              stroke="url(#premiumGradient)"
-              strokeWidth="3"
-              fill="none"
-              strokeDasharray="80 160"
-              strokeDashoffset="0"
-              animate={{
-                rotate: -360,
-                strokeDashoffset: [0, -200],
-              }}
-              transition={{
-                rotate: { repeat: Infinity, duration: 2, ease: 'linear' },
-                strokeDashoffset: {
-                  repeat: Infinity,
-                  duration: 2,
-                  ease: 'linear',
-                },
-              }}
-              style={{ transformOrigin: '50% 50%', opacity: 0.7 }}
-            />
-
-            {/* Pulsing center dot */}
-            <motion.circle
-              cx="50"
-              cy="50"
-              r="5"
-              fill="url(#premiumGradient)"
-              animate={{ scale: [1, 1.3, 1] }}
-              transition={{ repeat: Infinity, duration: 1.2, ease: 'easeInOut' }}
-            />
-
-            <defs>
-              <linearGradient id="premiumGradient" x1="0%" y1="0%" x2="100%" y2="0%">
-                <stop offset="0%" stopColor="#E53E3E" /> {/* red.500 */}
-                <stop offset="50%" stopColor="#D53F8C" /> {/* pink.500 */}
-                <stop offset="100%" stopColor="#805AD5" /> {/* purple.500 */}
-              </linearGradient>
-            </defs>
-          </MotionBox>
-        </div>
-      )}
-    </AnimatePresence>
-  )
-}
-
-
-
-
-
-
 
 
 const HeroSection: React.FC = () => {
@@ -1463,7 +1348,7 @@ const ContactSection = () => {
     e.preventDefault()
     setLoading(true)
 
-    // 👉 Instead of email (server needed), redirect to WhatsApp:
+    // 👉 Redirect to WhatsApp:
     const whatsappNumber = "254715643457"
     const message = `Hello, my name is ${formData.name}. My email is ${formData.email}. Message: ${formData.message}`
     const whatsappLink = `https://wa.me/${whatsappNumber}?text=${encodeURIComponent(message)}`
@@ -1483,94 +1368,113 @@ const ContactSection = () => {
     })
   }
 
-  // Colors for light/dark themes
+  // Theme colors
   const inputBg = useColorModeValue("whiteAlpha.800", "whiteAlpha.100")
   const labelColor = useColorModeValue("gray.700", "gray.200")
   const btnBg = useColorModeValue("red.500", "red.400")
   const btnHover = useColorModeValue("red.600", "red.500")
+  const headingColor = useColorModeValue("gray.800", "white")
+  const bgColor = useColorModeValue("gray.50", "gray.900")
+  const cardBg = useColorModeValue("white", "gray.800")
 
   return (
-    <Box py={{ base: 16, lg: 24 }} position="relative" zIndex={1}>
-      {/* Header / Call-to-action */}
-      <Text
-        textAlign="center"
-        fontSize={{ base: "xl", md: "2xl" }}
-        fontWeight="bold"
-        mb={10}
-        bgGradient="linear(to-r, red.500, purple.500)"
-        bgClip="text"
-      >
-        Do you have any question? Text us on WhatsApp now 📲
-      </Text>
+    <Box py={{ base: 16, lg: 24 }} bg={bgColor} position="relative" overflow="hidden">
+      {/* Background image (FAQ style) */}
+      <Box
+        position="absolute"
+        inset={0}
+        opacity={0.05}
+        backgroundImage={`url(${vehicleImgs.fleet})`}
+        backgroundSize="cover"
+        backgroundPosition="center"
+        backgroundAttachment="fixed"
+      />
 
-      <Container
-        maxW="lg"
-        bg={{
-          base: useColorModeValue("whiteAlpha.700", "blackAlpha.400"), // visible on small screens
-          lg: "transparent", // fully transparent background on large screens
-        }}
-        backdropFilter={{ base: "blur(16px)", lg: "none" }}
-        borderRadius="2xl"
-        boxShadow={{ base: "2xl", lg: "none" }}
-        p={10}
-      >
-        <form onSubmit={handleSubmit}>
-          <VStack spacing={6}>
-            <FormControl isRequired>
-              <FormLabel color={labelColor}>Your Name</FormLabel>
-              <Input
-                name="name"
-                placeholder="Cytech systems"
-                value={formData.name}
-                onChange={handleChange}
-                bg={inputBg}
-                borderRadius="xl"
-              />
-            </FormControl>
+      <Container maxW="container.md" position="relative">
+        {/* Header */}
+        <MotionHeading
+          size="2xl"
+          mb={12}
+          color={headingColor}
+          textAlign="center"
+          bgGradient="linear(to-r, red.500, purple.500)"
+          bgClip="text"
+          initial={{ opacity: 0, y: -30 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true }}
+          transition={{ duration: 0.8 }}
+        >
+          Do you have any question? Text us on WhatsApp now 📲
+        </MotionHeading>
 
-            <FormControl isRequired>
-              <FormLabel color={labelColor}>Email Address</FormLabel>
-              <Input
-                type="email"
-                name="email"
-                placeholder="you@example.com"
-                value={formData.email}
-                onChange={handleChange}
-                bg={inputBg}
-                borderRadius="xl"
-              />
-            </FormControl>
+        {/* Contact Form */}
+        <Box
+          p={10}
+          rounded="2xl"
+          borderWidth="1px"
+          borderColor={useColorModeValue("gray.200", "gray.700")}
+          boxShadow="2xl"
+          bg={cardBg}
+          backdropFilter="blur(10px)"
+        >
+          <form onSubmit={handleSubmit}>
+            <VStack spacing={6}>
+              <FormControl isRequired>
+                <FormLabel color={labelColor}>Your Name</FormLabel>
+                <Input
+                  name="name"
+                  placeholder="Cytech systems"
+                  value={formData.name}
+                  onChange={handleChange}
+                  bg={inputBg}
+                  borderRadius="xl"
+                />
+              </FormControl>
 
-            <FormControl isRequired>
-              <FormLabel color={labelColor}>Message</FormLabel>
-              <Textarea
-                name="message"
-                placeholder="Write your message..."
-                value={formData.message}
-                onChange={handleChange}
-                rows={5}
-                bg={inputBg}
-                borderRadius="xl"
-              />
-            </FormControl>
+              <FormControl isRequired>
+                <FormLabel color={labelColor}>Email Address</FormLabel>
+                <Input
+                  type="email"
+                  name="email"
+                  placeholder="you@example.com"
+                  value={formData.email}
+                  onChange={handleChange}
+                  bg={inputBg}
+                  borderRadius="xl"
+                />
+              </FormControl>
 
-            <MotionBox whileHover={{ scale: 1.05 }} whileTap={{ scale: 0.95 }}>
-              <Button
-                type="submit"
-                isLoading={loading}
-                colorScheme="red"
-                bg={btnBg}
-                _hover={{ bg: btnHover }}
-                size="lg"
-                px={10}
-                borderRadius="xl"
-                boxShadow="lg"
-              >
-                Send via WhatsApp
-              </Button>
-            </MotionBox>
-          </VStack>
-        </form>
+              <FormControl isRequired>
+                <FormLabel color={labelColor}>Message</FormLabel>
+                <Textarea
+                  name="message"
+                  placeholder="Write your message..."
+                  value={formData.message}
+                  onChange={handleChange}
+                  rows={5}
+                  bg={inputBg}
+                  borderRadius="xl"
+                />
+              </FormControl>
+
+              <MotionBox whileHover={{ scale: 1.05 }} whileTap={{ scale: 0.95 }}>
+                <Button
+                  type="submit"
+                  isLoading={loading}
+                  colorScheme="red"
+                  bg={btnBg}
+                  _hover={{ bg: btnHover }}
+                  size="lg"
+                  px={10}
+                  borderRadius="xl"
+                  boxShadow="lg"
+                >
+                  Send via WhatsApp
+                </Button>
+              </MotionBox>
+            </VStack>
+          </form>
+        </Box>
       </Container>
     </Box>
   )
