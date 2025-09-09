@@ -184,7 +184,8 @@ const Home: NextPage = () => {
     </Box>
   )
 }
-// Ultra Premium SaaS Circular Loader (Fixed Spinner)
+
+// Ultra Premium SaaS Circular Loader (Fixed Spinner with Smooth Exit)
 const SiteLoader: React.FC = () => {
   const [loading, setLoading] = useState(true)
 
@@ -196,7 +197,20 @@ const SiteLoader: React.FC = () => {
   return (
     <AnimatePresence>
       {loading && (
-       
+        <motion.div
+          key="site-loader"
+          initial={{ opacity: 0, scale: 0.95 }}
+          animate={{ opacity: 1, scale: 1 }}
+          exit={{ opacity: 0, scale: 0.9 }}
+          transition={{ duration: 0.6, ease: 'easeInOut' }}
+          style={{
+            display: 'flex',
+            flexDirection: 'column',
+            alignItems: 'center',
+            justifyContent: 'center',
+            height: '100vh',
+          }}
+        >
           {/* Brand Heading */}
           <MotionHeading
             fontSize={{ base: '2xl', sm: '3xl', md: '4xl', lg: '5xl' }}
@@ -238,7 +252,10 @@ const SiteLoader: React.FC = () => {
                   ease: 'linear',
                 },
               }}
-              style={{ transformOrigin: '50% 50%', filter: 'drop-shadow(0 0 12px rgba(208, 52, 255, 0.6))' }}
+              style={{
+                transformOrigin: '50% 50%',
+                filter: 'drop-shadow(0 0 12px rgba(208, 52, 255, 0.6))',
+              }}
             />
 
             {/* Inner reverse ring */}
@@ -284,11 +301,12 @@ const SiteLoader: React.FC = () => {
               </linearGradient>
             </defs>
           </MotionBox>
-        </MotionBox>
+        </motion.div>
       )}
     </AnimatePresence>
   )
 }
+
 
 
 
