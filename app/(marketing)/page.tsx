@@ -131,10 +131,10 @@ const vehicleImgs = {
   darkSUV: 'https://images.unsplash.com/photo-1605559424843-9e4c228bf1c2?auto=format&fit=crop&w=1920&q=90',
   nav: '/static/images/brg5.png',
   security: 'https://images.unsplash.com/photo-1484136540910-d66bb475348d?auto=format&fit=crop&w=1920&q=90',
-  support: '/static/images/new2.jpg',
-  fuel: '/static/images/fuel.jpg',
-  video: '/static/images/brg3.png',
-  surveillance: '/static/images/track.jpg',
+  support: '/static/images/tint.jpeg',
+  fuel: '/static/images/fuel2.jpeg',
+  video: '/static/images/track.jpg',
+  surveillance: '/static/images/WhatsApp Image 2025-09-08 at 9.17.09 PM.jpeg',
   autocare: '/static/images/brg6.jpg',
   luxury: '/static/images/bgr1.png',
   modern: '/static/images/new.jpg',
@@ -747,49 +747,53 @@ Applications:
 • Farm & Agricultural property – designed to provide reliable 24/7 monitoring for farms, ranches, and agricultural facilities`,
   },
   {
-    key: 'autocare',
-    title: 'Auto Care & Security Services',
-    icon: FaCar,
-    img: vehicleImgs.autocare,
-    shortDesc: 'Transform Your Ride – Style & Safety One Stop!',
-    details: `Upgrade your car with our premium range of auto accessories and professional services designed to give you comfort, security, and a standout look.
+  key: 'autocare',
+  title: 'Car Alarms & Security',
+  icon: FaCar,
+  img: vehicleImgs.autocare,
+  shortDesc: 'Advanced protection systems to keep your car safe 24/7.',
+  details: `Safeguard your vehicle with our premium car alarms and anti-theft security solutions. 
+We specialize in modern systems designed to deter theft, provide real-time alerts, 
+and give you complete peace of mind on the road.
 
-Professional Car Care & Security Services:
+Car Alarms & Anti-Theft Systems  
+• State-of-the-art alarm installations with motion and shock sensors  
+• Remote monitoring & smart notifications  
+• Immobilizers and keyless entry security  
 
-Car Tinting Services – UV Protection & Privacy
-Upgrade your car with our premium window tinting solutions. Reduce glare, block harmful UV rays, enhance privacy, and keep your vehicle cooler.
+Vehicle Identity Marking (VIN Etching)  
+• Permanent engraving of your car’s registration and engine numbers  
+• Applied to windshields, mirrors, headlights, and taillights  
 
-Car Alarms & Anti-Theft Security Systems
-Protect your vehicle from theft with our advanced car alarm installations and smart security systems. Enjoy 24/7 protection with motion sensors, shock alerts, and remote monitoring options.
+Car Riveting for Theft Prevention  
+• Secure high-risk parts: logos, mirrors, license plates, chromes, wipers  
 
-Vehicle Identity Marking (VIN Etching)
-We provide computerized engraving of your car's registration and engine number on essential components such as windshields, side mirrors, windows, headlights, and taillights.
+With our expert installations, you can drive confidently knowing your car is protected at all times.`,
+},
+{
+  key: 'support',
+  title: 'Car Tint & Auto Care',
+  icon: FiZap,
+  img: vehicleImgs.support,
+  shortDesc: 'Enhance comfort, style, and protection with our tinting & care services.',
+  details: `Upgrade your driving experience with professional car tinting and full auto care solutions. 
+Our services not only improve comfort and privacy but also protect your vehicle inside and out.
 
-Car Riveting for Theft Prevention
-Secure high-risk vehicle components including logos, side mirrors, license plates, chromes, and wipers with our professional riveting service.
+Car Tinting Services  
+• Premium UV protection and heat reduction  
+• Enhanced privacy and glare control  
+• Professional installation for a flawless finish  
 
-Car Audio & Visual Installation Services
-Upgrade your in-car entertainment with our professional installation of car stereos, subwoofers, speakers, and multimedia displays.
+Car Air Conditioning Services  
+• AC gas refill and recharge  
+• Full maintenance and performance optimization  
 
-Car Air Conditioning Refill & Maintenance
-Keep your car's AC performing at its best with our refill, gas recharge, and maintenance services.`,
-  },
-  {
-    key: 'support',
-    title: 'Installation & 24/7 Support',
-    icon: FiZap,
-    img: vehicleImgs.support,
-    shortDesc: 'Professional support and installation services.',
-    details: `Professional on-site installation, user training, free check-ups, and around-the-clock support with global-backed warranty. Our expert technicians ensure seamless integration and optimal performance of all systems.
+Auto Detailing & Care  
+• Interior and exterior detailing for long-lasting shine  
+• Polishing, waxing, and protective coatings  
 
-Support Services:
-• Professional Installation – Certified technicians for all devices
-• User Training – Comprehensive training on system usage
-• 24/7 Technical Support – Round-the-clock assistance
-• Free Regular Check-ups – Preventive maintenance included
-• Global Warranty – Comprehensive coverage for all devices
-• Remote Diagnostics – Quick troubleshooting and resolution`,
-  },
+Whether it’s style, comfort, or maintenance, our auto care team ensures your car stays in perfect condition all year round.`,
+},
 ]
 
 const ServicesSection = () => {
