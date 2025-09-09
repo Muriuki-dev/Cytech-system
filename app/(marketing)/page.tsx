@@ -3,6 +3,7 @@
 import {
   Box,
   Button,
+  useToast,
   ButtonGroup,
   Container,
   Flex,
@@ -174,7 +175,8 @@ const Home: NextPage = () => {
       <USPsSection />
       <CTASection />
       <FaqSection />
-     
+     {/* 👇 Premium WhatsApp Contact Form Section */}
+  <ContactSection />
       <WhatsAppButton />
       <ChatBot />
     </Box>
@@ -218,44 +220,76 @@ const SiteLoader: React.FC = () => {
             bgGradient="linear(to-r, red.500, purple.500)"
             bgClip="text"
             mb={12}
-            initial={{ y: 20, opacity: 0 }}
+            initial={{ y: 40, opacity: 0 }}
             animate={{ y: 0, opacity: 1 }}
             transition={{ duration: 1, ease: 'easeOut' }}
           >
             Welcome to CYTECHSYSTEMS
           </MotionHeading>
 
-          {/* Premium Circular Spinner */}
-          <MotionBox
-            as="svg"
-            width="100px"
-            height="100px"
-            viewBox="0 0 50 50"
-          >
+          {/* Premium Multi-Layer Circular Spinner */}
+          <MotionBox as="svg" width="120px" height="120px" viewBox="0 0 100 100">
+            {/* Outer glowing ring */}
             <motion.circle
-              cx="25"
-              cy="25"
-              r="20"
+              cx="50"
+              cy="50"
+              r="40"
               stroke="url(#premiumGradient)"
-              strokeWidth="4"
+              strokeWidth="5"
               fill="none"
               strokeLinecap="round"
-              strokeDasharray="90 150"
+              strokeDasharray="120 180"
               strokeDashoffset="0"
               animate={{
                 rotate: 360,
-                strokeDashoffset: [0, -240],
+                strokeDashoffset: [0, -300],
               }}
               transition={{
-                rotate: { repeat: Infinity, duration: 1.5, ease: 'linear' },
+                rotate: { repeat: Infinity, duration: 2.5, ease: 'linear' },
                 strokeDashoffset: {
                   repeat: Infinity,
-                  duration: 1.5,
+                  duration: 2.5,
                   ease: 'linear',
                 },
               }}
-              style={{ transformOrigin: "50% 50%" }}
+              style={{ transformOrigin: '50% 50%', filter: 'drop-shadow(0 0 12px rgba(208, 52, 255, 0.6))' }}
             />
+
+            {/* Inner reverse ring */}
+            <motion.circle
+              cx="50"
+              cy="50"
+              r="28"
+              stroke="url(#premiumGradient)"
+              strokeWidth="3"
+              fill="none"
+              strokeDasharray="80 160"
+              strokeDashoffset="0"
+              animate={{
+                rotate: -360,
+                strokeDashoffset: [0, -200],
+              }}
+              transition={{
+                rotate: { repeat: Infinity, duration: 2, ease: 'linear' },
+                strokeDashoffset: {
+                  repeat: Infinity,
+                  duration: 2,
+                  ease: 'linear',
+                },
+              }}
+              style={{ transformOrigin: '50% 50%', opacity: 0.7 }}
+            />
+
+            {/* Pulsing center dot */}
+            <motion.circle
+              cx="50"
+              cy="50"
+              r="5"
+              fill="url(#premiumGradient)"
+              animate={{ scale: [1, 1.3, 1] }}
+              transition={{ repeat: Infinity, duration: 1.2, ease: 'easeInOut' }}
+            />
+
             <defs>
               <linearGradient id="premiumGradient" x1="0%" y1="0%" x2="100%" y2="0%">
                 <stop offset="0%" stopColor="#E53E3E" /> {/* red.500 */}
@@ -269,6 +303,7 @@ const SiteLoader: React.FC = () => {
     </AnimatePresence>
   )
 }
+
 
 
 
@@ -1093,7 +1128,7 @@ const USPsSection = () => {
   transition={{ duration: 0.8, delay: 0.2 }}
   textAlign="center"
 >
-  Why Choose CY-TECH SYSTEMS?
+  Why Choose CY-TECH?
 </MotionHeading>
 
             
@@ -1418,6 +1453,136 @@ const FaqSection = () => {
             </MotionBox>
           ))}
         </SimpleGrid>
+      </Container>
+    </Box>
+  )
+}
+
+
+const ContactSection = () => {
+  const toast = useToast()
+
+  const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
+    e.preventDefault()
+    const form = e.currentTarget
+    const formData = new FormData(form)
+
+    const name = formData.get("name")
+    const email = formData.get("email")
+    const message = formData.get("message")
+
+    // WhatsApp Click-to-Chat API
+    const phoneNumber = "254715643457" // without + or spaces
+    const whatsappURL = `https://wa.me/${phoneNumber}?text=${encodeURIComponent(
+      `Hello, my name is ${name}.\nEmail: ${email}\n\n${message}`
+    )}`
+
+    window.open(whatsappURL, "_blank")
+
+    toast({
+      title: "Redirecting to WhatsApp...",
+      description: "Your message will be sent via WhatsApp.",
+      status: "success",
+      position: "top-right",
+      duration: 3000,
+      isClosable: true,
+    })
+
+    form.reset()
+  }
+
+  return (
+    <Box py={{ base: 16, lg: 24 }} bg="gray.900" position="relative" overflow="hidden">
+      {/* Background */}
+      <Box
+        position="absolute"
+        inset={0}
+        opacity={0.08}
+        backgroundImage={`url(${vehicleImgs.luxury})`}
+        backgroundSize="cover"
+        backgroundPosition="center"
+        filter="blur(6px)"
+      />
+
+      <Container maxW="container.md" position="relative">
+        <MotionHeading
+          size="2xl"
+          mb={10}
+          textAlign="center"
+          fontWeight="extrabold"
+          bgGradient="linear(to-r, red.500, purple.500)"
+          bgClip="text"
+          initial={{ opacity: 0, y: -30 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.8 }}
+        >
+          Contact Us on WhatsApp
+        </MotionHeading>
+
+        <MotionBox
+          bg="whiteAlpha.900"
+          rounded="2xl"
+          shadow="2xl"
+          p={{ base: 6, md: 10 }}
+          initial={{ opacity: 0, y: 40 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.8, ease: "easeOut" }}
+        >
+          <form onSubmit={handleSubmit}>
+            <VStack spacing={6}>
+              <FormControl isRequired>
+                <FormLabel>Name</FormLabel>
+                <Input
+                  name="name"
+                  placeholder="Your full name"
+                  rounded="xl"
+                  size="lg"
+                  focusBorderColor="red.400"
+                />
+              </FormControl>
+
+              <FormControl isRequired>
+                <FormLabel>Email</FormLabel>
+                <Input
+                  type="email"
+                  name="email"
+                  placeholder="you@example.com"
+                  rounded="xl"
+                  size="lg"
+                  focusBorderColor="purple.400"
+                />
+              </FormControl>
+
+              <FormControl isRequired>
+                <FormLabel>Message</FormLabel>
+                <Textarea
+                  name="message"
+                  placeholder="Write your message here..."
+                  rounded="xl"
+                  size="lg"
+                  rows={5}
+                  focusBorderColor="red.400"
+                />
+              </FormControl>
+
+              <Button
+                type="submit"
+                size="lg"
+                rounded="full"
+                px={10}
+                colorScheme="whatsapp"
+                bg="green.500"
+                _hover={{ bg: "green.600" }}
+                shadow="lg"
+                as={motion.button}
+                whileTap={{ scale: 0.95 }}
+                whileHover={{ scale: 1.05 }}
+              >
+                Send via WhatsApp
+              </Button>
+            </VStack>
+          </form>
+        </MotionBox>
       </Container>
     </Box>
   )
