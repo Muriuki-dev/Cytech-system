@@ -185,7 +185,7 @@ const Home: NextPage = () => {
   )
 }
 
-// Ultra Premium SaaS Circular Loader (Fixed Spinner with Smooth Exit)
+// Ultra Premium SaaS Circular Loader (Fixed Spinner)
 const SiteLoader: React.FC = () => {
   const [loading, setLoading] = useState(true)
 
@@ -197,20 +197,7 @@ const SiteLoader: React.FC = () => {
   return (
     <AnimatePresence>
       {loading && (
-        <motion.div
-          key="site-loader"
-          initial={{ opacity: 0, scale: 0.95 }}
-          animate={{ opacity: 1, scale: 1 }}
-          exit={{ opacity: 0, scale: 0.9 }}
-          transition={{ duration: 0.6, ease: 'easeInOut' }}
-          style={{
-            display: 'flex',
-            flexDirection: 'column',
-            alignItems: 'center',
-            justifyContent: 'center',
-            height: '100vh',
-          }}
-        >
+        <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center' }}>
           {/* Brand Heading */}
           <MotionHeading
             fontSize={{ base: '2xl', sm: '3xl', md: '4xl', lg: '5xl' }}
@@ -301,11 +288,12 @@ const SiteLoader: React.FC = () => {
               </linearGradient>
             </defs>
           </MotionBox>
-        </motion.div>
+        </div>
       )}
     </AnimatePresence>
   )
 }
+
 
 
 
@@ -1503,12 +1491,27 @@ const ContactSection = () => {
 
   return (
     <Box py={{ base: 16, lg: 24 }} position="relative" zIndex={1}>
+      {/* Header / Call-to-action */}
+      <Text
+        textAlign="center"
+        fontSize={{ base: "xl", md: "2xl" }}
+        fontWeight="bold"
+        mb={10}
+        bgGradient="linear(to-r, red.500, purple.500)"
+        bgClip="text"
+      >
+        Do you have any question? Text us on WhatsApp now 📲
+      </Text>
+
       <Container
         maxW="lg"
-        bg={useColorModeValue("whiteAlpha.700", "blackAlpha.400")} // semi-transparent
-        backdropFilter="blur(16px)" // frosted glass effect
+        bg={{
+          base: useColorModeValue("whiteAlpha.700", "blackAlpha.400"), // visible on small screens
+          lg: "transparent", // fully transparent background on large screens
+        }}
+        backdropFilter={{ base: "blur(16px)", lg: "none" }}
         borderRadius="2xl"
-        boxShadow="2xl"
+        boxShadow={{ base: "2xl", lg: "none" }}
         p={10}
       >
         <form onSubmit={handleSubmit}>
