@@ -196,23 +196,7 @@ const SiteLoader: React.FC = () => {
   return (
     <AnimatePresence>
       {loading && (
-        <MotionBox
-          key="loader"
-          position="fixed"
-          top={0}
-          left={0}
-          w="100vw"
-          h="100vh"
-          display="flex"
-          flexDirection="column"
-          alignItems="center"
-          justifyContent="center"
-          bg="white"
-          zIndex={9999}
-          initial={{ opacity: 1 }}
-          exit={{ opacity: 0 }}
-          transition={{ duration: 0.6, ease: 'easeInOut' }}
-        >
+       
           {/* Brand Heading */}
           <MotionHeading
             fontSize={{ base: '2xl', sm: '3xl', md: '4xl', lg: '5xl' }}
@@ -1460,131 +1444,112 @@ const FaqSection = () => {
   )
 }
 
-
 const ContactSection = () => {
   const toast = useToast()
+  const [formData, setFormData] = useState({ name: "", email: "", message: "" })
+  const [loading, setLoading] = useState(false)
 
-  const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
-    e.preventDefault()
-    const form = e.currentTarget
-    const formData = new FormData(form)
-
-    const name = formData.get("name")
-    const email = formData.get("email")
-    const message = formData.get("message")
-
-    // WhatsApp Click-to-Chat API
-    const phoneNumber = "254715643457" // without + or spaces
-    const whatsappURL = `https://wa.me/${phoneNumber}?text=${encodeURIComponent(
-      `Hello, my name is ${name}.\nEmail: ${email}\n\n${message}`
-    )}`
-
-    window.open(whatsappURL, "_blank")
-
-    toast({
-      title: "Redirecting to WhatsApp...",
-      description: "Your message will be sent via WhatsApp.",
-      status: "success",
-      position: "top-right",
-      duration: 3000,
-      isClosable: true,
-    })
-
-    form.reset()
+  const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
+    setFormData({ ...formData, [e.target.name]: e.target.value })
   }
 
+  const handleSubmit = async (e: React.FormEvent) => {
+    e.preventDefault()
+    setLoading(true)
+
+    // 👉 Instead of email (server needed), redirect to WhatsApp:
+    const whatsappNumber = "254715643457"
+    const message = `Hello, my name is ${formData.name}. My email is ${formData.email}. Message: ${formData.message}`
+    const whatsappLink = `https://wa.me/${whatsappNumber}?text=${encodeURIComponent(message)}`
+
+    window.open(whatsappLink, "_blank")
+
+    setLoading(false)
+    setFormData({ name: "", email: "", message: "" })
+
+    toast({
+      title: "Message sent!",
+      description: "We’ll reply to you shortly on WhatsApp 🚀",
+      status: "success",
+      duration: 3000,
+      isClosable: true,
+      position: "top-right",
+    })
+  }
+
+  // Colors for light/dark themes
+  const inputBg = useColorModeValue("whiteAlpha.800", "whiteAlpha.100")
+  const labelColor = useColorModeValue("gray.700", "gray.200")
+  const btnBg = useColorModeValue("red.500", "red.400")
+  const btnHover = useColorModeValue("red.600", "red.500")
+
   return (
-    <Box py={{ base: 16, lg: 24 }} bg="gray.900" position="relative" overflow="hidden">
-      {/* Background */}
-      <Box
-        position="absolute"
-        inset={0}
-        opacity={0.08}
-        backgroundImage={`url(${vehicleImgs.luxury})`}
-        backgroundSize="cover"
-        backgroundPosition="center"
-        filter="blur(6px)"
-      />
+    <Box py={{ base: 16, lg: 24 }} position="relative" zIndex={1}>
+      <Container
+        maxW="lg"
+        bg={useColorModeValue("whiteAlpha.700", "blackAlpha.400")} // semi-transparent
+        backdropFilter="blur(16px)" // frosted glass effect
+        borderRadius="2xl"
+        boxShadow="2xl"
+        p={10}
+      >
+        <form onSubmit={handleSubmit}>
+          <VStack spacing={6}>
+            <FormControl isRequired>
+              <FormLabel color={labelColor}>Your Name</FormLabel>
+              <Input
+                name="name"
+                placeholder="Cytech systems"
+                value={formData.name}
+                onChange={handleChange}
+                bg={inputBg}
+                borderRadius="xl"
+              />
+            </FormControl>
 
-      <Container maxW="container.md" position="relative">
-        <MotionHeading
-          size="2xl"
-          mb={10}
-          textAlign="center"
-          fontWeight="extrabold"
-          bgGradient="linear(to-r, red.500, purple.500)"
-          bgClip="text"
-          initial={{ opacity: 0, y: -30 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.8 }}
-        >
-          Contact Us on WhatsApp
-        </MotionHeading>
+            <FormControl isRequired>
+              <FormLabel color={labelColor}>Email Address</FormLabel>
+              <Input
+                type="email"
+                name="email"
+                placeholder="you@example.com"
+                value={formData.email}
+                onChange={handleChange}
+                bg={inputBg}
+                borderRadius="xl"
+              />
+            </FormControl>
 
-        <MotionBox
-          bg="whiteAlpha.900"
-          rounded="2xl"
-          shadow="2xl"
-          p={{ base: 6, md: 10 }}
-          initial={{ opacity: 0, y: 40 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.8, ease: "easeOut" }}
-        >
-          <form onSubmit={handleSubmit}>
-            <VStack spacing={6}>
-              <FormControl isRequired>
-                <FormLabel>Name</FormLabel>
-                <Input
-                  name="name"
-                  placeholder="Your full name"
-                  rounded="xl"
-                  size="lg"
-                  focusBorderColor="red.400"
-                />
-              </FormControl>
+            <FormControl isRequired>
+              <FormLabel color={labelColor}>Message</FormLabel>
+              <Textarea
+                name="message"
+                placeholder="Write your message..."
+                value={formData.message}
+                onChange={handleChange}
+                rows={5}
+                bg={inputBg}
+                borderRadius="xl"
+              />
+            </FormControl>
 
-              <FormControl isRequired>
-                <FormLabel>Email</FormLabel>
-                <Input
-                  type="email"
-                  name="email"
-                  placeholder="you@example.com"
-                  rounded="xl"
-                  size="lg"
-                  focusBorderColor="purple.400"
-                />
-              </FormControl>
-
-              <FormControl isRequired>
-                <FormLabel>Message</FormLabel>
-                <Textarea
-                  name="message"
-                  placeholder="Write your message here..."
-                  rounded="xl"
-                  size="lg"
-                  rows={5}
-                  focusBorderColor="red.400"
-                />
-              </FormControl>
-
+            <MotionBox whileHover={{ scale: 1.05 }} whileTap={{ scale: 0.95 }}>
               <Button
                 type="submit"
+                isLoading={loading}
+                colorScheme="red"
+                bg={btnBg}
+                _hover={{ bg: btnHover }}
                 size="lg"
-                rounded="full"
                 px={10}
-                colorScheme="whatsapp"
-                bg="green.500"
-                _hover={{ bg: "green.600" }}
-                shadow="lg"
-                as={motion.button}
-                whileTap={{ scale: 0.95 }}
-                whileHover={{ scale: 1.05 }}
+                borderRadius="xl"
+                boxShadow="lg"
               >
                 Send via WhatsApp
               </Button>
-            </VStack>
-          </form>
-        </MotionBox>
+            </MotionBox>
+          </VStack>
+        </form>
       </Container>
     </Box>
   )
