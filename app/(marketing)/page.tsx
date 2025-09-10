@@ -143,34 +143,127 @@ const vehicleImgs = {
   modern: '/static/images/new.jpg',
 }
 
-const BackgroundGradient = ({ height = "100vh", zIndex = -1 }: { height?: string; zIndex?: number }) => {
+const BackgroundGradient = ({
+  height = "100vh",
+  zIndex = -1,
+}: {
+  height?: string;
+  zIndex?: number;
+}) => {
+  const [loading, setLoading] = useState(true);
+
+  // Wait for the page to load, then hide the loader
+  useEffect(() => {
+    const handleComplete = () => setTimeout(() => setLoading(false), 300);
+    if (document.readyState === "complete") handleComplete();
+    else window.addEventListener("load", handleComplete);
+
+    return () => window.removeEventListener("load", handleComplete);
+  }, []);
+
   return (
-    <Box
-      position="absolute"
-      inset={0}
-      height={height}
-      bgGradient="linear(to-br, red.600, purple.600, blue.600)"
-      zIndex={zIndex}
-      _before={{
-        content: '""',
-        position: 'absolute',
-        inset: 0,
-        bgGradient: "radial(circle at 30% 20%, rgba(255,255,255,0.1), transparent 50%)",
-      }}
-      _after={{
-        content: '""',
-        position: 'absolute',
-        inset: 0,
-        bgGradient: "radial(circle at 70% 80%, rgba(255,255,255,0.05), transparent 50%)",
-      }}
-    />
-  )
-}
+    <>
+      {/* Background gradient */}
+      <Box
+        position="absolute"
+        inset={0}
+        height={height}
+        bgGradient="linear(to-br, red.600, purple.600, blue.600)"
+        zIndex={zIndex}
+        _before={{
+          content: '""',
+          position: "absolute",
+          inset: 0,
+          bgGradient:
+            "radial(circle at 30% 20%, rgba(255,255,255,0.1), transparent 50%)",
+        }}
+        _after={{
+          content: '""',
+          position: "absolute",
+          inset: 0,
+          bgGradient:
+            "radial(circle at 70% 80%, rgba(255,255,255,0.05), transparent 50%)",
+        }}
+      />
+
+      {/* Loader overlay */}
+      {loading && (
+        <Box
+          position="fixed"
+          inset={0}
+          display="flex"
+          alignItems="center"
+          justifyContent="center"
+          bg="radial-gradient(circle farthest-corner at center, #3C4B57 0%, #1C262B 100%)"
+          zIndex={9999}
+        >
+          <style jsx>{`
+            .loader {
+              width: 64px;
+              height: 64px;
+              border-radius: 50%;
+              perspective: 800px;
+              position: relative;
+            }
+            .inner {
+              position: absolute;
+              box-sizing: border-box;
+              width: 64px;
+              height: 64px;
+              border-radius: 50%;
+            }
+            .one {
+              animation: rotate-one 1s linear infinite;
+              border-bottom: 3px solid #EFEFFA;
+            }
+            .two {
+              animation: rotate-two 1s linear infinite;
+              border-right: 3px solid #EFEFFA;
+            }
+            .three {
+              animation: rotate-three 1s linear infinite;
+              border-top: 3px solid #EFEFFA;
+            }
+            @keyframes rotate-one {
+              0% {
+                transform: rotateX(35deg) rotateY(-45deg) rotateZ(0deg);
+              }
+              100% {
+                transform: rotateX(35deg) rotateY(-45deg) rotateZ(360deg);
+              }
+            }
+            @keyframes rotate-two {
+              0% {
+                transform: rotateX(50deg) rotateY(10deg) rotateZ(0deg);
+              }
+              100% {
+                transform: rotateX(50deg) rotateY(10deg) rotateZ(360deg);
+              }
+            }
+            @keyframes rotate-three {
+              0% {
+                transform: rotateX(35deg) rotateY(55deg) rotateZ(0deg);
+              }
+              100% {
+                transform: rotateX(35deg) rotateY(55deg) rotateZ(360deg);
+              }
+            }
+          `}</style>
+          <div className="loader">
+            <div className="inner one"></div>
+            <div className="inner two"></div>
+            <div className="inner three"></div>
+          </div>
+        </Box>
+      )}
+    </>
+  );
+};
 
 const Home: NextPage = () => {
   return (
     <Box>
-      
+      <BackgroundGradient />
       <HeroSection />
       <WhoWeAreSection />
       <ServicesSection />
