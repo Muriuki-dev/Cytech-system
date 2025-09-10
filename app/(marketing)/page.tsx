@@ -155,7 +155,7 @@ const BackgroundGradient = ({
   useEffect(() => {
     const handleComplete = () => {
       // ⬇ Increase the delay here (e.g., 2000 ms = 2 seconds)
-      setTimeout(() => setLoading(false), 2000);
+      setTimeout(() => setLoading(false), 5000);
     };
 
     if (document.readyState === "complete") handleComplete();
