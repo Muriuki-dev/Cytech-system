@@ -152,9 +152,12 @@ const BackgroundGradient = ({
 }) => {
   const [loading, setLoading] = useState(true);
 
-  // Wait for the page to load, then hide the loader
   useEffect(() => {
-    const handleComplete = () => setTimeout(() => setLoading(false), 300);
+    const handleComplete = () => {
+      // ⬇ Increase the delay here (e.g., 2000 ms = 2 seconds)
+      setTimeout(() => setLoading(false), 2000);
+    };
+
     if (document.readyState === "complete") handleComplete();
     else window.addEventListener("load", handleComplete);
 
