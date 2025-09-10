@@ -60,7 +60,16 @@ const siteConfig = {
         ]
       },
       { label: 'Products', href: '/products' },
-      { label: 'Client Login', href: '/login' },
+      {
+  label: 'Client Login',
+  children: [
+    { label: 'CTech-TrustTruck', href: 'https://track2.ruptela.com', target: '_blank' },
+    { label: 'CTech-Pilot', href: 'https://pilot-gps.africa', target: '_blank' },
+    { label: 'CTech-ProTrack', href: 'https://protrack365.com', target: '_blank' },
+    { label: 'CTech-Trackzee', href: 'https://sa-trakzee.uffizio.com', target: '_blank' },
+    { label: 'CTech-GPSPOS', href: 'https://gpspos.net', target: '_blank' }
+  ]
+},
       { label: 'Contact', href: '/contact' }
     ]
   },
