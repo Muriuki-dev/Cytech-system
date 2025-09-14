@@ -1,13 +1,11 @@
 // app/services/auto-care/page.tsx
 import Image from 'next/image';
-import Header from '@/components/layout/header';
 import { FiCheck, FiShield, FiTool, FiBell, FiMapPin, FiSmartphone, FiWrench, FiPhone, FiCalendar, FiClock, FiUsers } from 'react-icons/fi';
 
 export default function AutoCarePage() {
   return (
     <div className="min-h-screen bg-gradient-to-b from-gray-50 to-white">
-      {/* Header */}
-      <Header />
+      
       
       {/* Hero Section */}
       <section className="relative py-20 bg-gradient-to-r from-indigo-900 to-indigo-700 text-white">
